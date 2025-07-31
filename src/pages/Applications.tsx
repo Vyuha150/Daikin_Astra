@@ -1,0 +1,233 @@
+import { Building2, Hotel, Heart, ShoppingBag, GraduationCap, ArrowRight } from 'lucide-react';
+import { Button } from '@/components/ui/button';
+import Header from '@/components/Header';
+import Footer from '@/components/Footer';
+
+const Applications = () => {
+  const industries = [
+    {
+      icon: <Building2 className="w-12 h-12" />,
+      title: "Commercial Offices",
+      description: "Create comfortable working environments with precise temperature control and energy efficiency",
+      features: [
+        "Multi-zone climate control",
+        "Energy monitoring systems", 
+        "Quiet operation for productivity",
+        "Flexible installation options"
+      ],
+      applications: ["Corporate offices", "Co-working spaces", "Business centers", "Government buildings"],
+      caseStudy: "IT Park, Vijayawada - 50HP VRV system serving 5000+ employees with 35% energy savings"
+    },
+    {
+      icon: <Hotel className="w-12 h-12" />,
+      title: "Hotels & Hospitality",
+      description: "Deliver exceptional guest comfort with individual room controls and centralized management",
+      features: [
+        "Individual room temperature control",
+        "Guest-friendly interfaces",
+        "Centralized monitoring",
+        "Low noise operation"
+      ],
+      applications: ["Hotels", "Resorts", "Restaurants", "Banquet halls"],
+      caseStudy: "5-Star Hotel, Guntur - 78 rooms with individual VRV controls and energy management"
+    },
+    {
+      icon: <Heart className="w-12 h-12" />,
+      title: "Hospitals & Clean Rooms",
+      description: "Maintain critical environmental conditions with HEPA filtration and precise control",
+      features: [
+        "HEPA filter compatibility",
+        "Precise humidity control",
+        "Clean room applications",
+        "Emergency backup systems"
+      ],
+      applications: ["Hospitals", "Clinics", "Laboratories", "Pharmaceutical facilities"],
+      caseStudy: "Multi-specialty Hospital - Clean room grade VRV with HEPA filtration for OT complex"
+    },
+    {
+      icon: <ShoppingBag className="w-12 h-12" />,
+      title: "Shopping Complexes", 
+      description: "Manage large spaces efficiently with zone-wise control and high capacity systems",
+      features: [
+        "Large area coverage",
+        "Zone-wise temperature control",
+        "High static pressure units",
+        "Energy efficient operation"
+      ],
+      applications: ["Shopping malls", "Retail stores", "Showrooms", "Supermarkets"],
+      caseStudy: "Regional Mall - 60HP VRV system with 200+ indoor units covering 200,000 sq ft"
+    },
+    {
+      icon: <GraduationCap className="w-12 h-12" />,
+      title: "Educational Institutions",
+      description: "Create optimal learning environments with reliable and efficient climate control",
+      features: [
+        "Classroom comfort optimization",
+        "Scheduled operation",
+        "Low maintenance requirements",
+        "Cost-effective solutions"
+      ],
+      applications: ["Schools", "Colleges", "Universities", "Training centers"],
+      caseStudy: "Engineering College - Campus-wide VRV installation with 40% reduction in energy costs"
+    }
+  ];
+
+  const systemBenefits = [
+    { title: "Energy Efficiency", description: "Up to 30% savings compared to conventional systems" },
+    { title: "Flexible Design", description: "Suitable for any building layout or size" },
+    { title: "Individual Control", description: "Zone-wise temperature and airflow management" },
+    { title: "Quiet Operation", description: "Minimal noise for comfortable environments" },
+    { title: "Easy Maintenance", description: "Centralized diagnostics and maintenance scheduling" },
+    { title: "Reliable Performance", description: "Proven technology with extended warranty options" }
+  ];
+
+  return (
+    <div className="min-h-screen bg-background">
+      <Header />
+      
+      <section className="pt-24 pb-16 bg-gradient-to-b from-primary/5 to-background">
+        <div className="container mx-auto px-4 lg:px-6">
+          
+          {/* Hero Section */}
+          <div className="text-center mb-16">
+            <div className="inline-flex items-center bg-primary/10 rounded-full px-6 py-2 mb-6">
+              <Building2 className="w-5 h-5 mr-2 text-primary" />
+              <span className="font-semibold text-primary">INDUSTRY APPLICATIONS</span>
+            </div>
+            
+            <h1 className="text-3xl lg:text-5xl font-heading font-bold text-foreground mb-4">
+              Daikin VRV for Every Industry
+            </h1>
+            <p className="text-lg text-muted-foreground max-w-3xl mx-auto">
+              From commercial offices to specialized clean rooms, discover how Daikin VRV systems 
+              deliver optimal climate solutions across diverse industries and applications.
+            </p>
+          </div>
+
+          {/* Industries Grid */}
+          <div className="space-y-16">
+            {industries.map((industry, index) => (
+              <div key={index} className={`grid grid-cols-1 lg:grid-cols-2 gap-8 items-center ${index % 2 === 1 ? 'lg:grid-flow-col-dense' : ''}`}>
+                <div className={`${index % 2 === 1 ? 'lg:col-start-2' : ''}`}>
+                  <div className="text-primary mb-6">
+                    {industry.icon}
+                  </div>
+                  
+                  <h2 className="text-2xl lg:text-3xl font-heading font-bold text-foreground mb-4">
+                    {industry.title}
+                  </h2>
+                  
+                  <p className="text-muted-foreground mb-6 text-lg">
+                    {industry.description}
+                  </p>
+                  
+                  <div className="mb-6">
+                    <h3 className="font-semibold text-foreground mb-3">Key Features:</h3>
+                    <ul className="space-y-2">
+                      {industry.features.map((feature, idx) => (
+                        <li key={idx} className="flex items-center text-muted-foreground">
+                          <div className="w-2 h-2 bg-primary rounded-full mr-3"></div>
+                          {feature}
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                  
+                  <Button 
+                    className="btn-hero"
+                    onClick={() => window.open('https://wa.me/919247041999?text=Hi! I want to know about Daikin VRV for ' + industry.title, '_blank')}
+                  >
+                    Get Solution Quote
+                    <ArrowRight className="w-4 h-4 ml-2" />
+                  </Button>
+                </div>
+                
+                <div className={`${index % 2 === 1 ? 'lg:col-start-1' : ''}`}>
+                  <div className="card-glass p-8 rounded-2xl">
+                    <h3 className="font-semibold text-foreground mb-4">Typical Applications:</h3>
+                    <div className="grid grid-cols-2 gap-3 mb-6">
+                      {industry.applications.map((app, idx) => (
+                        <div key={idx} className="bg-primary/10 text-primary px-3 py-2 rounded-lg text-sm text-center">
+                          {app}
+                        </div>
+                      ))}
+                    </div>
+                    
+                    <div className="border-t border-border pt-4">
+                      <h4 className="font-medium text-foreground mb-2">Case Study:</h4>
+                      <p className="text-sm text-muted-foreground">{industry.caseStudy}</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+
+          {/* System Benefits */}
+          <div className="mt-20 mb-16">
+            <div className="text-center mb-12">
+              <h2 className="text-2xl lg:text-3xl font-heading font-bold text-foreground mb-4">
+                Why Choose Daikin VRV Systems?
+              </h2>
+              <p className="text-muted-foreground max-w-2xl mx-auto">
+                Proven benefits across all industry applications
+              </p>
+            </div>
+
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+              {systemBenefits.map((benefit, index) => (
+                <div key={index} className="card-glass p-6 text-center card-hover">
+                  <h3 className="font-semibold text-foreground mb-3">{benefit.title}</h3>
+                  <p className="text-sm text-muted-foreground">{benefit.description}</p>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          {/* Industry-Specific Solutions */}
+          <div className="bg-gradient-to-r from-primary/5 to-accent/5 rounded-2xl p-8 lg:p-12">
+            <div className="text-center mb-8">
+              <h2 className="text-2xl lg:text-3xl font-heading font-bold text-foreground mb-4">
+                Customized Solutions for Your Industry
+              </h2>
+              <p className="text-muted-foreground max-w-2xl mx-auto">
+                Our technical experts design VRV systems tailored to your specific industry requirements, 
+                ensuring optimal performance and energy efficiency.
+              </p>
+            </div>
+
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+              {[
+                { title: "Site Survey", desc: "Detailed assessment of your facility requirements" },
+                { title: "Custom Design", desc: "Tailored VRV system design for your application" },
+                { title: "Professional Installation", desc: "Expert installation and commissioning" }
+              ].map((step, index) => (
+                <div key={index} className="text-center">
+                  <div className="w-12 h-12 bg-primary text-primary-foreground rounded-full flex items-center justify-center font-bold text-lg mx-auto mb-4">
+                    {index + 1}
+                  </div>
+                  <h3 className="font-semibold text-foreground mb-2">{step.title}</h3>
+                  <p className="text-sm text-muted-foreground">{step.desc}</p>
+                </div>
+              ))}
+            </div>
+
+            <div className="text-center">
+              <Button 
+                size="lg"
+                className="btn-hero"
+                onClick={() => window.open('https://wa.me/919247041999?text=Hi! I need a customized VRV solution for my industry', '_blank')}
+              >
+                Schedule Consultation
+              </Button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <Footer />
+    </div>
+  );
+};
+
+export default Applications;

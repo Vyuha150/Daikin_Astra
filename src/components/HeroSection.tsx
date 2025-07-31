@@ -45,12 +45,14 @@ const HeroSection = () => {
 
           {/* Main Headline */}
           <div className="animate-slide-up delay-300 mb-6">
-            <h2 className="text-2xl md:text-3xl lg:text-4xl font-heading font-bold text-white mb-4">
-              Buy Daikin ACs and get Free Installation
-            </h2>
-            <p className="text-xl md:text-2xl text-blue-100 font-medium">
-              Authorized Dealer in Vijayawada
-            </p>
+            <div className="card-glass p-8 rounded-2xl border border-white/20 backdrop-blur-md">
+              <h2 className="text-2xl md:text-3xl lg:text-4xl font-heading font-bold text-white mb-4">
+                Buy Daikin ACs and get Installation
+              </h2>
+              <p className="text-xl md:text-2xl text-blue-100 font-medium">
+                Authorized Dealer in Vijayawada
+              </p>
+            </div>
           </div>
 
           {/* AC Types */}
