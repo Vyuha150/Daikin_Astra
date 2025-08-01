@@ -2,6 +2,7 @@ import { ArrowRight, Settings, Zap, CheckCircle, Wrench, BarChart, Cog } from 'l
 import { Button } from '@/components/ui/button';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
+import SnowflakeAnimation from '@/components/SnowflakeAnimation';
 
 const Services = () => {
   const services = [
@@ -80,7 +81,8 @@ const Services = () => {
   ];
 
   return (
-    <div className="min-h-screen bg-background">
+    <div className="min-h-screen bg-background relative">
+      <SnowflakeAnimation />
       <Header />
       
       <section className="pt-24 pb-16 bg-gradient-to-b from-primary/5 to-background">
@@ -155,7 +157,10 @@ const Services = () => {
                 >
                   Contact Expert
                 </Button>
-                <Button variant="outline">
+                <Button 
+                  variant="outline"
+                  onClick={() => window.location.href = '/contact'}
+                >
                   Schedule Service
                 </Button>
               </div>

@@ -30,7 +30,7 @@ const Header = () => {
     { label: 'Applications', href: '/applications', isRoute: true },
     { label: 'Services', href: '/services', isRoute: true },
     { label: 'Offers', href: '/offers', isRoute: true },
-    { label: 'Contact', href: 'contact', isRoute: false }
+    { label: 'Contact', href: '/contact', isRoute: true }
   ];
 
   return (

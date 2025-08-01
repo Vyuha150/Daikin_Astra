@@ -2,6 +2,7 @@ import { Building2, Hotel, Heart, ShoppingBag, GraduationCap, ArrowRight } from 
 import { Button } from '@/components/ui/button';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
+import SnowflakeAnimation from '@/components/SnowflakeAnimation';
 
 const Applications = () => {
   const industries = [
@@ -82,7 +83,8 @@ const Applications = () => {
   ];
 
   return (
-    <div className="min-h-screen bg-background">
+    <div className="min-h-screen bg-background relative">
+      <SnowflakeAnimation />
       <Header />
       
       <section className="pt-24 pb-16 bg-gradient-to-b from-primary/5 to-background">

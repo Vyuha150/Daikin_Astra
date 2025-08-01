@@ -4,10 +4,12 @@ import ProductsPreview from '@/components/ProductsPreview';
 import TestimonialsSection from '@/components/TestimonialsSection';
 import ContactSection from '@/components/ContactSection';
 import Footer from '@/components/Footer';
+import SnowflakeAnimation from '@/components/SnowflakeAnimation';
 
 const Index = () => {
   return (
-    <div className="min-h-screen bg-background">
+    <div className="min-h-screen bg-background relative">
+      <SnowflakeAnimation />
       <Header />
       <HeroSection />
       <ProductsPreview />

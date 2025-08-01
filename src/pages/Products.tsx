@@ -3,6 +3,7 @@ import { Button } from '@/components/ui/button';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
+import SnowflakeAnimation from '@/components/SnowflakeAnimation';
 
 const Products = () => {
   const outdoorUnits = [
@@ -189,7 +190,8 @@ const Products = () => {
   ];
 
   return (
-    <div className="min-h-screen bg-background">
+    <div className="min-h-screen bg-background relative">
+      <SnowflakeAnimation />
       <Header />
       
       <section className="pt-24 pb-16 bg-gradient-to-b from-primary/5 to-background">
@@ -255,7 +257,11 @@ const Products = () => {
                       ))}
                     </ul>
                     
-                    <Button variant="outline" className="w-full">
+                    <Button 
+                      variant="outline" 
+                      className="w-full"
+                      onClick={() => window.open('https://wa.me/919247041999?text=Hi! I want specifications for ' + unit.type + ' - ' + unit.capacity, '_blank')}
+                    >
                       View Specifications
                     </Button>
                   </div>
