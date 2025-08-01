@@ -28,7 +28,8 @@ const Header = () => {
     { label: 'Products', href: '/products', isRoute: true },
     { label: 'Technology', href: '/technology', isRoute: true },
     { label: 'Applications', href: '/applications', isRoute: true },
-    { label: 'Services', href: 'services', isRoute: false },
+    { label: 'Services', href: '/services', isRoute: true },
+    { label: 'Offers', href: '/offers', isRoute: true },
     { label: 'Contact', href: 'contact', isRoute: false }
   ];
 
@@ -47,10 +48,14 @@ const Header = () => {
               <span className="text-white font-bold text-lg">A</span>
             </div>
             <div className="hidden md:block">
-              <h1 className="text-lg lg:text-xl font-heading font-bold text-foreground">
+              <h1 className={`text-base lg:text-lg font-heading font-bold ${
+                isScrolled ? 'text-primary' : 'text-white'
+              }`}>
                 ASTRA AIR CONDITIONING
               </h1>
-              <p className="text-xs text-foreground font-medium -mt-1">
+              <p className={`text-xs font-medium -mt-1 ${
+                isScrolled ? 'text-primary' : 'text-white'
+              }`}>
                 & ENGINEERING WORKS
               </p>
             </div>
@@ -58,7 +63,9 @@ const Header = () => {
 
           {/* Contact Info - Desktop */}
           <div className="hidden lg:flex items-center space-x-6">
-            <div className="flex items-center space-x-2 text-foreground">
+            <div className={`flex items-center space-x-2 ${
+              isScrolled ? 'text-primary' : 'text-white'
+            }`}>
               <Phone className="w-4 h-4" />
               <span className="font-semibold">9247041999</span>
             </div>

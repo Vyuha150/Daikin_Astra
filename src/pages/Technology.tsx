@@ -230,7 +230,10 @@ const Technology = () => {
                   ))}
                 </ul>
                 
-                <Button className="btn-hero">
+                <Button 
+                  className="btn-hero"
+                  onClick={() => window.open('https://wa.me/919247041999?text=Hi! I want to learn more about smart controls', '_blank')}
+                >
                   Learn More About Smart Controls
                 </Button>
               </div>

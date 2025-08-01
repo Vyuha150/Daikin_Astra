@@ -53,6 +53,13 @@ const Products = () => {
           capacity: "1.0 to 2.2 HP",
           features: ["Two-way blow", "Compact square design", "Quiet operation"],
           applications: ["Conference Room", "Reception"]
+        },
+        {
+          name: "Multi Flow Type",
+          model: "FXMQ-MF",
+          capacity: "2.2 to 6.0 HP",
+          features: ["Horizontal installation", "Duct connection for multi-zone cooling", "Slim and quiet"],
+          applications: ["Commercial", "Multi-zone"]
         }
       ]
     },
@@ -88,6 +95,18 @@ const Products = () => {
       ]
     },
     {
+      category: "Ceiling Suspended",
+      units: [
+        {
+          name: "Ceiling Suspended Type",
+          model: "FXHQ",
+          capacity: "1.1 to 4.5 HP",
+          features: ["No ductwork required", "Wide airflow", "Ideal for large rooms and open halls"],
+          applications: ["Large Office", "Hall", "Showroom"]
+        }
+      ]
+    },
+    {
       category: "Ducted Units",
       units: [
         {
@@ -110,6 +129,53 @@ const Products = () => {
           capacity: "5.6 to 16.0 HP", 
           features: ["Up to 250 Pa", "Large airflow capacity", "Commercial ducted systems"],
           applications: ["Mall", "Factory", "Hospital"]
+        },
+        {
+          name: "Duct Connection Slim Type",
+          model: "FXDQ",
+          capacity: "0.8 to 2.2 HP",
+          features: ["Slim design for false ceilings", "Quiet operation", "Ideal for hotels and offices"],
+          applications: ["Hotel", "Office", "Clinic"]
+        }
+      ]
+    },
+    {
+      category: "Specialized Units",
+      units: [
+        {
+          name: "Clean Room Cassette Type",
+          model: "FXMQ_MF5",
+          capacity: "Up to 8 HP",
+          features: ["HEPA filter-compatible", "Clean airflow for labs, hospitals"],
+          applications: ["Hospital", "Laboratory", "Clean Room"]
+        },
+        {
+          name: "Multi Cube Ceiling Concealed",
+          model: "FXMQ_P7",
+          capacity: "Up to 20 HP",
+          features: ["Large area coverage", "High flexibility", "Modular installation"],
+          applications: ["Large Commercial", "Mall", "Factory"]
+        },
+        {
+          name: "Spot Cooling Indoor Units",
+          model: "Special Application",
+          capacity: "Variable",
+          features: ["Targeted cooling", "Equipment room applications"],
+          applications: ["Data Center", "Equipment Room", "Server Room"]
+        },
+        {
+          name: "Air Handling Unit (AHU)",
+          model: "VRV Integration",
+          capacity: "Variable",
+          features: ["Connects with VRV system", "Customized applications"],
+          applications: ["Large Building", "Hospital", "Mall"]
+        },
+        {
+          name: "Fresh Air Processing Units",
+          model: "FXMQ-MFAV1",
+          capacity: "Variable",
+          features: ["Integrates with VRV", "Pre-conditions fresh air"],
+          applications: ["Commercial", "Hospital", "Office Complex"]
         }
       ]
     }
@@ -299,7 +365,12 @@ const Products = () => {
                                 </span>
                               ))}
                             </div>
-                            <Button variant="outline" size="sm" className="w-full">
+                            <Button 
+                              variant="outline" 
+                              size="sm" 
+                              className="w-full"
+                              onClick={() => window.location.href = '/contact'}
+                            >
                               Get Quote
                               <ArrowRight className="w-4 h-4 ml-2" />
                             </Button>
