@@ -3,6 +3,7 @@ import { Button } from '@/components/ui/button';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import SnowflakeAnimation from '@/components/SnowflakeAnimation';
+import LoadingScreen from '@/components/LoadingScreen';
 
 const Applications = () => {
   const industries = [
@@ -83,9 +84,11 @@ const Applications = () => {
   ];
 
   return (
-    <div className="min-h-screen bg-background relative">
-      <SnowflakeAnimation />
-      <Header />
+    <>
+      <LoadingScreen />
+      <div className="min-h-screen bg-background relative">
+        <SnowflakeAnimation />
+        <Header />
       
       <section className="pt-24 pb-16 bg-gradient-to-b from-primary/5 to-background">
         <div className="container mx-auto px-4 lg:px-6">
@@ -228,7 +231,8 @@ const Applications = () => {
       </section>
 
       <Footer />
-    </div>
+      </div>
+    </>
   );
 };
 

@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import { useLocation } from 'react-router-dom';
 
 interface Snowflake {
   id: number;
@@ -12,6 +13,11 @@ interface Snowflake {
 
 const SnowflakeAnimation = () => {
   const [snowflakes, setSnowflakes] = useState<Snowflake[]>([]);
+  const location = useLocation();
+  
+  // Determine if we're on a blue background section
+  const isBlueSection = location.pathname === '/technology' || location.pathname === '/applications';
+  const snowColor = isBlueSection ? 'white' : 'blue';
 
   useEffect(() => {
     // Create initial snowflakes
@@ -79,13 +85,22 @@ const SnowflakeAnimation = () => {
             height: `${flake.size}px`,
             opacity: flake.opacity,
             background: flake.sparkle 
-              ? 'radial-gradient(circle, rgba(255,255,255,0.9) 0%, rgba(135,206,235,0.7) 50%, rgba(255,255,255,0.3) 100%)'
-              : 'radial-gradient(circle, rgba(255,255,255,0.8) 0%, rgba(240,248,255,0.6) 100%)',
+              ? snowColor === 'blue' 
+                ? 'radial-gradient(circle, rgba(59,130,246,0.9) 0%, rgba(147,197,253,0.7) 50%, rgba(219,234,254,0.3) 100%)'
+                : 'radial-gradient(circle, rgba(255,255,255,0.9) 0%, rgba(248,250,252,0.7) 50%, rgba(255,255,255,0.3) 100%)'
+              : snowColor === 'blue'
+                ? 'radial-gradient(circle, rgba(59,130,246,0.8) 0%, rgba(147,197,253,0.6) 100%)'
+                : 'radial-gradient(circle, rgba(255,255,255,0.8) 0%, rgba(248,250,252,0.6) 100%)',
             borderRadius: '50%',
             boxShadow: flake.sparkle 
-              ? '0 0 6px rgba(135,206,235,0.8), 0 0 12px rgba(255,255,255,0.6)'
-              : '0 0 2px rgba(255,255,255,0.5)',
-            filter: flake.sparkle ? 'blur(0.5px)' : 'none'
+              ? snowColor === 'blue'
+                ? '0 0 8px rgba(59,130,246,0.8), 0 0 16px rgba(147,197,253,0.6), 0 0 24px rgba(59,130,246,0.4)'
+                : '0 0 8px rgba(255,255,255,0.8), 0 0 16px rgba(248,250,252,0.6), 0 0 24px rgba(255,255,255,0.4)'
+              : snowColor === 'blue'
+                ? '0 0 4px rgba(59,130,246,0.5), 0 0 8px rgba(147,197,253,0.3)'
+                : '0 0 4px rgba(255,255,255,0.5), 0 0 8px rgba(248,250,252,0.3)',
+            filter: flake.sparkle ? 'blur(0.5px)' : 'none',
+            transform: `perspective(100px) rotateX(${Math.sin(flake.y * 0.01) * 20}deg) rotateY(${Math.cos(flake.x * 0.01) * 20}deg)`
           }}
         />
       ))}

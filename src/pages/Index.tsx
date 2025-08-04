@@ -5,18 +5,22 @@ import TestimonialsSection from '@/components/TestimonialsSection';
 import ContactSection from '@/components/ContactSection';
 import Footer from '@/components/Footer';
 import SnowflakeAnimation from '@/components/SnowflakeAnimation';
+import LoadingScreen from '@/components/LoadingScreen';
 
 const Index = () => {
   return (
-    <div className="min-h-screen bg-background relative">
-      <SnowflakeAnimation />
-      <Header />
-      <HeroSection />
-      <ProductsPreview />
-      <TestimonialsSection />
-      <ContactSection />
-      <Footer />
-    </div>
+    <>
+      <LoadingScreen />
+      <div className="min-h-screen bg-background relative">
+        <SnowflakeAnimation />
+        <Header />
+        <HeroSection />
+        <ProductsPreview />
+        <TestimonialsSection />
+        <ContactSection />
+        <Footer />
+      </div>
+    </>
   );
 };
 
