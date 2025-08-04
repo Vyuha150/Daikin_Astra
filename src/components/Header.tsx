@@ -40,20 +40,20 @@ const Header = () => {
         : 'bg-transparent'
     }`}>
       <div className="container mx-auto px-4 lg:px-6">
-        <div className="flex items-center justify-between h-16 lg:h-20">
+        <div className="flex items-center justify-between h-20 lg:h-24">
           
           {/* Logo & Business Name */}
           <div className="flex items-center space-x-3">
-            <div className="w-10 h-10 bg-gradient-primary rounded-lg flex items-center justify-center">
-              <span className="text-white font-bold text-lg">A</span>
+            <div className="w-12 h-12 bg-gradient-primary rounded-lg flex items-center justify-center">
+              <span className="text-white font-bold text-xl">A</span>
             </div>
             <div className="hidden md:block">
-              <h1 className={`text-base lg:text-lg font-heading font-bold ${
+              <h1 className={`text-sm lg:text-base font-heading font-bold leading-tight ${
                 isScrolled ? 'text-primary' : 'text-white'
               }`}>
                 ASTRA AIR CONDITIONING
               </h1>
-              <p className={`text-xs font-medium -mt-1 ${
+              <p className={`text-xs font-medium ${
                 isScrolled ? 'text-primary' : 'text-white'
               }`}>
                 & ENGINEERING WORKS

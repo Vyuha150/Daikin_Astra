@@ -13,7 +13,7 @@ const HeroSection = () => {
   return (
     <section 
       id="hero" 
-      className="relative min-h-screen flex items-center justify-center overflow-hidden"
+      className="relative min-h-screen flex items-center justify-center overflow-hidden pt-24 md:pt-20"
       style={{
         backgroundImage: `linear-gradient(135deg, rgba(0, 91, 172, 0.8), rgba(0, 140, 255, 0.6)), url(${heroImage})`,
         backgroundSize: 'cover',
@@ -27,34 +27,34 @@ const HeroSection = () => {
         <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-white rounded-full blur-3xl animate-pulse delay-700"></div>
       </div>
 
-      <div className="container mx-auto px-4 lg:px-6 text-center relative z-10">
-        <div className="max-w-5xl mx-auto">
+      <div className="container mx-auto px-4 lg:px-6 text-center relative z-10 py-12">
+        <div className="max-w-5xl mx-auto space-y-8">
           
           {/* Business Name - Highlighted */}
-          <div className="animate-fade-in mb-6">
-            <h1 className="text-4xl md:text-5xl lg:text-6xl font-heading font-black text-white mb-4 text-shadow">
+          <div className="animate-fade-in">
+            <h1 className="text-3xl md:text-4xl lg:text-5xl font-heading font-black text-white mb-4 text-shadow leading-tight">
               <span className="block text-gradient bg-gradient-to-r from-white to-blue-100 bg-clip-text text-transparent">
                 ASTRA AIR CONDITIONING
               </span>
-              <span className="block text-2xl md:text-3xl lg:text-4xl font-bold mt-2">
+              <span className="block text-xl md:text-2xl lg:text-3xl font-bold mt-3">
                 & ENGINEERING WORKS
               </span>
             </h1>
-            <div className="w-32 h-1 bg-gradient-primary mx-auto rounded-full"></div>
+            <div className="w-24 h-1 bg-gradient-primary mx-auto rounded-full mt-4"></div>
           </div>
 
           {/* Main Headline */}
-          <div className="animate-slide-up delay-300 mb-6">
-            <h2 className="text-2xl md:text-3xl lg:text-4xl font-heading font-bold text-white mb-4">
+          <div className="animate-slide-up delay-300">
+            <h2 className="text-xl md:text-2xl lg:text-3xl font-heading font-bold text-white mb-3">
               Buy Daikin ACs and get Installation
             </h2>
-            <p className="text-xl md:text-2xl text-blue-100 font-medium">
+            <p className="text-lg md:text-xl text-blue-100 font-medium">
               Authorized Dealer in Vijayawada
             </p>
           </div>
 
           {/* CTA Buttons */}
-          <div className="animate-fade-in delay-700 flex flex-col sm:flex-row gap-4 justify-center items-center mb-12">
+          <div className="animate-fade-in delay-700 flex flex-col sm:flex-row gap-4 justify-center items-center">
             <Button 
               className="btn-hero group"
               onClick={() => window.open('tel:9247041999')}
@@ -82,7 +82,7 @@ const HeroSection = () => {
           </div>
 
           {/* Features Highlight */}
-          <div className="animate-slide-up delay-1000 grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
+          <div className="animate-slide-up delay-1000 grid grid-cols-2 md:grid-cols-4 gap-4">
             {[
               { icon: "🏢", title: "Xtensive Range", desc: "Complete AC Solutions" },
               { icon: "⚡", title: "Xcellent Technology", desc: "Latest VRV Systems" },
