@@ -34,10 +34,10 @@ const Header = () => {
   ];
 
   return (
-    <header className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
+    <header className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
       isScrolled 
-        ? 'bg-white/95 backdrop-blur-md shadow-lg' 
-        : 'bg-transparent'
+        ? 'bg-white/90 backdrop-blur-xl shadow-2xl border-b border-primary/10' 
+        : 'bg-gradient-to-b from-black/20 to-transparent backdrop-blur-sm'
     }`}>
       <div className="container mx-auto px-4 lg:px-6">
         <div className="flex items-center justify-between h-20 lg:h-24">
@@ -61,22 +61,6 @@ const Header = () => {
             </div>
           </div>
 
-          {/* Contact Info - Desktop */}
-          <div className="hidden lg:flex items-center space-x-6">
-            <div className={`flex items-center space-x-2 ${
-              isScrolled ? 'text-primary' : 'text-white'
-            }`}>
-              <Phone className="w-4 h-4" />
-              <span className="font-semibold">9247041999</span>
-            </div>
-            <Button 
-              className="btn-whatsapp flex items-center space-x-2"
-              onClick={() => window.open('https://wa.me/919247041999', '_blank')}
-            >
-              <MessageCircle className="w-4 h-4" />
-              <span>WhatsApp</span>
-            </Button>
-          </div>
 
           {/* Navigation - Desktop */}
           <nav className="hidden lg:flex items-center space-x-8">
