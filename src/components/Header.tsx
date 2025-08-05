@@ -1,6 +1,5 @@
 import { useState, useEffect } from 'react';
-import { Phone, MessageCircle, Menu, X } from 'lucide-react';
-import { Button } from '@/components/ui/button';
+import { Menu, X } from 'lucide-react';
 
 const Header = () => {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -34,44 +33,46 @@ const Header = () => {
   ];
 
   return (
-    <header className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
+    <header className={`fixed top-0 left-0 right-0 z-50 transition-all duration-700 ${
       isScrolled 
-        ? 'bg-white/90 backdrop-blur-xl shadow-2xl border-b border-primary/10' 
-        : 'bg-gradient-to-b from-black/20 to-transparent backdrop-blur-sm'
+        ? 'bg-background/80 backdrop-blur-xl shadow-2xl border-b border-border/20' 
+        : 'bg-gradient-to-b from-black/30 via-black/10 to-transparent backdrop-blur-sm'
     }`}>
-      <div className="container mx-auto px-4 lg:px-6">
-        <div className="flex items-center justify-between h-20 lg:h-24">
+      <div className="container mx-auto px-6 lg:px-8">
+        <div className="flex items-center justify-between h-20">
           
           {/* Logo & Business Name */}
-          <div className="flex items-center space-x-3">
-            <div className="w-12 h-12 bg-gradient-primary rounded-lg flex items-center justify-center">
-              <span className="text-white font-bold text-xl">A</span>
+          <div className="flex items-center space-x-4">
+            <div className="relative group">
+              <div className="absolute -inset-0.5 bg-gradient-to-r from-primary via-blue-500 to-cyan-400 rounded-xl blur opacity-75 group-hover:opacity-100 transition duration-300"></div>
+              <div className="relative w-12 h-12 bg-gradient-to-br from-primary to-blue-600 rounded-xl flex items-center justify-center shadow-xl">
+                <span className="text-white font-bold text-xl tracking-wider">A</span>
+              </div>
             </div>
             <div className="hidden md:block">
-              <h1 className={`text-sm lg:text-base font-heading font-bold leading-tight ${
-                isScrolled ? 'text-primary' : 'text-white'
+              <h1 className={`text-lg font-heading font-bold leading-tight transition-all duration-300 ${
+                isScrolled ? 'text-foreground' : 'text-white drop-shadow-lg'
               }`}>
                 ASTRA AIR CONDITIONING
               </h1>
-              <p className={`text-xs font-medium ${
-                isScrolled ? 'text-primary' : 'text-white'
+              <p className={`text-sm font-medium transition-all duration-300 ${
+                isScrolled ? 'text-muted-foreground' : 'text-white/90 drop-shadow-md'
               }`}>
                 & ENGINEERING WORKS
               </p>
             </div>
           </div>
 
-
           {/* Navigation - Desktop */}
-          <nav className="hidden lg:flex items-center space-x-8">
+          <nav className="hidden lg:flex items-center space-x-1">
             {navItems.map((item) => (
               item.isRoute ? (
                 <a
                   key={item.label}
                   href={item.href}
-                  className={`font-medium transition-all duration-300 hover:text-primary relative after:content-[''] after:absolute after:w-full after:scale-x-0 after:h-0.5 after:bottom-0 after:left-0 after:bg-primary after:origin-bottom-right after:transition-transform after:duration-300 hover:after:scale-x-100 hover:after:origin-bottom-left ${
-                    isScrolled ? 'text-foreground' : 'text-white'
-                  }`}
+                  className={`px-4 py-2 font-medium transition-all duration-300 hover:text-primary relative rounded-lg hover:bg-white/10 backdrop-blur-sm ${
+                    isScrolled ? 'text-foreground' : 'text-white/90'
+                  } after:content-[''] after:absolute after:w-0 after:h-0.5 after:bottom-1 after:left-1/2 after:bg-primary after:transition-all after:duration-300 hover:after:w-8 hover:after:left-1/2 hover:after:-translate-x-1/2`}
                 >
                   {item.label}
                 </a>
@@ -79,9 +80,9 @@ const Header = () => {
                 <button
                   key={item.label}
                   onClick={() => scrollToSection(item.href)}
-                  className={`font-medium transition-all duration-300 hover:text-primary relative after:content-[''] after:absolute after:w-full after:scale-x-0 after:h-0.5 after:bottom-0 after:left-0 after:bg-primary after:origin-bottom-right after:transition-transform after:duration-300 hover:after:scale-x-100 hover:after:origin-bottom-left ${
-                    isScrolled ? 'text-foreground' : 'text-white'
-                  }`}
+                  className={`px-4 py-2 font-medium transition-all duration-300 hover:text-primary relative rounded-lg hover:bg-white/10 backdrop-blur-sm ${
+                    isScrolled ? 'text-foreground' : 'text-white/90'
+                  } after:content-[''] after:absolute after:w-0 after:h-0.5 after:bottom-1 after:left-1/2 after:bg-primary after:transition-all after:duration-300 hover:after:w-8 hover:after:left-1/2 hover:after:-translate-x-1/2`}
                 >
                   {item.label}
                 </button>
@@ -91,27 +92,27 @@ const Header = () => {
 
           {/* Mobile Menu Button */}
           <button
-            className="lg:hidden"
+            className="lg:hidden p-3 rounded-xl hover:bg-white/10 backdrop-blur-sm transition-all duration-200 group"
             onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
           >
             {isMobileMenuOpen ? (
-              <X className={`w-6 h-6 ${isScrolled ? 'text-foreground' : 'text-white'}`} />
+              <X className={`w-6 h-6 transition-transform duration-200 group-hover:rotate-90 ${isScrolled ? 'text-foreground' : 'text-white'}`} />
             ) : (
-              <Menu className={`w-6 h-6 ${isScrolled ? 'text-foreground' : 'text-white'}`} />
+              <Menu className={`w-6 h-6 transition-transform duration-200 group-hover:scale-110 ${isScrolled ? 'text-foreground' : 'text-white'}`} />
             )}
           </button>
         </div>
 
         {/* Mobile Menu */}
         {isMobileMenuOpen && (
-          <div className="lg:hidden bg-white/95 backdrop-blur-md border-t border-border animate-fade-in">
-            <nav className="py-4 space-y-4">
+          <div className="lg:hidden bg-background/95 backdrop-blur-xl border-t border-border/30 animate-fade-in rounded-b-2xl shadow-2xl">
+            <nav className="py-6 space-y-1">
               {navItems.map((item) => (
                 item.isRoute ? (
                   <a
                     key={item.label}
                     href={item.href}
-                    className="block w-full text-left px-4 py-2 font-medium text-foreground hover:text-primary transition-colors duration-200"
+                    className="block w-full text-left px-6 py-4 font-medium text-foreground hover:text-primary hover:bg-primary/5 transition-all duration-200 rounded-xl mx-2 hover:translate-x-2"
                   >
                     {item.label}
                   </a>
@@ -119,25 +120,12 @@ const Header = () => {
                   <button
                     key={item.label}
                     onClick={() => scrollToSection(item.href)}
-                    className="block w-full text-left px-4 py-2 font-medium text-foreground hover:text-primary transition-colors duration-200"
+                    className="block w-full text-left px-6 py-4 font-medium text-foreground hover:text-primary hover:bg-primary/5 transition-all duration-200 rounded-xl mx-2 hover:translate-x-2"
                   >
                     {item.label}
                   </button>
                 )
               ))}
-              <div className="px-4 pt-4 border-t border-border">
-                <div className="flex items-center space-x-2 text-primary mb-3">
-                  <Phone className="w-4 h-4" />
-                  <span className="font-medium">9247041999</span>
-                </div>
-                <Button 
-                  className="btn-whatsapp w-full justify-center"
-                  onClick={() => window.open('https://wa.me/919247041999', '_blank')}
-                >
-                  <MessageCircle className="w-4 h-4 mr-2" />
-                  WhatsApp Us
-                </Button>
-              </div>
             </nav>
           </div>
         )}

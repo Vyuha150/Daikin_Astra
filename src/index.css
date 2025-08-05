@@ -388,3 +388,62 @@
     transform: rotate(360deg);
   }
 }
+
+/* Enhanced Professional Animations */
+@keyframes gradient-shift {
+  0%, 100% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+}
+
+@keyframes shimmer {
+  0% {
+    transform: translateX(-100%);
+  }
+  100% {
+    transform: translateX(100%);
+  }
+}
+
+@keyframes reveal-text {
+  0% {
+    opacity: 0;
+    transform: translateY(30px) scale(0.95);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+.animate-gradient {
+  background-size: 200% 200%;
+  animation: gradient-shift 3s ease infinite;
+}
+
+.animate-shimmer {
+  animation: shimmer 2s infinite;
+}
+
+.animate-reveal {
+  animation: reveal-text 0.8s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+}
+
+/* Professional Card Hover Effects */
+.card-hover {
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.card-hover:hover {
+  transform: translateY(-8px) scale(1.02);
+  box-shadow: 0 20px 40px rgba(0, 91, 172, 0.15), 0 0 0 1px rgba(0, 91, 172, 0.1);
+}
+
+/* Parallax Container */
+.parallax-container {
+  transform-style: preserve-3d;
+  perspective: 1000px;
+}
