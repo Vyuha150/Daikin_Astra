@@ -143,18 +143,30 @@ const TestimonialsSection = () => {
         </div>
 
         {/* Statistics */}
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
+        <div className="space-y-8">
           {[
             { number: "500+", label: "Happy Customers" },
             { number: "15+", label: "Years Experience" },
             { number: "24/7", label: "Support Available" },
             { number: "100%", label: "Genuine Products" }
           ].map((stat, index) => (
-            <div key={index} className="text-center">
-              <div className="text-3xl lg:text-4xl font-heading font-bold text-primary mb-2">
-                {stat.number}
+            <div key={index} className="bg-white rounded-2xl p-6 shadow-sm border border-gray-100 hover:shadow-lg transition-all duration-300 group">
+              <div className="grid grid-cols-1 lg:grid-cols-4 gap-6 items-center">
+                {/* Icon Section */}
+                <div className="lg:col-span-1">
+                  <div className="bg-gradient-to-br from-blue-50 to-blue-100 rounded-xl p-6 h-24 flex items-center justify-center group-hover:from-blue-100 group-hover:to-blue-200 transition-all duration-300">
+                    <div className="text-3xl lg:text-4xl font-heading font-bold text-blue-600 group-hover:scale-110 transition-transform duration-300">
+                      {stat.number}
+                    </div>
+                  </div>
+                </div>
+                
+                {/* Content Section */}
+                <div className="lg:col-span-3 text-center lg:text-left">
+                  <p className="text-xl font-semibold text-gray-800">{stat.label}</p>
+                  <p className="text-gray-600 mt-2">Excellence in every aspect of our service</p>
+                </div>
               </div>
-              <p className="text-muted-foreground font-medium">{stat.label}</p>
             </div>
           ))}
         </div>

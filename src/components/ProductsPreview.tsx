@@ -1,3 +1,4 @@
+import React from 'react';
 import { ArrowRight, Thermometer, Zap, Wind, Building2 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 
@@ -61,45 +62,61 @@ const ProductsPreview = () => {
         </div>
 
         {/* Product Categories Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-12">
+        <div className="space-y-8 mb-16">
           {productCategories.map((category, index) => (
-            <div key={index} className="card-glass p-6 card-hover relative group">
+            <div key={index} className="bg-white rounded-3xl p-8 lg:p-10 shadow-sm border border-gray-100 hover:shadow-xl transition-all duration-500 group relative">
               {category.popular && (
-                <div className="absolute -top-3 -right-3 bg-offer text-offer-foreground px-3 py-1 rounded-full text-sm font-semibold">
+                <div className="absolute -top-4 -right-4 bg-gradient-to-r from-orange-500 to-red-500 text-white px-4 py-2 rounded-full text-sm font-bold shadow-lg animate-pulse">
                   Popular
                 </div>
               )}
               
-              <div className="text-primary mb-4 group-hover:scale-110 transition-transform duration-300">
-                {category.icon}
+              <div className={`grid grid-cols-1 lg:grid-cols-3 gap-8 items-center ${index % 2 === 1 ? 'lg:grid-flow-col-dense' : ''}`}>
+                {/* Image Section */}
+                <div className={`${index % 2 === 1 ? 'lg:col-start-3' : ''}`}>
+                  <div className="bg-gradient-to-br from-blue-50 to-blue-100 rounded-2xl p-8 h-48 flex items-center justify-center group-hover:from-blue-100 group-hover:to-blue-200 transition-all duration-500">
+                    <div className="text-blue-600 group-hover:scale-110 transition-transform duration-500">
+                      {React.cloneElement(category.icon, { className: "w-20 h-20" })}
+                    </div>
+                  </div>
+                </div>
+                
+                {/* Content Section */}
+                <div className={`lg:col-span-2 space-y-6 ${index % 2 === 1 ? 'lg:col-start-1 lg:row-start-1' : ''}`}>
+                  <div>
+                    <h3 className="text-2xl font-heading font-bold text-gray-900 mb-3">
+                      {category.title}
+                    </h3>
+                    <p className="text-gray-600 leading-relaxed text-lg">
+                      {category.description}
+                    </p>
+                  </div>
+                  
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div>
+                      <h4 className="font-semibold text-gray-800 mb-3">Key Features:</h4>
+                      <ul className="space-y-2">
+                        {category.features.map((feature, featureIndex) => (
+                          <li key={featureIndex} className="flex items-center text-gray-600">
+                            <div className="w-2 h-2 bg-blue-600 rounded-full mr-3 flex-shrink-0"></div>
+                            <span className="font-medium">{feature}</span>
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+                    
+                    <div className="flex items-end">
+                      <Button 
+                        className="bg-blue-600 hover:bg-blue-700 text-white px-8 py-3 rounded-xl font-semibold transition-all duration-300 hover:scale-105 hover:shadow-lg"
+                        onClick={() => window.location.href = '/products'}
+                      >
+                        View Details
+                        <ArrowRight className="w-5 h-5 ml-2" />
+                      </Button>
+                    </div>
+                  </div>
+                </div>
               </div>
-              
-              <h3 className="text-xl font-heading font-bold text-foreground mb-3">
-                {category.title}
-              </h3>
-              
-              <p className="text-muted-foreground mb-4 text-sm">
-                {category.description}
-              </p>
-              
-              <ul className="space-y-2 mb-6">
-                {category.features.map((feature, featureIndex) => (
-                  <li key={featureIndex} className="flex items-center text-sm text-muted-foreground">
-                    <div className="w-1.5 h-1.5 bg-primary rounded-full mr-2"></div>
-                    {feature}
-                  </li>
-                ))}
-              </ul>
-              
-              <Button 
-                variant="outline" 
-                size="sm" 
-                className="w-full group-hover:bg-primary group-hover:text-primary-foreground transition-all duration-300"
-                onClick={() => window.location.href = '/products'}
-              >
-                View Details
-                <ArrowRight className="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform duration-300" />
-              </Button>
             </div>
           ))}
         </div>
@@ -139,35 +156,51 @@ const ProductsPreview = () => {
                 features: ["Variable Speed", "R-32 Refrigerant", "Quiet Operation"]
               }
             ].map((model, index) => (
-              <div key={index} className="bg-white rounded-xl p-6 shadow-card">
-                <div className="mb-4">
-                  <h4 className="text-lg font-heading font-bold text-foreground mb-1">
-                    {model.model}
-                  </h4>
-                  <p className="text-primary font-medium">{model.type}</p>
-                  <div className="inline-flex items-center bg-success/10 text-success rounded-full px-3 py-1 text-sm font-medium mt-2">
-                    {model.efficiency}
+              <div key={index} className="bg-white rounded-2xl p-6 shadow-sm border border-gray-100 hover:shadow-lg transition-all duration-300 group">
+                <div className="grid grid-cols-1 lg:grid-cols-4 gap-6 items-center">
+                  {/* Image Section */}
+                  <div className="lg:col-span-1">
+                    <div className="bg-gradient-to-br from-blue-50 to-blue-100 rounded-xl p-6 h-32 flex items-center justify-center group-hover:from-blue-100 group-hover:to-blue-200 transition-all duration-300">
+                      <Thermometer className="w-12 h-12 text-blue-600 group-hover:scale-110 transition-transform duration-300" />
+                    </div>
                   </div>
-                </div>
-                
-                <ul className="space-y-2 mb-4">
-                  {model.features.map((feature, featureIndex) => (
-                    <li key={featureIndex} className="flex items-center text-sm text-muted-foreground">
-                      <div className="w-1.5 h-1.5 bg-primary rounded-full mr-2"></div>
-                      {feature}
-                    </li>
-                  ))}
-                </ul>
-                
-                <div className="border-t border-border pt-4">
-                  <p className="text-xl font-bold text-primary mb-3">{model.price}</p>
-                  <Button 
-                    size="sm" 
-                    className="w-full"
-                    onClick={() => window.open('https://wa.me/919247041999?text=Hi! I want to know more about ' + model.model, '_blank')}
-                  >
-                    Get Quote
-                  </Button>
+                  
+                  {/* Content Section */}
+                  <div className="lg:col-span-3 space-y-4">
+                    <div className="flex flex-col lg:flex-row lg:items-start lg:justify-between gap-4">
+                      <div className="flex-1">
+                        <h4 className="text-xl font-heading font-bold text-gray-900 mb-2">
+                          {model.model}
+                        </h4>
+                        <div className="flex flex-wrap gap-4 text-sm mb-3">
+                          <span className="font-medium text-blue-600">{model.type}</span>
+                          <div className="inline-flex items-center bg-green-50 text-green-700 rounded-full px-3 py-1 text-sm font-medium">
+                            {model.efficiency}
+                          </div>
+                        </div>
+                        <div className="text-2xl font-bold text-orange-600 mb-4">{model.price}</div>
+                      </div>
+                      
+                      <Button 
+                        className="bg-blue-600 hover:bg-blue-700 text-white px-6 py-2 rounded-lg font-medium transition-all duration-300 hover:scale-105 lg:self-start"
+                        onClick={() => window.open('https://wa.me/919247041999?text=Hi! I want to know more about ' + model.model, '_blank')}
+                      >
+                        Get Quote
+                      </Button>
+                    </div>
+                    
+                    <div>
+                      <h5 className="font-semibold text-gray-800 mb-2">Key Features:</h5>
+                      <ul className="space-y-1">
+                        {model.features.map((feature, featureIndex) => (
+                          <li key={featureIndex} className="flex items-center text-sm text-gray-600">
+                            <div className="w-1.5 h-1.5 bg-blue-600 rounded-full mr-3"></div>
+                            {feature}
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+                  </div>
                 </div>
               </div>
             ))}

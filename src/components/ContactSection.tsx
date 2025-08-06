@@ -88,62 +88,65 @@ Requirement: ${formData.requirement}`;
 
             {/* Contact Details */}
             <div className="space-y-6">
-              <div className="flex items-start space-x-4">
-                <div className="bg-primary/10 p-3 rounded-lg">
-                  <MapPin className="w-5 h-5 text-primary" />
+              {[
+                {
+                  icon: <MapPin className="w-5 h-5 text-blue-600" />,
+                  title: "Address",
+                  content: "#59A-17/4, Plot no.98A, Teachers Colony\nFuntimes Club Road, Near Sree Prakash Plaza\n4th Line, Vijayawada-03"
+                },
+                {
+                  icon: <Phone className="w-5 h-5 text-blue-600" />,
+                  title: "Phone",
+                  content: "9247041999",
+                  isPhone: true
+                },
+                {
+                  icon: <Mail className="w-5 h-5 text-blue-600" />,
+                  title: "Email",
+                  content: "astra.acew@gmail.com",
+                  isEmail: true
+                },
+                {
+                  icon: <Clock className="w-5 h-5 text-blue-600" />,
+                  title: "Business Hours",
+                  content: "Mon - Sat: 9:00 AM - 7:00 PM\nSunday: 10:00 AM - 5:00 PM"
+                }
+              ].map((contact, index) => (
+                <div key={index} className="bg-white rounded-2xl p-6 shadow-sm border border-gray-100 hover:shadow-lg transition-all duration-300 group">
+                  <div className="grid grid-cols-1 lg:grid-cols-4 gap-4 items-center">
+                    {/* Icon Section */}
+                    <div className="lg:col-span-1">
+                      <div className="bg-gradient-to-br from-blue-50 to-blue-100 rounded-xl p-4 h-16 flex items-center justify-center group-hover:from-blue-100 group-hover:to-blue-200 transition-all duration-300">
+                        <div className="group-hover:scale-110 transition-transform duration-300">
+                          {contact.icon}
+                        </div>
+                      </div>
+                    </div>
+                    
+                    {/* Content Section */}
+                    <div className="lg:col-span-3">
+                      <h4 className="font-semibold text-gray-800 mb-2">{contact.title}</h4>
+                      {contact.isPhone ? (
+                        <a 
+                          href={`tel:${contact.content}`}
+                          className="text-blue-600 hover:text-blue-700 font-medium text-lg transition-colors"
+                        >
+                          {contact.content}
+                        </a>
+                      ) : contact.isEmail ? (
+                        <a 
+                          href={`mailto:${contact.content}`}
+                          className="text-blue-600 hover:text-blue-700 transition-colors"
+                        >
+                          {contact.content}
+                        </a>
+                      ) : (
+                        <p className="text-gray-600 whitespace-pre-line">{contact.content}</p>
+                      )}
+                    </div>
+                  </div>
                 </div>
-                <div>
-                  <h4 className="font-semibold text-foreground mb-1">Address</h4>
-                  <p className="text-muted-foreground">
-                    #59A-17/4, Plot no.98A, Teachers Colony<br />
-                    Funtimes Club Road, Near Sree Prakash Plaza<br />
-                    4th Line, Vijayawada-03
-                  </p>
-                </div>
-              </div>
-
-              <div className="flex items-start space-x-4">
-                <div className="bg-primary/10 p-3 rounded-lg">
-                  <Phone className="w-5 h-5 text-primary" />
-                </div>
-                <div>
-                  <h4 className="font-semibold text-foreground mb-1">Phone</h4>
-                  <a 
-                    href="tel:9247041999" 
-                    className="text-primary hover:text-primary-dark font-medium text-lg"
-                  >
-                    9247041999
-                  </a>
-                </div>
-              </div>
-
-              <div className="flex items-start space-x-4">
-                <div className="bg-primary/10 p-3 rounded-lg">
-                  <Mail className="w-5 h-5 text-primary" />
-                </div>
-                <div>
-                  <h4 className="font-semibold text-foreground mb-1">Email</h4>
-                  <a 
-                    href="mailto:astra.acew@gmail.com" 
-                    className="text-primary hover:text-primary-dark"
-                  >
-                    astra.acew@gmail.com
-                  </a>
-                </div>
-              </div>
-
-              <div className="flex items-start space-x-4">
-                <div className="bg-primary/10 p-3 rounded-lg">
-                  <Clock className="w-5 h-5 text-primary" />
-                </div>
-                <div>
-                  <h4 className="font-semibold text-foreground mb-1">Business Hours</h4>
-                  <p className="text-muted-foreground">
-                    Mon - Sat: 9:00 AM - 7:00 PM<br />
-                    Sunday: 10:00 AM - 5:00 PM
-                  </p>
-                </div>
-              </div>
+              ))}
             </div>
 
             {/* Quick Action Buttons */}
