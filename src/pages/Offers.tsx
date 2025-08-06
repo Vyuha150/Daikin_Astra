@@ -82,52 +82,64 @@ const Offers = () => {
           </div>
 
           {/* Current Offers */}
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-12">
+          <div className="space-y-8 mb-16">
             {currentOffers.map((offer, index) => (
-              <div key={index} className="card-glass p-6 card-hover relative group">
+              <div key={index} className="bg-white rounded-3xl p-8 lg:p-10 shadow-sm border border-gray-100 hover:shadow-xl transition-all duration-500 group relative">
                 {offer.popular && (
-                  <div className="absolute -top-3 -right-3 bg-offer text-offer-foreground px-3 py-1 rounded-full text-sm font-semibold animate-pulse">
+                  <div className="absolute -top-4 -right-4 bg-gradient-to-r from-orange-500 to-red-500 text-white px-4 py-2 rounded-full text-sm font-bold shadow-lg animate-pulse">
                     Most Popular
                   </div>
                 )}
                 
-                <div className="text-center mb-6">
-                  <div className="bg-offer/10 rounded-full w-16 h-16 flex items-center justify-center mx-auto mb-4">
-                    <Gift className="w-8 h-8 text-offer" />
+                <div className={`grid grid-cols-1 lg:grid-cols-3 gap-8 items-center ${index % 2 === 1 ? 'lg:grid-flow-col-dense' : ''}`}>
+                  {/* Image Section */}
+                  <div className={`${index % 2 === 1 ? 'lg:col-start-3' : ''}`}>
+                    <div className="bg-gradient-to-br from-orange-50 to-red-50 rounded-2xl p-8 h-48 flex items-center justify-center group-hover:from-orange-100 group-hover:to-red-100 transition-all duration-500">
+                      <Gift className="w-20 h-20 text-orange-600 group-hover:scale-110 transition-transform duration-500" />
+                    </div>
                   </div>
                   
-                  <h3 className="text-xl font-heading font-bold text-foreground mb-2">
-                    {offer.title}
-                  </h3>
-                  
-                  <div className="text-3xl font-bold text-offer mb-2">
-                    {offer.discount}
-                  </div>
-                  
-                  <p className="text-muted-foreground text-sm mb-3">
-                    {offer.description}
-                  </p>
-                  
-                  <div className="bg-primary/10 rounded-lg px-3 py-1 text-xs font-medium text-primary">
-                    {offer.validity}
+                  {/* Content Section */}
+                  <div className={`lg:col-span-2 space-y-6 ${index % 2 === 1 ? 'lg:col-start-1 lg:row-start-1' : ''}`}>
+                    <div>
+                      <h3 className="text-2xl font-heading font-bold text-gray-900 mb-3">
+                        {offer.title}
+                      </h3>
+                      <div className="text-4xl font-bold text-orange-600 mb-3">
+                        {offer.discount}
+                      </div>
+                      <p className="text-gray-600 leading-relaxed text-lg mb-4">
+                        {offer.description}
+                      </p>
+                      <div className="bg-blue-50 rounded-lg px-4 py-2 inline-block text-sm font-medium text-blue-700">
+                        {offer.validity}
+                      </div>
+                    </div>
+                    
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                      <div>
+                        <h4 className="font-semibold text-gray-800 mb-3">Offer Includes:</h4>
+                        <ul className="space-y-2">
+                          {offer.features.map((feature, idx) => (
+                            <li key={idx} className="flex items-center text-gray-600">
+                              <Star className="w-5 h-5 text-orange-500 mr-3 flex-shrink-0" />
+                              <span className="font-medium">{feature}</span>
+                            </li>
+                          ))}
+                        </ul>
+                      </div>
+                      
+                      <div className="flex items-end">
+                        <Button 
+                          className="bg-gradient-to-r from-orange-500 to-red-500 hover:from-orange-600 hover:to-red-600 text-white px-8 py-3 rounded-xl font-semibold transition-all duration-300 hover:scale-105 hover:shadow-lg"
+                          onClick={() => window.open('https://wa.me/919247041999?text=Hi! I want to know about the ' + offer.title, '_blank')}
+                        >
+                          Claim Offer
+                        </Button>
+                      </div>
+                    </div>
                   </div>
                 </div>
-                
-                <ul className="space-y-3 mb-6">
-                  {offer.features.map((feature, idx) => (
-                    <li key={idx} className="flex items-center text-sm text-muted-foreground">
-                      <Star className="w-4 h-4 text-offer mr-2" />
-                      {feature}
-                    </li>
-                  ))}
-                </ul>
-                
-                <Button 
-                  className="w-full btn-hero"
-                  onClick={() => window.open('https://wa.me/919247041999?text=Hi! I want to know about the ' + offer.title, '_blank')}
-                >
-                  Claim Offer
-                </Button>
               </div>
             ))}
           </div>

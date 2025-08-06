@@ -447,3 +447,48 @@
   transform-style: preserve-3d;
   perspective: 1000px;
 }
+
+/* Minimalist Professional Spacing */
+.content-section {
+  @apply py-20 lg:py-32;
+}
+
+.content-container {
+  @apply max-w-6xl mx-auto px-6 lg:px-8;
+}
+
+/* Professional Card Styling */
+.professional-card {
+  @apply bg-white rounded-2xl lg:rounded-3xl shadow-sm border border-gray-100 hover:shadow-xl transition-all duration-500;
+}
+
+.professional-image-container {
+  @apply bg-gradient-to-br from-blue-50 to-blue-100 rounded-xl lg:rounded-2xl flex items-center justify-center transition-all duration-500;
+}
+
+/* Global Page Containers */
+section {
+  @apply py-16 lg:py-24;
+}
+
+.container {
+  @apply max-w-7xl mx-auto px-4 lg:px-8;
+}
+
+/* Enhanced white space and typography */
+.section-padding {
+  @apply py-24 lg:py-32;
+}
+
+.content-spacing {
+  @apply space-y-8 lg:space-y-12;
+}
+
+/* Professional button enhancements */
+.btn-professional {
+  @apply bg-blue-600 hover:bg-blue-700 text-white px-8 py-3 rounded-xl font-semibold transition-all duration-300 hover:scale-105 hover:shadow-lg;
+}
+
+.btn-professional:hover {
+  box-shadow: 0 10px 25px rgba(37, 99, 235, 0.3);
+}

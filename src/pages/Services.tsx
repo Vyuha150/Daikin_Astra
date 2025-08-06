@@ -1,3 +1,4 @@
+import React from 'react';
 import { ArrowRight, Settings, Zap, CheckCircle, Wrench, BarChart, Cog } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import Header from '@/components/Header';
@@ -107,39 +108,55 @@ const Services = () => {
           </div>
 
           {/* Services Grid */}
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-12">
+          <div className="space-y-8 mb-16">
             {services.map((service, index) => (
-              <div key={index} className="card-glass p-6 card-hover group">
-                <div className={`${service.color} mb-4 group-hover:scale-110 transition-transform duration-300`}>
-                  {service.icon}
+              <div key={index} className="bg-white rounded-3xl p-8 lg:p-10 shadow-sm border border-gray-100 hover:shadow-xl transition-all duration-500 group">
+                <div className={`grid grid-cols-1 lg:grid-cols-3 gap-8 items-center ${index % 2 === 1 ? 'lg:grid-flow-col-dense' : ''}`}>
+                  {/* Image Section */}
+                  <div className={`${index % 2 === 1 ? 'lg:col-start-3' : ''}`}>
+                    <div className="bg-gradient-to-br from-blue-50 to-blue-100 rounded-2xl p-8 h-48 flex items-center justify-center group-hover:from-blue-100 group-hover:to-blue-200 transition-all duration-500">
+                      <div className="text-blue-600 group-hover:scale-110 transition-transform duration-500">
+                        {React.cloneElement(service.icon, { className: "w-20 h-20" })}
+                      </div>
+                    </div>
+                  </div>
+                  
+                  {/* Content Section */}
+                  <div className={`lg:col-span-2 space-y-6 ${index % 2 === 1 ? 'lg:col-start-1 lg:row-start-1' : ''}`}>
+                    <div>
+                      <h3 className="text-2xl font-heading font-bold text-gray-900 mb-3">
+                        {service.title}
+                      </h3>
+                      <p className="text-gray-600 leading-relaxed text-lg">
+                        {service.description}
+                      </p>
+                    </div>
+                    
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                      <div>
+                        <h4 className="font-semibold text-gray-800 mb-3">Key Features:</h4>
+                        <ul className="space-y-2">
+                          {service.features.map((feature, idx) => (
+                            <li key={idx} className="flex items-center text-gray-600">
+                              <div className="w-2 h-2 bg-blue-600 rounded-full mr-3 flex-shrink-0"></div>
+                              <span className="font-medium">{feature}</span>
+                            </li>
+                          ))}
+                        </ul>
+                      </div>
+                      
+                      <div className="flex items-end">
+                        <Button 
+                          className="bg-blue-600 hover:bg-blue-700 text-white px-8 py-3 rounded-xl font-semibold transition-all duration-300 hover:scale-105 hover:shadow-lg"
+                          onClick={() => window.open('https://wa.me/919247041999?text=Hi! I want to know more about ' + service.title, '_blank')}
+                        >
+                          Learn More
+                          <ArrowRight className="w-5 h-5 ml-2" />
+                        </Button>
+                      </div>
+                    </div>
+                  </div>
                 </div>
-                
-                <h3 className="text-xl font-heading font-bold text-foreground mb-3">
-                  {service.title}
-                </h3>
-                
-                <p className="text-muted-foreground mb-4 text-sm">
-                  {service.description}
-                </p>
-                
-                <ul className="space-y-2 mb-6">
-                  {service.features.map((feature, idx) => (
-                    <li key={idx} className="flex items-center text-sm text-muted-foreground">
-                      <div className="w-1.5 h-1.5 bg-primary rounded-full mr-2"></div>
-                      {feature}
-                    </li>
-                  ))}
-                </ul>
-                
-                <Button 
-                  variant="outline" 
-                  size="sm" 
-                  className="w-full"
-                  onClick={() => window.open('https://wa.me/919247041999?text=Hi! I want to know more about ' + service.title, '_blank')}
-                >
-                  Learn More
-                  <ArrowRight className="w-4 h-4 ml-2" />
-                </Button>
               </div>
             ))}
           </div>

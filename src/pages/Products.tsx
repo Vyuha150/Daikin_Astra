@@ -215,13 +215,19 @@ const Products = () => {
           </div>
 
           <Tabs defaultValue="outdoor" className="w-full">
-            <TabsList className="grid w-full grid-cols-2 mb-12">
-              <TabsTrigger value="outdoor" className="text-lg py-3">
-                <Building2 className="w-5 h-5 mr-2" />
+            <TabsList className="grid w-full grid-cols-2 mb-16 h-auto p-2 bg-white/50 backdrop-blur-sm rounded-2xl shadow-lg border-0">
+              <TabsTrigger 
+                value="outdoor" 
+                className="text-lg py-6 px-8 rounded-xl font-semibold transition-all duration-300 data-[state=active]:bg-gradient-to-r data-[state=active]:from-blue-600 data-[state=active]:to-blue-700 data-[state=active]:text-white data-[state=active]:shadow-lg data-[state=active]:shadow-blue-500/25 hover:bg-blue-50 data-[state=inactive]:text-blue-600"
+              >
+                <Building2 className="w-6 h-6 mr-3" />
                 Outdoor Units
               </TabsTrigger>
-              <TabsTrigger value="indoor" className="text-lg py-3">
-                <Wind className="w-5 h-5 mr-2" />
+              <TabsTrigger 
+                value="indoor" 
+                className="text-lg py-6 px-8 rounded-xl font-semibold transition-all duration-300 data-[state=active]:bg-gradient-to-r data-[state=active]:from-blue-600 data-[state=active]:to-blue-700 data-[state=active]:text-white data-[state=active]:shadow-lg data-[state=active]:shadow-blue-500/25 hover:bg-blue-50 data-[state=inactive]:text-blue-600"
+              >
+                <Wind className="w-6 h-6 mr-3" />
                 Indoor Units
               </TabsTrigger>
             </TabsList>
@@ -239,34 +245,44 @@ const Products = () => {
               </div>
 
               {/* Outdoor Units Grid */}
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-12">
+              <div className="space-y-8 mb-16">
                 {outdoorUnits.map((unit, index) => (
-                  <div key={index} className="card-glass p-6 card-hover">
-                    <div className="text-primary mb-4">
-                      <Building2 className="w-8 h-8" />
+                  <div key={index} className="bg-white rounded-3xl p-8 shadow-sm border border-gray-100 hover:shadow-xl transition-all duration-500 group">
+                    <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
+                      {/* Image Section */}
+                      <div className="order-2 lg:order-1">
+                        <div className="bg-gradient-to-br from-blue-50 to-blue-100 rounded-2xl p-8 h-64 flex items-center justify-center group-hover:from-blue-100 group-hover:to-blue-200 transition-all duration-500">
+                          <Building2 className="w-24 h-24 text-blue-600 group-hover:scale-110 transition-transform duration-500" />
+                        </div>
+                      </div>
+                      
+                      {/* Content Section */}
+                      <div className="order-1 lg:order-2 space-y-6">
+                        <div>
+                          <h3 className="text-2xl font-heading font-bold text-gray-900 mb-3">
+                            {unit.type}
+                          </h3>
+                          <p className="text-xl font-semibold text-blue-600 mb-4">{unit.capacity}</p>
+                          <p className="text-gray-600 leading-relaxed">{unit.description}</p>
+                        </div>
+                        
+                        <ul className="space-y-3">
+                          {unit.features.map((feature, idx) => (
+                            <li key={idx} className="flex items-center text-gray-700">
+                              <CheckCircle className="w-5 h-5 text-green-500 mr-3 flex-shrink-0" />
+                              <span className="font-medium">{feature}</span>
+                            </li>
+                          ))}
+                        </ul>
+                        
+                        <Button 
+                          className="bg-blue-600 hover:bg-blue-700 text-white px-8 py-3 rounded-xl font-semibold transition-all duration-300 hover:scale-105 hover:shadow-lg"
+                          onClick={() => window.open('https://wa.me/919247041999?text=Hi! I want specifications for ' + unit.type + ' - ' + unit.capacity, '_blank')}
+                        >
+                          View Specifications
+                        </Button>
+                      </div>
                     </div>
-                    <h3 className="text-xl font-heading font-bold text-foreground mb-2">
-                      {unit.type}
-                    </h3>
-                    <p className="text-primary font-semibold mb-2">{unit.capacity}</p>
-                    <p className="text-sm text-muted-foreground mb-4">{unit.description}</p>
-                    
-                    <ul className="space-y-2 mb-6">
-                      {unit.features.map((feature, idx) => (
-                        <li key={idx} className="flex items-center text-sm text-muted-foreground">
-                          <CheckCircle className="w-4 h-4 text-success mr-2" />
-                          {feature}
-                        </li>
-                      ))}
-                    </ul>
-                    
-                    <Button 
-                      variant="outline" 
-                      className="w-full"
-                      onClick={() => window.open('https://wa.me/919247041999?text=Hi! I want specifications for ' + unit.type + ' - ' + unit.capacity, '_blank')}
-                    >
-                      View Specifications
-                    </Button>
                   </div>
                 ))}
               </div>
@@ -337,52 +353,64 @@ const Products = () => {
                     <h3 className="text-xl font-heading font-bold text-foreground mb-6 border-l-4 border-primary pl-4">
                       {category.category}
                     </h3>
-                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                    <div className="space-y-6">
                       {category.units.map((unit, unitIndex) => (
-                        <div key={unitIndex} className="card-glass p-6 card-hover">
-                          <div className="flex justify-between items-start mb-4">
-                            <div>
-                              <h4 className="text-lg font-heading font-bold text-foreground mb-1">
-                                {unit.name}
-                              </h4>
-                              <p className="text-primary font-medium text-sm">{unit.model}</p>
+                        <div key={unitIndex} className="bg-white rounded-2xl p-6 shadow-sm border border-gray-100 hover:shadow-lg transition-all duration-300 group">
+                          <div className="grid grid-cols-1 lg:grid-cols-4 gap-6 items-center">
+                            {/* Image Section */}
+                            <div className="lg:col-span-1">
+                              <div className="bg-gradient-to-br from-blue-50 to-blue-100 rounded-xl p-6 h-32 flex items-center justify-center group-hover:from-blue-100 group-hover:to-blue-200 transition-all duration-300">
+                                <Wind className="w-12 h-12 text-blue-600 group-hover:scale-110 transition-transform duration-300" />
+                              </div>
                             </div>
-                            <div className="text-primary">
-                              <Wind className="w-6 h-6" />
+                            
+                            {/* Content Section */}
+                            <div className="lg:col-span-3 space-y-4">
+                              <div className="flex flex-col lg:flex-row lg:items-start lg:justify-between gap-4">
+                                <div className="flex-1">
+                                  <h4 className="text-xl font-heading font-bold text-gray-900 mb-2">
+                                    {unit.name}
+                                  </h4>
+                                  <div className="flex flex-wrap gap-4 text-sm mb-3">
+                                    <span className="font-medium text-blue-600">{unit.model}</span>
+                                    <span className="text-gray-600">Capacity: <span className="font-medium">{unit.capacity}</span></span>
+                                  </div>
+                                </div>
+                                
+                                <Button 
+                                  className="bg-blue-600 hover:bg-blue-700 text-white px-6 py-2 rounded-lg font-medium transition-all duration-300 hover:scale-105 lg:self-start"
+                                  onClick={() => window.location.href = '/contact'}
+                                >
+                                  Get Quote
+                                  <ArrowRight className="w-4 h-4 ml-2" />
+                                </Button>
+                              </div>
+                              
+                              <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                                <div>
+                                  <h5 className="font-semibold text-gray-800 mb-2">Key Features:</h5>
+                                  <ul className="space-y-1">
+                                    {unit.features.slice(0, 3).map((feature, idx) => (
+                                      <li key={idx} className="flex items-center text-sm text-gray-600">
+                                        <div className="w-1.5 h-1.5 bg-blue-600 rounded-full mr-3"></div>
+                                        {feature}
+                                      </li>
+                                    ))}
+                                  </ul>
+                                </div>
+                                
+                                <div>
+                                  <h5 className="font-semibold text-gray-800 mb-2">Applications:</h5>
+                                  <div className="flex flex-wrap gap-2">
+                                    {unit.applications.map((app, idx) => (
+                                      <span key={idx} className="bg-blue-50 text-blue-700 px-3 py-1 rounded-full text-xs font-medium">
+                                        {app}
+                                      </span>
+                                    ))}
+                                  </div>
+                                </div>
+                              </div>
                             </div>
-                          </div>
-                          
-                          <p className="text-sm text-muted-foreground mb-4">
-                            Capacity: <span className="font-medium">{unit.capacity}</span>
-                          </p>
-                          
-                          <ul className="space-y-2 mb-4">
-                            {unit.features.map((feature, idx) => (
-                              <li key={idx} className="flex items-center text-sm text-muted-foreground">
-                                <div className="w-1.5 h-1.5 bg-primary rounded-full mr-2"></div>
-                                {feature}
-                              </li>
-                            ))}
-                          </ul>
-                          
-                          <div className="border-t border-border pt-4">
-                            <p className="text-sm text-muted-foreground mb-3">Suitable for:</p>
-                            <div className="flex flex-wrap gap-2 mb-4">
-                              {unit.applications.map((app, idx) => (
-                                <span key={idx} className="bg-primary/10 text-primary px-2 py-1 rounded-full text-xs">
-                                  {app}
-                                </span>
-                              ))}
-                            </div>
-                            <Button 
-                              variant="outline" 
-                              size="sm" 
-                              className="w-full"
-                              onClick={() => window.location.href = '/contact'}
-                            >
-                              Get Quote
-                              <ArrowRight className="w-4 h-4 ml-2" />
-                            </Button>
                           </div>
                         </div>
                       ))}

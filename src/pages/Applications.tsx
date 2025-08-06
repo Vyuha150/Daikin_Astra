@@ -1,3 +1,4 @@
+import React from 'react';
 import { Building2, Hotel, Heart, ShoppingBag, GraduationCap, ArrowRight } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import Header from '@/components/Header';
@@ -110,58 +111,67 @@ const Applications = () => {
           </div>
 
           {/* Industries Grid */}
-          <div className="space-y-16">
+          <div className="space-y-12 mb-20">
             {industries.map((industry, index) => (
-              <div key={index} className={`grid grid-cols-1 lg:grid-cols-2 gap-8 items-center ${index % 2 === 1 ? 'lg:grid-flow-col-dense' : ''}`}>
-                <div className={`${index % 2 === 1 ? 'lg:col-start-2' : ''}`}>
-                  <div className="text-primary mb-6">
-                    {industry.icon}
+              <div key={index} className="bg-white rounded-3xl p-8 lg:p-12 shadow-sm border border-gray-100 hover:shadow-xl transition-all duration-500 group">
+                <div className={`grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 items-center ${index % 2 === 1 ? 'lg:grid-flow-col-dense' : ''}`}>
+                  {/* Image Section */}
+                  <div className={`${index % 2 === 1 ? 'lg:col-start-2' : ''}`}>
+                    <div className="bg-gradient-to-br from-blue-50 to-blue-100 rounded-2xl p-12 h-80 flex items-center justify-center group-hover:from-blue-100 group-hover:to-blue-200 transition-all duration-500">
+                      <div className="text-blue-600 group-hover:scale-110 transition-transform duration-500">
+                        {React.cloneElement(industry.icon, { className: "w-32 h-32" })}
+                      </div>
+                    </div>
                   </div>
                   
-                  <h2 className="text-2xl lg:text-3xl font-heading font-bold text-foreground mb-4">
-                    {industry.title}
-                  </h2>
-                  
-                  <p className="text-muted-foreground mb-6 text-lg">
-                    {industry.description}
-                  </p>
-                  
-                  <div className="mb-6">
-                    <h3 className="font-semibold text-foreground mb-3">Key Features:</h3>
-                    <ul className="space-y-2">
-                      {industry.features.map((feature, idx) => (
-                        <li key={idx} className="flex items-center text-muted-foreground">
-                          <div className="w-2 h-2 bg-primary rounded-full mr-3"></div>
-                          {feature}
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
-                  
-                  <Button 
-                    className="btn-hero"
-                    onClick={() => window.open('https://wa.me/919247041999?text=Hi! I want to know about Daikin VRV for ' + industry.title, '_blank')}
-                  >
-                    Get Solution Quote
-                    <ArrowRight className="w-4 h-4 ml-2" />
-                  </Button>
-                </div>
-                
-                <div className={`${index % 2 === 1 ? 'lg:col-start-1' : ''}`}>
-                  <div className="card-glass p-8 rounded-2xl">
-                    <h3 className="font-semibold text-foreground mb-4">Typical Applications:</h3>
-                    <div className="grid grid-cols-2 gap-3 mb-6">
-                      {industry.applications.map((app, idx) => (
-                        <div key={idx} className="bg-primary/10 text-primary px-3 py-2 rounded-lg text-sm text-center">
-                          {app}
-                        </div>
-                      ))}
+                  {/* Content Section */}
+                  <div className={`space-y-6 ${index % 2 === 1 ? 'lg:col-start-1 lg:row-start-1' : ''}`}>
+                    <div>
+                      <h2 className="text-3xl font-heading font-bold text-gray-900 mb-4">
+                        {industry.title}
+                      </h2>
+                      <p className="text-lg text-gray-600 leading-relaxed mb-6">
+                        {industry.description}
+                      </p>
                     </div>
                     
-                    <div className="border-t border-border pt-4">
-                      <h4 className="font-medium text-foreground mb-2">Case Study:</h4>
-                      <p className="text-sm text-muted-foreground">{industry.caseStudy}</p>
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                      <div>
+                        <h3 className="font-semibold text-gray-800 mb-3">Key Features:</h3>
+                        <ul className="space-y-2">
+                          {industry.features.map((feature, idx) => (
+                            <li key={idx} className="flex items-center text-gray-600">
+                              <div className="w-2 h-2 bg-blue-600 rounded-full mr-3 flex-shrink-0"></div>
+                              <span className="font-medium">{feature}</span>
+                            </li>
+                          ))}
+                        </ul>
+                      </div>
+                      
+                      <div>
+                        <h3 className="font-semibold text-gray-800 mb-3">Applications:</h3>
+                        <div className="flex flex-wrap gap-2 mb-4">
+                          {industry.applications.map((app, idx) => (
+                            <span key={idx} className="bg-blue-50 text-blue-700 px-3 py-1 rounded-full text-xs font-medium">
+                              {app}
+                            </span>
+                          ))}
+                        </div>
+                        
+                        <div className="bg-gray-50 rounded-lg p-4">
+                          <h4 className="font-medium text-gray-800 mb-2 text-sm">Case Study:</h4>
+                          <p className="text-xs text-gray-600">{industry.caseStudy}</p>
+                        </div>
+                      </div>
                     </div>
+                    
+                    <Button 
+                      className="bg-blue-600 hover:bg-blue-700 text-white px-8 py-3 rounded-xl font-semibold transition-all duration-300 hover:scale-105 hover:shadow-lg"
+                      onClick={() => window.open('https://wa.me/919247041999?text=Hi! I want to know about Daikin VRV for ' + industry.title, '_blank')}
+                    >
+                      Get Solution Quote
+                      <ArrowRight className="w-5 h-5 ml-2" />
+                    </Button>
                   </div>
                 </div>
               </div>

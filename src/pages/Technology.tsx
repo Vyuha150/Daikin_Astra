@@ -1,3 +1,4 @@
+import React from 'react';
 import { Cpu, Thermometer, Wind, Smartphone, BarChart3, Settings, Zap } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import Header from '@/components/Header';
@@ -67,29 +68,40 @@ const Technology = () => {
           </div>
 
           {/* Technology Features */}
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-16">
+          <div className="space-y-12 mb-20">
             {technologies.map((tech, index) => (
-              <div key={index} className="card-glass p-8 card-hover">
-                <div className="text-primary mb-6 group-hover:scale-110 transition-transform duration-300">
-                  {tech.icon}
+              <div key={index} className="bg-white rounded-3xl p-8 lg:p-12 shadow-sm border border-gray-100 hover:shadow-xl transition-all duration-500 group">
+                <div className={`grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 items-center ${index % 2 === 1 ? 'lg:grid-flow-col-dense' : ''}`}>
+                  {/* Image Section */}
+                  <div className={`${index % 2 === 1 ? 'lg:col-start-2' : ''}`}>
+                    <div className="bg-gradient-to-br from-blue-50 to-blue-100 rounded-2xl p-12 h-80 flex items-center justify-center group-hover:from-blue-100 group-hover:to-blue-200 transition-all duration-500">
+                      <div className="text-blue-600 group-hover:scale-110 transition-transform duration-500">
+                        {React.cloneElement(tech.icon, { className: "w-32 h-32" })}
+                      </div>
+                    </div>
+                  </div>
+                  
+                  {/* Content Section */}
+                  <div className={`space-y-6 ${index % 2 === 1 ? 'lg:col-start-1 lg:row-start-1' : ''}`}>
+                    <div>
+                      <h3 className="text-3xl font-heading font-bold text-gray-900 mb-4">
+                        {tech.title}
+                      </h3>
+                      <p className="text-lg text-gray-600 leading-relaxed">
+                        {tech.description}
+                      </p>
+                    </div>
+                    
+                    <ul className="space-y-4">
+                      {tech.features.map((feature, idx) => (
+                        <li key={idx} className="flex items-center text-gray-700">
+                          <div className="w-3 h-3 bg-blue-600 rounded-full mr-4 flex-shrink-0"></div>
+                          <span className="font-medium text-lg">{feature}</span>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
                 </div>
-                
-                <h3 className="text-xl font-heading font-bold text-foreground mb-4">
-                  {tech.title}
-                </h3>
-                
-                <p className="text-muted-foreground mb-6">
-                  {tech.description}
-                </p>
-                
-                <ul className="space-y-3">
-                  {tech.features.map((feature, idx) => (
-                    <li key={idx} className="flex items-center text-sm text-muted-foreground">
-                      <div className="w-2 h-2 bg-primary rounded-full mr-3"></div>
-                      {feature}
-                    </li>
-                  ))}
-                </ul>
               </div>
             ))}
           </div>
