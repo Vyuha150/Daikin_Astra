@@ -84,12 +84,7 @@ const HeroSection = () => {
           {/* Main Headline - Enhanced */}
           <div className="animate-slide-up opacity-0 [animation-delay:0.7s] [animation-fill-mode:forwards] mb-16">
             <div className="max-w-4xl mx-auto">
-              <h2 className="text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-heading font-bold text-white mb-6 leading-tight">
-                Buy Daikin ACs and get
-                <span className="block bg-gradient-to-r from-cyan-300 to-blue-300 bg-clip-text text-transparent font-black">
-                  Professional Installation
-                </span>
-              </h2>
+              <div className="mb-6"></div>
               <div className="inline-flex items-center gap-2 px-8 py-4 bg-white/5 backdrop-blur-xl rounded-2xl border border-white/10">
                 <div className="w-3 h-3 bg-green-400 rounded-full animate-pulse"></div>
                 <p className="text-xl md:text-2xl text-white/90 font-medium">
