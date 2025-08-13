@@ -14,15 +14,18 @@ const LoadingScreen = () => {
   if (!isVisible) return null;
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center bg-background">
-      <div className="flex flex-col items-center space-y-6">
-        {/* Rotating Fan Animation */}
+    <div className="fixed inset-0 z-50 flex items-center justify-center bg-gradient-to-br from-background via-primary/5 to-background">
+      <div className="flex flex-col items-center space-y-8">
+        {/* Enhanced Fan Animation */}
         <div className="relative">
-          {/* Outer Ring */}
-          <div className="w-32 h-32 rounded-full border-4 border-primary/20 animate-spin">
+          {/* Outer Glow Ring */}
+          <div className="absolute inset-0 w-40 h-40 rounded-full bg-gradient-to-r from-primary via-primary-light to-primary opacity-20 blur-2xl animate-pulse"></div>
+          
+          {/* Main Fan Container */}
+          <div className="relative w-32 h-32 rounded-full border-4 border-primary/30 bg-gradient-to-br from-primary/10 to-primary-light/10 backdrop-blur-sm animate-spin shadow-card">
             {/* Fan Blades */}
-            <div className="absolute inset-2 rounded-full bg-gradient-to-r from-primary to-blue-400 animate-spin">
-              {/* Fan Blade Pattern */}
+            <div className="absolute inset-2 rounded-full bg-gradient-primary animate-spin" style={{ animationDirection: 'reverse', animationDuration: '1.5s' }}>
+              {/* Enhanced Fan Blade Pattern */}
               <div className="absolute inset-0 rounded-full overflow-hidden">
                 {[...Array(8)].map((_, i) => (
                   <div
@@ -32,20 +35,21 @@ const LoadingScreen = () => {
                       transform: `rotate(${i * 45}deg)`,
                     }}
                   >
-                    <div className="absolute top-0 left-1/2 w-1 h-8 bg-white/80 transform -translate-x-1/2 rounded-full origin-bottom" />
+                    <div className="absolute top-0 left-1/2 w-2 h-10 bg-gradient-to-b from-primary-foreground to-primary-foreground/60 transform -translate-x-1/2 rounded-full origin-bottom shadow-lg" />
                   </div>
                 ))}
               </div>
               
-              {/* Center Hub */}
-              <div className="absolute top-1/2 left-1/2 w-6 h-6 bg-white rounded-full transform -translate-x-1/2 -translate-y-1/2 shadow-lg">
-                <div className="absolute top-1/2 left-1/2 w-2 h-2 bg-primary rounded-full transform -translate-x-1/2 -translate-y-1/2" />
+              {/* Enhanced Center Hub */}
+              <div className="absolute top-1/2 left-1/2 w-8 h-8 bg-primary-foreground rounded-full transform -translate-x-1/2 -translate-y-1/2 shadow-cta border-2 border-primary/20">
+                <div className="absolute top-1/2 left-1/2 w-3 h-3 bg-primary rounded-full transform -translate-x-1/2 -translate-y-1/2 animate-pulse" />
               </div>
             </div>
           </div>
           
-          {/* Glow Effect */}
-          <div className="absolute inset-0 w-32 h-32 rounded-full bg-primary/20 blur-xl animate-pulse" />
+          {/* Enhanced Glow Effect */}
+          <div className="absolute inset-0 w-32 h-32 rounded-full bg-primary/30 blur-xl animate-pulse" />
+          <div className="absolute inset-2 w-28 h-28 rounded-full bg-primary-light/20 blur-lg animate-pulse delay-500" />
         </div>
 
         {/* Loading Text */}
@@ -58,9 +62,9 @@ const LoadingScreen = () => {
           </p>
         </div>
 
-        {/* Progress Bar */}
-        <div className="w-48 h-1 bg-border rounded-full overflow-hidden">
-          <div className="h-full bg-gradient-to-r from-primary to-blue-400 rounded-full animate-[loading-progress_2s_ease-out_forwards]" />
+        {/* Enhanced Progress Bar */}
+        <div className="w-64 h-2 bg-primary/20 rounded-full overflow-hidden shadow-inner">
+          <div className="h-full bg-gradient-primary rounded-full animate-[loading-progress_2s_ease-out_forwards] shadow-cta" />
         </div>
       </div>
     </div>

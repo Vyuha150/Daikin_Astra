@@ -14,10 +14,12 @@ const Footer = () => {
   };
 
   return (
-    <footer className="bg-gradient-to-br from-primary to-primary-dark text-white relative overflow-hidden">
-      {/* Background Pattern */}
-      <div className="absolute inset-0 opacity-5">
-        <div className="absolute top-0 left-0 w-full h-full bg-white bg-opacity-5"></div>
+    <footer className="bg-gradient-primary text-primary-foreground relative overflow-hidden">
+      {/* Animated Background Effects */}
+      <div className="absolute inset-0">
+        <div className="absolute top-0 left-0 w-full h-full bg-gradient-to-br from-primary-light/10 via-transparent to-primary-dark/10"></div>
+        <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-primary-light/5 rounded-full blur-3xl animate-pulse"></div>
+        <div className="absolute bottom-1/3 right-1/4 w-80 h-80 bg-primary/5 rounded-full blur-3xl animate-pulse delay-1000"></div>
       </div>
 
       <div className="container mx-auto px-4 lg:px-6 relative z-10">
@@ -27,19 +29,26 @@ const Footer = () => {
           
           {/* Company Info */}
           <div className="lg:col-span-2">
-            <div className="flex items-center space-x-3 mb-6">
-              <div className="w-12 h-12 bg-white/20 rounded-lg flex items-center justify-center">
-                <span className="text-white font-bold text-xl">A</span>
+            <div className="flex items-center space-x-4 mb-6">
+              <div className="relative group">
+                <div className="absolute -inset-1 bg-gradient-to-r from-primary-light to-primary rounded-full blur opacity-60 group-hover:opacity-100 transition-opacity duration-300"></div>
+                <div className="relative w-14 h-14 bg-primary-foreground/10 backdrop-blur-md rounded-full flex items-center justify-center border border-primary-foreground/20">
+                  <img 
+                    src="/lovable-uploads/9c6faec1-96e9-47a6-91de-e115fad62206.png" 
+                    alt="ASTRA Star Logo" 
+                    className="w-8 h-8 object-contain filter brightness-0 invert"
+                  />
+                </div>
               </div>
               <div>
-                <h3 className="text-xl font-heading font-bold">
+                <h3 className="text-xl font-heading font-bold text-primary-foreground">
                   ASTRA AIR CONDITIONING
                 </h3>
-                <p className="text-blue-100 text-sm">& ENGINEERING WORKS</p>
+                <p className="text-primary-foreground/80 text-sm">& ENGINEERING WORKS</p>
               </div>
             </div>
             
-            <p className="text-blue-100 mb-6 leading-relaxed">
+            <p className="text-primary-foreground/80 mb-6 leading-relaxed">
               Your trusted Daikin authorized dealer in Vijayawada with 15+ years of experience. 
               We provide complete HVAC solutions from residential split ACs to commercial VRV systems 
               with professional installation and 24/7 support.
