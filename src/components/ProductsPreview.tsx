@@ -64,18 +64,21 @@ const ProductsPreview = () => {
         {/* Product Categories Grid */}
         <div className="space-y-8 mb-16">
           {productCategories.map((category, index) => (
-            <div key={index} className="bg-white rounded-3xl p-8 lg:p-10 shadow-sm border border-gray-100 hover:shadow-xl transition-all duration-500 group relative">
+            <div key={index} className="card-product group relative overflow-hidden bg-gradient-to-br from-card via-card to-background border border-primary/10 hover:border-primary/30">
               {category.popular && (
-                <div className="absolute -top-4 -right-4 bg-gradient-to-r from-orange-500 to-red-500 text-white px-4 py-2 rounded-full text-sm font-bold shadow-lg animate-pulse">
-                  Popular
+                <div className="absolute -top-3 -right-3 bg-gradient-to-r from-offer to-offer/80 text-offer-foreground px-4 py-2 rounded-full text-sm font-bold shadow-lg animate-pulse">
+                  <span className="relative z-10">Popular</span>
                 </div>
               )}
               
-              <div className={`grid grid-cols-1 lg:grid-cols-3 gap-8 items-center ${index % 2 === 1 ? 'lg:grid-flow-col-dense' : ''}`}>
+              {/* Animated background glow */}
+              <div className="absolute inset-0 bg-gradient-to-r from-primary/5 via-transparent to-primary/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+              
+              <div className={`grid grid-cols-1 lg:grid-cols-3 gap-8 items-center relative z-10 ${index % 2 === 1 ? 'lg:grid-flow-col-dense' : ''}`}>
                 {/* Image Section */}
                 <div className={`${index % 2 === 1 ? 'lg:col-start-3' : ''}`}>
-                  <div className="bg-gradient-to-br from-blue-50 to-blue-100 rounded-2xl p-8 h-48 flex items-center justify-center group-hover:from-blue-100 group-hover:to-blue-200 transition-all duration-500">
-                    <div className="text-blue-600 group-hover:scale-110 transition-transform duration-500">
+                  <div className="professional-image-container h-48 group-hover:bg-gradient-to-br group-hover:from-primary/10 group-hover:to-primary-light/10">
+                    <div className="text-primary group-hover:scale-110 group-hover:text-primary-light transition-all duration-500">
                       {React.cloneElement(category.icon, { className: "w-20 h-20" })}
                     </div>
                   </div>
@@ -107,11 +110,12 @@ const ProductsPreview = () => {
                     
                     <div className="flex items-end">
                       <Button 
-                        className="bg-blue-600 hover:bg-blue-700 text-white px-8 py-3 rounded-xl font-semibold transition-all duration-300 hover:scale-105 hover:shadow-lg"
+                        className="btn-professional group relative overflow-hidden"
                         onClick={() => window.location.href = '/products'}
                       >
-                        View Details
-                        <ArrowRight className="w-5 h-5 ml-2" />
+                        <span className="relative z-10">View Details</span>
+                        <ArrowRight className="w-5 h-5 ml-2 relative z-10 group-hover:translate-x-1 transition-transform duration-300" />
+                        <div className="absolute inset-0 bg-gradient-to-r from-primary/0 via-primary-light/20 to-primary/0 translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-700"></div>
                       </Button>
                     </div>
                   </div>
@@ -122,7 +126,7 @@ const ProductsPreview = () => {
         </div>
 
         {/* Featured Models */}
-        <div className="bg-gradient-to-r from-primary/5 to-accent/5 rounded-2xl p-8 lg:p-12 mb-12">
+        <div className="bg-gradient-primary/10 backdrop-blur-sm rounded-3xl p-8 lg:p-12 mb-12 border border-primary/20 shadow-card">
           <div className="text-center mb-8">
             <h3 className="text-2xl lg:text-3xl font-heading font-bold text-foreground mb-4">
               Popular Daikin Models

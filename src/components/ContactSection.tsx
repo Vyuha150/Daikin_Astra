@@ -112,12 +112,14 @@ Requirement: ${formData.requirement}`;
                   content: "Mon - Sat: 9:00 AM - 7:00 PM\nSunday: 10:00 AM - 5:00 PM"
                 }
               ].map((contact, index) => (
-                <div key={index} className="bg-white rounded-2xl p-6 shadow-sm border border-gray-100 hover:shadow-lg transition-all duration-300 group">
-                  <div className="grid grid-cols-1 lg:grid-cols-4 gap-4 items-center">
+                <div key={index} className="professional-card p-6 group relative overflow-hidden">
+                  <div className="absolute inset-0 bg-gradient-to-r from-primary/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                  
+                  <div className="grid grid-cols-1 lg:grid-cols-4 gap-4 items-center relative z-10">
                     {/* Icon Section */}
                     <div className="lg:col-span-1">
-                      <div className="bg-gradient-to-br from-blue-50 to-blue-100 rounded-xl p-4 h-16 flex items-center justify-center group-hover:from-blue-100 group-hover:to-blue-200 transition-all duration-300">
-                        <div className="group-hover:scale-110 transition-transform duration-300">
+                      <div className="professional-image-container h-16 group-hover:bg-gradient-to-br group-hover:from-primary/10 group-hover:to-primary-light/10">
+                        <div className="text-primary group-hover:scale-110 group-hover:text-primary-light transition-all duration-300">
                           {contact.icon}
                         </div>
                       </div>
@@ -168,15 +170,15 @@ Requirement: ${formData.requirement}`;
             </div>
 
             {/* Service Areas */}
-            <div className="bg-white/60 backdrop-blur-sm rounded-xl p-6">
-              <h4 className="font-semibold text-foreground mb-3">Service Areas</h4>
-              <div className="grid grid-cols-2 gap-2 text-sm text-muted-foreground">
-                <span>• Vijayawada</span>
-                <span>• Guntur</span>
-                <span>• Machilipatnam</span>
-                <span>• Tenali</span>
-                <span>• Mangalagiri</span>
-                <span>• Amaravati</span>
+            <div className="professional-card p-6 bg-gradient-to-br from-primary/5 to-primary-light/5">
+              <h4 className="font-semibold text-foreground mb-4 text-lg">Service Areas</h4>
+              <div className="grid grid-cols-2 gap-3">
+                {['Vijayawada', 'Guntur', 'Machilipatnam', 'Tenali', 'Mangalagiri', 'Amaravati'].map((area, index) => (
+                  <div key={index} className="flex items-center text-sm text-foreground/80 hover:text-primary transition-colors">
+                    <div className="w-2 h-2 bg-primary rounded-full mr-3 animate-pulse"></div>
+                    <span>{area}</span>
+                  </div>
+                ))}
               </div>
             </div>
           </div>
