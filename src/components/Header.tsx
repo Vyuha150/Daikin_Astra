@@ -44,12 +44,12 @@ const Header = () => {
           {/* Logo & Business Name */}
           <div className="flex items-center space-x-4">
             <div className="relative group">
-              <div className="absolute -inset-1 bg-gradient-to-r from-primary via-blue-500 to-cyan-400 rounded-2xl blur opacity-75 group-hover:opacity-100 transition duration-300"></div>
-              <div className="relative w-14 h-14 rounded-2xl flex items-center justify-center overflow-hidden">
+              <div className="absolute -inset-2 bg-gradient-to-r from-cyan-400 via-blue-500 to-primary rounded-full blur-sm opacity-60 group-hover:opacity-90 transition-all duration-500 animate-pulse"></div>
+              <div className="relative w-16 h-16 rounded-full flex items-center justify-center overflow-hidden bg-gradient-to-br from-background/20 to-background/5 backdrop-blur-md border border-white/10">
                 <img 
-                  src="/lovable-uploads/454d2d3b-588b-40d4-b58c-9c348bb411f8.png" 
-                  alt="ASTRA Logo" 
-                  className="w-12 h-12 object-contain filter drop-shadow-lg"
+                  src="/lovable-uploads/9c6faec1-96e9-47a6-91de-e115fad62206.png" 
+                  alt="ASTRA Star Logo" 
+                  className="w-12 h-12 object-contain filter drop-shadow-2xl"
                 />
               </div>
             </div>
