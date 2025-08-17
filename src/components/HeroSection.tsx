@@ -49,7 +49,7 @@ const HeroSection = () => {
           <div className="grid lg:grid-cols-12 gap-8 lg:gap-12 items-start min-h-[80vh]">
             
             {/* Left: Text Content - Takes 7 columns on large screens */}
-            <div className="lg:col-span-7 text-center lg:text-left lg:pt-8">{/* Pushed up with pt-8 */}
+            <div className="lg:col-span-7 text-center lg:text-left lg:pt-8 lg:pr-8 lg:max-w-none max-w-sm mx-auto lg:mx-0">{/* Added proper spacing and width constraints */}
               {/* Badge */}
               <div className="animate-fade-in opacity-0 [animation-delay:0.1s] [animation-fill-mode:forwards] mb-8">
                 <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-accent/20 bg-accent/10">
@@ -61,10 +61,10 @@ const HeroSection = () => {
               {/* Main Headline - Single Line for ASTRA AIR CONDITIONING */}
               <div className="animate-fade-in opacity-0 [animation-delay:0.2s] [animation-fill-mode:forwards] mb-6">
                 <h1 className="font-heading text-foreground mb-4">
-                  <span className="block text-3xl md:text-4xl lg:text-5xl xl:text-6xl whitespace-nowrap mb-2">
+                  <span className="block text-2xl sm:text-3xl md:text-4xl lg:text-4xl xl:text-5xl leading-tight mb-2">
                     ASTRA AIR CONDITIONING
                   </span>
-                  <span className="block text-xl md:text-2xl lg:text-3xl xl:text-4xl text-text-muted font-body font-medium">
+                  <span className="block text-lg sm:text-xl md:text-2xl lg:text-2xl xl:text-3xl text-text-muted font-body font-medium">
                     & ENGINEERING WORKS
                   </span>
                 </h1>
