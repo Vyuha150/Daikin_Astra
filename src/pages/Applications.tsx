@@ -113,7 +113,7 @@ const Applications = () => {
           {/* Industries Grid */}
           <div className="space-y-12 mb-20">
             {industries.map((industry, index) => (
-              <div key={index} className="bg-white rounded-3xl p-8 lg:p-12 shadow-sm border border-gray-100 hover:shadow-xl transition-all duration-500 group">
+              <div key={index} className="bg-white/10 backdrop-blur-sm rounded-3xl p-8 lg:p-12 shadow-sm border border-white/20 hover:shadow-xl transition-all duration-500 group">
                 <div className={`grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 items-center ${index % 2 === 1 ? 'lg:grid-flow-col-dense' : ''}`}>
                   {/* Image Section */}
                   <div className={`${index % 2 === 1 ? 'lg:col-start-2' : ''}`}>
@@ -127,21 +127,21 @@ const Applications = () => {
                   {/* Content Section */}
                   <div className={`space-y-6 ${index % 2 === 1 ? 'lg:col-start-1 lg:row-start-1' : ''}`}>
                     <div>
-                      <h2 className="text-3xl font-heading font-bold text-gray-900 mb-4">
+                      <h2 className="text-3xl font-heading font-bold text-white mb-4">
                         {industry.title}
                       </h2>
-                      <p className="text-lg text-gray-600 leading-relaxed mb-6">
+                      <p className="text-lg text-white/90 leading-relaxed mb-6">
                         {industry.description}
                       </p>
                     </div>
                     
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                       <div>
-                        <h3 className="font-semibold text-gray-800 mb-3">Key Features:</h3>
+                        <h3 className="font-semibold text-yellow-300 mb-3 bg-yellow-500/20 px-3 py-1 rounded-lg inline-block">Key Features:</h3>
                         <ul className="space-y-2">
                           {industry.features.map((feature, idx) => (
-                            <li key={idx} className="flex items-center text-gray-600">
-                              <div className="w-2 h-2 bg-blue-600 rounded-full mr-3 flex-shrink-0"></div>
+                            <li key={idx} className="flex items-center text-white">
+                              <div className="w-2 h-2 bg-green-400 rounded-full mr-3 flex-shrink-0"></div>
                               <span className="font-medium">{feature}</span>
                             </li>
                           ))}
@@ -149,18 +149,18 @@ const Applications = () => {
                       </div>
                       
                       <div>
-                        <h3 className="font-semibold text-gray-800 mb-3">Applications:</h3>
+                        <h3 className="font-semibold text-blue-300 mb-3 bg-blue-500/20 px-3 py-1 rounded-lg inline-block">Applications:</h3>
                         <div className="flex flex-wrap gap-2 mb-4">
                           {industry.applications.map((app, idx) => (
-                            <span key={idx} className="bg-blue-50 text-blue-700 px-3 py-1 rounded-full text-xs font-medium">
+                            <span key={idx} className="bg-purple-500/30 text-purple-200 px-3 py-1 rounded-full text-xs font-medium border border-purple-400/30">
                               {app}
                             </span>
                           ))}
                         </div>
                         
-                        <div className="bg-gray-50 rounded-lg p-4">
-                          <h4 className="font-medium text-gray-800 mb-2 text-sm">Case Study:</h4>
-                          <p className="text-xs text-gray-600">{industry.caseStudy}</p>
+                        <div className="bg-gradient-to-r from-orange-500/20 to-red-500/20 rounded-lg p-4 border border-orange-400/30">
+                          <h4 className="font-medium text-orange-300 mb-2 text-sm">💡 Case Study:</h4>
+                          <p className="text-xs text-white/80">{industry.caseStudy}</p>
                         </div>
                       </div>
                     </div>
