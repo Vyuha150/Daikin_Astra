@@ -36,49 +36,49 @@ const Contact = () => {
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
             {/* Contact Information */}
             <div className="space-y-8">
-              <div className="card-glass p-6">
-                <h3 className="text-xl font-heading font-bold text-foreground mb-6">
+              <div className="bg-white/10 backdrop-blur-sm border border-white/20 rounded-xl p-6">
+                <h3 className="text-xl font-heading font-bold text-white mb-6">
                   Contact Information
                 </h3>
                 
                 <div className="space-y-4">
                   <div className="flex items-center space-x-4">
-                    <div className="bg-primary/10 rounded-full p-3">
-                      <Phone className="w-5 h-5 text-primary" />
+                    <div className="bg-blue-500/20 rounded-full p-3">
+                      <Phone className="w-5 h-5 text-blue-300" />
                     </div>
                     <div>
-                      <p className="font-medium text-foreground">Phone</p>
-                      <p className="text-muted-foreground">+91 9247041999</p>
+                      <p className="font-medium text-white">Phone</p>
+                      <p className="text-blue-200">+91 9247041999</p>
                     </div>
                   </div>
                   
                   <div className="flex items-center space-x-4">
-                    <div className="bg-primary/10 rounded-full p-3">
-                      <Mail className="w-5 h-5 text-primary" />
+                    <div className="bg-green-500/20 rounded-full p-3">
+                      <Mail className="w-5 h-5 text-green-300" />
                     </div>
                     <div>
-                      <p className="font-medium text-foreground">Email</p>
-                      <p className="text-muted-foreground">info@astraac.com</p>
+                      <p className="font-medium text-white">Email</p>
+                      <p className="text-green-200">info@astraac.com</p>
                     </div>
                   </div>
                   
                   <div className="flex items-center space-x-4">
-                    <div className="bg-primary/10 rounded-full p-3">
-                      <MapPin className="w-5 h-5 text-primary" />
+                    <div className="bg-purple-500/20 rounded-full p-3">
+                      <MapPin className="w-5 h-5 text-purple-300" />
                     </div>
                     <div>
-                      <p className="font-medium text-foreground">Address</p>
-                      <p className="text-muted-foreground">Guntur, Andhra Pradesh</p>
+                      <p className="font-medium text-white">Address</p>
+                      <p className="text-purple-200">Guntur, Andhra Pradesh</p>
                     </div>
                   </div>
                   
                   <div className="flex items-center space-x-4">
-                    <div className="bg-primary/10 rounded-full p-3">
-                      <Clock className="w-5 h-5 text-primary" />
+                    <div className="bg-orange-500/20 rounded-full p-3">
+                      <Clock className="w-5 h-5 text-orange-300" />
                     </div>
                     <div>
-                      <p className="font-medium text-foreground">Business Hours</p>
-                      <p className="text-muted-foreground">Mon - Sat: 9:00 AM - 6:00 PM</p>
+                      <p className="font-medium text-white">Business Hours</p>
+                      <p className="text-orange-200">Mon - Sat: 9:00 AM - 6:00 PM</p>
                     </div>
                   </div>
                 </div>
@@ -105,55 +105,56 @@ const Contact = () => {
             </div>
 
             {/* Contact Form */}
-            <div className="card-glass p-8">
-              <h3 className="text-xl font-heading font-bold text-foreground mb-6">
+            <div className="bg-white/10 backdrop-blur-sm border border-white/20 rounded-xl p-8">
+              <h3 className="text-xl font-heading font-bold text-white mb-6">
                 Send us a Message
               </h3>
               
               <form className="space-y-4">
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   <div>
-                    <label className="block text-sm font-medium text-foreground mb-2">
+                    <label className="block text-sm font-medium text-white mb-2">
                       First Name
                     </label>
-                    <Input placeholder="Your first name" />
+                    <Input placeholder="Your first name" className="bg-white/10 border-white/20 text-white placeholder:text-white/60 focus:border-white/40" />
                   </div>
                   <div>
-                    <label className="block text-sm font-medium text-foreground mb-2">
+                    <label className="block text-sm font-medium text-white mb-2">
                       Last Name
                     </label>
-                    <Input placeholder="Your last name" />
+                    <Input placeholder="Your last name" className="bg-white/10 border-white/20 text-white placeholder:text-white/60 focus:border-white/40" />
                   </div>
                 </div>
                 
                 <div>
-                  <label className="block text-sm font-medium text-foreground mb-2">
+                  <label className="block text-sm font-medium text-white mb-2">
                     Phone Number
                   </label>
-                  <Input placeholder="Your phone number" type="tel" />
+                  <Input placeholder="Your phone number" type="tel" className="bg-white/10 border-white/20 text-white placeholder:text-white/60 focus:border-white/40" />
                 </div>
                 
                 <div>
-                  <label className="block text-sm font-medium text-foreground mb-2">
+                  <label className="block text-sm font-medium text-white mb-2">
                     Email Address
                   </label>
-                  <Input placeholder="Your email address" type="email" />
+                  <Input placeholder="Your email address" type="email" className="bg-white/10 border-white/20 text-white placeholder:text-white/60 focus:border-white/40" />
                 </div>
                 
                 <div>
-                  <label className="block text-sm font-medium text-foreground mb-2">
+                  <label className="block text-sm font-medium text-white mb-2">
                     AC Type Interested In
                   </label>
-                  <Input placeholder="e.g., Split AC, Cassette AC, VRV System" />
+                  <Input placeholder="e.g., Split AC, Cassette AC, VRV System" className="bg-white/10 border-white/20 text-white placeholder:text-white/60 focus:border-white/40" />
                 </div>
                 
                 <div>
-                  <label className="block text-sm font-medium text-foreground mb-2">
+                  <label className="block text-sm font-medium text-white mb-2">
                     Message
                   </label>
                   <Textarea 
                     placeholder="Tell us about your requirements..."
                     rows={4}
+                    className="bg-white/10 border-white/20 text-white placeholder:text-white/60 focus:border-white/40"
                   />
                 </div>
                 
