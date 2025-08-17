@@ -309,25 +309,25 @@ const Products = () => {
               </div>
 
               {/* Application Chart */}
-              <div className="bg-white rounded-xl p-6 shadow-card">
-                <h3 className="text-xl font-heading font-bold text-foreground mb-6">
+              <div className="bg-white/10 backdrop-blur-sm rounded-xl p-6 shadow-card border border-white/20">
+                <h3 className="text-xl font-heading font-bold text-white mb-6">
                   Application Guide
                 </h3>
                 <div className="overflow-x-auto">
                   <table className="w-full">
                     <thead>
-                      <tr className="border-b border-border">
-                        <th className="text-left py-3 text-foreground font-semibold">Capacity Range</th>
-                        <th className="text-left py-3 text-foreground font-semibold">Application</th>
-                        <th className="text-left py-3 text-foreground font-semibold">Suitable Buildings</th>
+                      <tr className="border-b border-white/30">
+                        <th className="text-left py-3 text-white font-semibold bg-blue-500/20 px-4 rounded-lg">Capacity Range</th>
+                        <th className="text-left py-3 text-white font-semibold bg-green-500/20 px-4 rounded-lg">Application</th>
+                        <th className="text-left py-3 text-white font-semibold bg-purple-500/20 px-4 rounded-lg">Suitable Buildings</th>
                       </tr>
                     </thead>
                     <tbody>
                       {applicationChart.map((row, index) => (
-                        <tr key={index} className="border-b border-border">
-                          <td className="py-3 text-primary font-medium">{row.capacity}</td>
-                          <td className="py-3 text-foreground">{row.application}</td>
-                          <td className="py-3 text-muted-foreground">{row.building}</td>
+                        <tr key={index} className="border-b border-white/20 hover:bg-white/5 transition-colors">
+                          <td className="py-3 text-blue-300 font-bold text-lg">{row.capacity}</td>
+                          <td className="py-3 text-green-300 font-semibold">{row.application}</td>
+                          <td className="py-3 text-purple-200">{row.building}</td>
                         </tr>
                       ))}
                     </tbody>
