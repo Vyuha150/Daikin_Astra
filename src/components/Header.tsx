@@ -33,50 +33,41 @@ const Header = () => {
   ];
 
   return (
-    <header className={`fixed top-0 left-0 right-0 z-50 transition-all duration-700 ${
+    <header className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
       isScrolled 
-        ? 'bg-background/80 backdrop-blur-xl shadow-2xl border-b border-border/20' 
-        : 'bg-gradient-to-b from-black/30 via-black/10 to-transparent backdrop-blur-sm'
-    }`}>
+        ? 'backdrop-blur-md shadow-sm border-b' 
+        : ''
+    }`}
+    style={{
+      backgroundColor: isScrolled ? 'rgba(15, 23, 42, 0.55)' : 'hsl(var(--surface))',
+      borderBottomColor: isScrolled ? 'rgba(255, 255, 255, 0.08)' : 'transparent'
+    }}>
       <div className="container mx-auto px-6 lg:px-8">
-        <div className="flex items-center justify-between h-20">
+        <div className="flex items-center justify-between h-16">
           
-          {/* Logo & Business Name */}
-          <div className="flex items-center space-x-4">
+          {/* Logo Only */}
+          <div className="flex items-center">
             <div className="relative group">
-              <div className="absolute -inset-2 bg-gradient-to-r from-cyan-400 via-blue-500 to-primary rounded-full blur-sm opacity-60 group-hover:opacity-90 transition-all duration-500 animate-pulse"></div>
-              <div className="relative w-16 h-16 rounded-full flex items-center justify-center overflow-hidden bg-gradient-to-br from-background/20 to-background/5 backdrop-blur-md border border-white/10">
+              <div className="relative w-8 h-8 rounded-lg flex items-center justify-center overflow-hidden">
                 <img 
                   src="/lovable-uploads/9c6faec1-96e9-47a6-91de-e115fad62206.png" 
                   alt="ASTRA Star Logo" 
-                  className="w-12 h-12 object-contain filter drop-shadow-2xl"
+                  className="w-full h-full object-contain"
                 />
               </div>
-            </div>
-            <div className="hidden md:block">
-              <h1 className={`text-lg font-heading font-bold leading-tight transition-all duration-300 ${
-                isScrolled ? 'text-foreground' : 'text-white drop-shadow-lg'
-              }`}>
-                ASTRA AIR CONDITIONING
-              </h1>
-              <p className={`text-sm font-medium transition-all duration-300 ${
-                isScrolled ? 'text-muted-foreground' : 'text-white/90 drop-shadow-md'
-              }`}>
-                & ENGINEERING WORKS
-              </p>
             </div>
           </div>
 
           {/* Navigation - Desktop */}
-          <nav className="hidden lg:flex items-center space-x-1">
+          <nav className="hidden lg:flex items-center gap-5">
             {navItems.map((item) => (
               item.isRoute ? (
                 <a
                   key={item.label}
                   href={item.href}
-                  className={`px-4 py-2 font-medium transition-all duration-300 hover:text-primary relative rounded-lg hover:bg-white/10 backdrop-blur-sm ${
-                    isScrolled ? 'text-foreground' : 'text-white/90'
-                  } after:content-[''] after:absolute after:w-0 after:h-0.5 after:bottom-1 after:left-1/2 after:bg-primary after:transition-all after:duration-300 hover:after:w-8 hover:after:left-1/2 hover:after:-translate-x-1/2`}
+                  className={`px-3 py-2 font-body font-medium transition-all duration-300 relative ${
+                    isScrolled ? 'text-foreground hover:text-accent' : 'text-white/90 hover:text-accent-light'
+                  } after:content-[''] after:absolute after:w-0 after:h-0.5 after:bottom-0 after:left-1/2 after:bg-accent after:transition-all after:duration-300 hover:after:w-full hover:after:left-0`}
                 >
                   {item.label}
                 </a>
@@ -84,9 +75,9 @@ const Header = () => {
                 <button
                   key={item.label}
                   onClick={() => scrollToSection(item.href)}
-                  className={`px-4 py-2 font-medium transition-all duration-300 hover:text-primary relative rounded-lg hover:bg-white/10 backdrop-blur-sm ${
-                    isScrolled ? 'text-foreground' : 'text-white/90'
-                  } after:content-[''] after:absolute after:w-0 after:h-0.5 after:bottom-1 after:left-1/2 after:bg-primary after:transition-all after:duration-300 hover:after:w-8 hover:after:left-1/2 hover:after:-translate-x-1/2`}
+                  className={`px-3 py-2 font-body font-medium transition-all duration-300 relative ${
+                    isScrolled ? 'text-foreground hover:text-accent' : 'text-white/90 hover:text-accent-light'
+                  } after:content-[''] after:absolute after:w-0 after:h-0.5 after:bottom-0 after:left-1/2 after:bg-accent after:transition-all after:duration-300 hover:after:w-full hover:after:left-0`}
                 >
                   {item.label}
                 </button>

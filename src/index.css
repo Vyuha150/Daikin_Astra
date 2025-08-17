@@ -1,47 +1,57 @@
-@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800;900&family=Poppins:wght@300;400;500;600;700&family=Open+Sans:wght@300;400;500;600&display=swap');
+@import '@fontsource/playfair-display/400.css';
+@import '@fontsource/playfair-display/600.css';
+@import '@fontsource/inter/400.css';
+@import '@fontsource/inter/500.css';
+@import '@fontsource/inter/600.css';
 
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-/* ASTRA AC Design System - Professional HVAC Theme */
+/* ASTRA AC Design System - Newsroom Professional Theme */
 
 @layer base {
   :root {
-    --background: 0 0% 100%;
-    --foreground: 214 20% 14%;
+    /* Core Colors - Dark Navy Theme */
+    --bg: 210 34% 7%;           /* #0B1220 */
+    --surface: 215 25% 10%;     /* #0F172A */
+    --surface-alt: 220 14% 11%; /* #111827 */
+    
+    --text: 220 13% 91%;        /* #E5E7EB */
+    --text-muted: 215 16% 65%;  /* #94A3B8 */
+    
+    --accent: 199 89% 48%;      /* #0EA5E9 cyan */
+    --accent-light: 187 85% 53%; /* #22D3EE light cyan */
+    
+    --outline: 0 0% 100% / 0.08; /* rgba(255,255,255,0.08) */
 
-    --card: 0 0% 100%;
-    --card-foreground: 214 20% 14%;
+    /* Semantic mappings */
+    --background: var(--bg);
+    --foreground: var(--text);
 
-    --popover: 0 0% 100%;
-    --popover-foreground: 214 20% 14%;
+    --card: var(--surface);
+    --card-foreground: var(--text);
 
-    /* Primary Blue - Enhanced Cyan/Blue Professional */
-    --primary: 190 100% 50%;  /* #00BFFF */
-    --primary-foreground: 0 0% 100%;
-    --primary-light: 180 100% 60%;  /* #00E6FF */
-    --primary-dark: 200 100% 40%;   /* #0099CC */
+    --popover: var(--surface);
+    --popover-foreground: var(--text);
 
-    /* Secondary - Light Blue Accents */
-    --secondary: 211 45% 85%;
-    --secondary-foreground: 211 100% 25%;
+    --primary: var(--accent);
+    --primary-foreground: 210 40% 2%;  /* #001018 */
+    --primary-light: var(--accent-light);
+    --primary-dark: 199 89% 38%;
 
-    /* Muted - Professional Grays */
-    --muted: 214 15% 96%;
-    --muted-foreground: 214 15% 45%;
+    --secondary: var(--surface-alt);
+    --secondary-foreground: var(--text);
 
-    /* Accent - Cool Blue */
-    --accent: 211 45% 92%;
-    --accent-foreground: 211 100% 25%;
+    --muted: var(--surface);
+    --muted-foreground: var(--text-muted);
+
+    --accent-bg: var(--accent);
+    --accent-foreground: var(--primary-foreground);
 
     /* WhatsApp Green */
-    --whatsapp: 142 76% 48%;  /* #25D366 */
+    --whatsapp: 142 76% 48%;
     --whatsapp-foreground: 0 0% 100%;
-
-    /* Offer/Alert Red */
-    --offer: 359 100% 63%;  /* #FF4D4F */
-    --offer-foreground: 0 0% 100%;
 
     /* Success - HVAC Green */
     --success: 142 76% 36%;
@@ -50,11 +60,11 @@
     --destructive: 0 84.2% 60.2%;
     --destructive-foreground: 0 0% 100%;
 
-    --border: 214 15% 88%;
-    --input: 214 15% 94%;
-    --ring: 211 100% 34%;
+    --border: var(--outline);
+    --input: var(--surface-alt);
+    --ring: var(--accent);
 
-    --radius: 0.75rem;
+    --radius: 1rem;
 
     /* Gradients */
     --gradient-primary: linear-gradient(135deg, hsl(190 100% 50%), hsl(180 100% 60%));
@@ -88,41 +98,15 @@
   }
 
   .dark {
-    --background: 222.2 84% 4.9%;
-    --foreground: 210 40% 98%;
-
-    --card: 222.2 84% 4.9%;
-    --card-foreground: 210 40% 98%;
-
-    --popover: 222.2 84% 4.9%;
-    --popover-foreground: 210 40% 98%;
-
-    --primary: 210 40% 98%;
-    --primary-foreground: 222.2 47.4% 11.2%;
-
-    --secondary: 217.2 32.6% 17.5%;
-    --secondary-foreground: 210 40% 98%;
-
-    --muted: 217.2 32.6% 17.5%;
-    --muted-foreground: 215 20.2% 65.1%;
-
-    --accent: 217.2 32.6% 17.5%;
-    --accent-foreground: 210 40% 98%;
-
-    --destructive: 0 62.8% 30.6%;
-    --destructive-foreground: 210 40% 98%;
-
-    --border: 217.2 32.6% 17.5%;
-    --input: 217.2 32.6% 17.5%;
-    --ring: 212.7 26.8% 83.9%;
-    --sidebar-background: 240 5.9% 10%;
-    --sidebar-foreground: 240 4.8% 95.9%;
-    --sidebar-primary: 224.3 76.3% 48%;
-    --sidebar-primary-foreground: 0 0% 100%;
-    --sidebar-accent: 240 3.7% 15.9%;
-    --sidebar-accent-foreground: 240 4.8% 95.9%;
-    --sidebar-border: 240 3.7% 15.9%;
-    --sidebar-ring: 217.2 91.2% 59.8%;
+    /* Dark mode uses same tokens */
+    --bg: 210 34% 7%;
+    --surface: 215 25% 10%;
+    --surface-alt: 220 14% 11%;
+    --text: 220 13% 91%;
+    --text-muted: 215 16% 65%;
+    --accent: 199 89% 48%;
+    --accent-light: 187 85% 53%;
+    --outline: 0 0% 100% / 0.08;
   }
 }
 
@@ -137,21 +121,31 @@
 
   h1, h2, h3, h4, h5, h6 {
     @apply font-heading;
+    letter-spacing: -0.01em;
+    line-height: 1.2;
   }
 }
 
 @layer components {
   /* Typography Classes */
   .font-heading {
-    font-family: 'Montserrat', sans-serif;
+    font-family: 'Playfair Display', serif;
+    font-weight: 600;
   }
 
   .font-body {
-    font-family: 'Open Sans', sans-serif;
+    font-family: 'Inter', sans-serif;
   }
 
   .font-accent {
-    font-family: 'Poppins', sans-serif;
+    font-family: 'Inter', sans-serif;
+  }
+  
+  /* Grid Background Utility */
+  .bg-grid {
+    background-image: 
+      repeating-linear-gradient(0deg, rgba(255,255,255,0.05) 0px, transparent 1px, transparent 40px, rgba(255,255,255,0.05) 41px),
+      repeating-linear-gradient(90deg, rgba(255,255,255,0.05) 0px, transparent 1px, transparent 40px, rgba(255,255,255,0.05) 41px);
   }
 
   /* Button Variants with Enhanced Glow Effects */
