@@ -160,7 +160,7 @@ const ProductsPreview = () => {
                 features: ["Variable Speed", "R-32 Refrigerant", "Quiet Operation"]
               }
             ].map((model, index) => (
-              <div key={index} className="bg-white rounded-2xl p-6 shadow-sm border border-gray-100 hover:shadow-lg transition-all duration-300 group">
+              <div key={index} className="bg-surface/50 backdrop-blur-sm rounded-2xl p-6 shadow-sm border border-outline hover:shadow-lg transition-all duration-300 group">
                 <div className="grid grid-cols-1 lg:grid-cols-4 gap-6 items-center">
                   {/* Image Section */}
                   <div className="lg:col-span-1">
