@@ -247,7 +247,7 @@ const Products = () => {
               {/* Outdoor Units Grid */}
               <div className="space-y-8 mb-16">
                 {outdoorUnits.map((unit, index) => (
-                  <div key={index} className="bg-white rounded-3xl p-8 shadow-sm border border-gray-100 hover:shadow-xl transition-all duration-500 group">
+                  <div key={index} className="bg-white/10 backdrop-blur-sm rounded-3xl p-8 shadow-sm border border-white/20 hover:shadow-xl transition-all duration-500 group">
                     <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
                       {/* Image Section */}
                       <div className="order-2 lg:order-1">
@@ -259,17 +259,17 @@ const Products = () => {
                       {/* Content Section */}
                       <div className="order-1 lg:order-2 space-y-6">
                         <div>
-                          <h3 className="text-2xl font-heading font-bold text-gray-900 mb-3">
+                          <h3 className="text-2xl font-heading font-bold text-white mb-3">
                             {unit.type}
                           </h3>
-                          <p className="text-xl font-semibold text-blue-600 mb-4">{unit.capacity}</p>
-                          <p className="text-gray-600 leading-relaxed">{unit.description}</p>
+                          <p className="text-xl font-semibold text-blue-300 mb-4">{unit.capacity}</p>
+                          <p className="text-white/80 leading-relaxed">{unit.description}</p>
                         </div>
                         
                         <ul className="space-y-3">
                           {unit.features.map((feature, idx) => (
-                            <li key={idx} className="flex items-center text-gray-700">
-                              <CheckCircle className="w-5 h-5 text-green-500 mr-3 flex-shrink-0" />
+                            <li key={idx} className="flex items-center text-white">
+                              <CheckCircle className="w-5 h-5 text-green-400 mr-3 flex-shrink-0" />
                               <span className="font-medium">{feature}</span>
                             </li>
                           ))}
@@ -355,7 +355,7 @@ const Products = () => {
                     </h3>
                     <div className="space-y-6">
                       {category.units.map((unit, unitIndex) => (
-                        <div key={unitIndex} className="bg-white rounded-2xl p-6 shadow-sm border border-gray-100 hover:shadow-lg transition-all duration-300 group">
+                        <div key={unitIndex} className="bg-white/10 backdrop-blur-sm rounded-2xl p-6 shadow-sm border border-white/20 hover:shadow-lg transition-all duration-300 group">
                           <div className="grid grid-cols-1 lg:grid-cols-4 gap-6 items-center">
                             {/* Image Section */}
                             <div className="lg:col-span-1">
@@ -368,12 +368,12 @@ const Products = () => {
                             <div className="lg:col-span-3 space-y-4">
                               <div className="flex flex-col lg:flex-row lg:items-start lg:justify-between gap-4">
                                 <div className="flex-1">
-                                  <h4 className="text-xl font-heading font-bold text-gray-900 mb-2">
+                                  <h4 className="text-xl font-heading font-bold text-white mb-2">
                                     {unit.name}
                                   </h4>
                                   <div className="flex flex-wrap gap-4 text-sm mb-3">
-                                    <span className="font-medium text-blue-600">{unit.model}</span>
-                                    <span className="text-gray-600">Capacity: <span className="font-medium">{unit.capacity}</span></span>
+                                    <span className="font-medium text-blue-300">{unit.model}</span>
+                                    <span className="text-white/80">Capacity: <span className="font-medium text-white">{unit.capacity}</span></span>
                                   </div>
                                 </div>
                                 
@@ -388,11 +388,11 @@ const Products = () => {
                               
                               <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
                                 <div>
-                                  <h5 className="font-semibold text-gray-800 mb-2">Key Features:</h5>
+                                  <h5 className="font-semibold text-white mb-2">Key Features:</h5>
                                   <ul className="space-y-1">
                                     {unit.features.slice(0, 3).map((feature, idx) => (
-                                      <li key={idx} className="flex items-center text-sm text-gray-600">
-                                        <div className="w-1.5 h-1.5 bg-blue-600 rounded-full mr-3"></div>
+                                      <li key={idx} className="flex items-center text-sm text-white/80">
+                                        <div className="w-1.5 h-1.5 bg-blue-400 rounded-full mr-3"></div>
                                         {feature}
                                       </li>
                                     ))}
@@ -400,10 +400,10 @@ const Products = () => {
                                 </div>
                                 
                                 <div>
-                                  <h5 className="font-semibold text-gray-800 mb-2">Applications:</h5>
+                                  <h5 className="font-semibold text-white mb-2">Applications:</h5>
                                   <div className="flex flex-wrap gap-2">
                                     {unit.applications.map((app, idx) => (
-                                      <span key={idx} className="bg-blue-50 text-blue-700 px-3 py-1 rounded-full text-xs font-medium">
+                                      <span key={idx} className="bg-blue-500/20 text-blue-200 px-3 py-1 rounded-full text-xs font-medium">
                                         {app}
                                       </span>
                                     ))}
