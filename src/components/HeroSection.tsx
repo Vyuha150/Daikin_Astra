@@ -45,38 +45,41 @@ const HeroSection = () => {
       </div>
 
       <div className="container mx-auto px-6 lg:px-8 relative z-10 pt-16 pb-16 lg:pt-20 lg:pb-24">
-        <div className="max-w-7xl mx-auto grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
-          
-          {/* Left: Text Content */}
-          <div className="text-left lg:text-left">
-            {/* Badge */}
-            <div className="animate-fade-in opacity-0 [animation-delay:0.1s] [animation-fill-mode:forwards] mb-8">
-              <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-accent/20 bg-accent/10">
-                <div className="w-2 h-2 bg-accent rounded-full animate-pulse"></div>
-                <span className="text-accent-light font-body text-sm font-medium">Authorized Daikin Dealer</span>
-              </div>
-            </div>
+        <div className="max-w-7xl mx-auto">
+          <div className="grid lg:grid-cols-12 gap-8 lg:gap-12 items-center min-h-[80vh]">
             
-            {/* Main Headline */}
-            <div className="animate-fade-in opacity-0 [animation-delay:0.2s] [animation-fill-mode:forwards] mb-6">
-              <h1 className="text-4xl md:text-5xl lg:text-6xl font-heading text-foreground mb-4">
-                <span className="block mb-3">ASTRA AIR CONDITIONING</span>
-                <span className="block text-2xl md:text-3xl lg:text-4xl text-text-muted font-body font-medium">
-                  & ENGINEERING WORKS
-                </span>
-              </h1>
-            </div>
+            {/* Left: Text Content - Takes 7 columns on large screens */}
+            <div className="lg:col-span-7 text-center lg:text-left">
+              {/* Badge */}
+              <div className="animate-fade-in opacity-0 [animation-delay:0.1s] [animation-fill-mode:forwards] mb-8">
+                <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-accent/20 bg-accent/10">
+                  <div className="w-2 h-2 bg-accent rounded-full animate-pulse"></div>
+                  <span className="text-accent-light font-body text-sm font-medium">Authorized Daikin Dealer</span>
+                </div>
+              </div>
+              
+              {/* Main Headline - Single Line for ASTRA AIR CONDITIONING */}
+              <div className="animate-fade-in opacity-0 [animation-delay:0.2s] [animation-fill-mode:forwards] mb-6">
+                <h1 className="font-heading text-foreground mb-4">
+                  <span className="block text-3xl md:text-4xl lg:text-5xl xl:text-6xl whitespace-nowrap mb-2">
+                    ASTRA AIR CONDITIONING
+                  </span>
+                  <span className="block text-xl md:text-2xl lg:text-3xl xl:text-4xl text-text-muted font-body font-medium">
+                    & ENGINEERING WORKS
+                  </span>
+                </h1>
+              </div>
 
             {/* Subtitle */}
             <div className="animate-fade-in opacity-0 [animation-delay:0.3s] [animation-fill-mode:forwards] mb-8">
-              <p className="text-xl md:text-2xl text-text-muted font-body">
+              <p className="text-lg md:text-xl lg:text-2xl text-text-muted font-body leading-relaxed">
                 Professional HVAC Solutions in Vijayawada
               </p>
             </div>
 
             {/* CTAs */}
             <div className="animate-fade-in opacity-0 [animation-delay:0.4s] [animation-fill-mode:forwards] mb-12">
-              <div className="flex flex-col sm:flex-row gap-4">
+              <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
                 <Button 
                   size="lg"
                   className="bg-accent text-primary-foreground hover:bg-accent/90 px-8 py-4 rounded-xl font-body font-semibold text-base transition-all duration-300 hover:scale-105 hover:shadow-lg focus:outline-none focus:ring-2 focus:ring-accent focus:ring-offset-2"
@@ -100,15 +103,15 @@ const HeroSection = () => {
 
             {/* Value Proposition */}
             <div className="animate-fade-in opacity-0 [animation-delay:0.5s] [animation-fill-mode:forwards]">
-              <p className="text-text-muted font-body">
+              <p className="text-text-muted font-body text-center lg:text-left">
                 Professional installation • 3-year warranty • Same-day service in Vijayawada
               </p>
             </div>
           </div>
 
-          {/* Right: Image Carousel */}
-          <div className="animate-fade-in opacity-0 [animation-delay:0.6s] [animation-fill-mode:forwards]">
-            <div className="relative max-w-md mx-auto">
+          {/* Right: Image Carousel - Takes 5 columns on large screens */}
+          <div className="lg:col-span-5 animate-fade-in opacity-0 [animation-delay:0.6s] [animation-fill-mode:forwards]">
+            <div className="relative max-w-lg mx-auto">
               <Carousel 
                 className="relative"
                 opts={{
@@ -119,7 +122,7 @@ const HeroSection = () => {
                 <CarouselContent>
                   {heroImages.map((image, index) => (
                     <CarouselItem key={index}>
-                      <div className="aspect-[3/2] rounded-2xl bg-surface border border-outline overflow-hidden group">
+                      <div className="aspect-[4/3] rounded-2xl bg-surface border border-outline overflow-hidden group">
                         <img 
                           src={image.src}
                           alt={image.alt}
@@ -153,6 +156,7 @@ const HeroSection = () => {
             </div>
           </div>
         </div>
+      </div>
 
         
         {/* Scroll Indicator */}
