@@ -1,8 +1,28 @@
-import { Phone, MessageCircle, FileText, ArrowDown, Sparkles } from 'lucide-react';
+import { Phone, MessageCircle, FileText, ArrowDown, ChevronLeft, ChevronRight } from 'lucide-react';
 import { Button } from '@/components/ui/button';
+import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from '@/components/ui/carousel';
+import { useEffect, useState } from 'react';
 import heroImage from '@/assets/hero-bg.jpg';
 
 const HeroSection = () => {
+  const [currentImageIndex, setCurrentImageIndex] = useState(0);
+  
+  // Sample images for the carousel (using the same image for demo)
+  const heroImages = [
+    { src: heroImage, alt: "ASTRA Air Conditioning Installation" },
+    { src: heroImage, alt: "Professional HVAC Services" },
+    { src: heroImage, alt: "Air Conditioning Maintenance" },
+    { src: heroImage, alt: "Commercial AC Solutions" }
+  ];
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCurrentImageIndex((prev) => (prev + 1) % heroImages.length);
+    }, 4000);
+
+    return () => clearInterval(interval);
+  }, [heroImages.length]);
+
   const scrollToSection = (sectionId: string) => {
     const element = document.getElementById(sectionId);
     if (element) {
@@ -24,7 +44,7 @@ const HeroSection = () => {
         <div className="absolute bottom-20 right-20 w-80 h-80 bg-accent-light/8 rounded-full blur-3xl"></div>
       </div>
 
-      <div className="container mx-auto px-6 lg:px-8 relative z-10 pt-24 pb-16 lg:pt-32 lg:pb-24">
+      <div className="container mx-auto px-6 lg:px-8 relative z-10 pt-16 pb-16 lg:pt-20 lg:pb-24">
         <div className="max-w-7xl mx-auto grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
           
           {/* Left: Text Content */}
@@ -40,8 +60,7 @@ const HeroSection = () => {
             {/* Main Headline */}
             <div className="animate-fade-in opacity-0 [animation-delay:0.2s] [animation-fill-mode:forwards] mb-6">
               <h1 className="text-4xl md:text-5xl lg:text-6xl font-heading text-foreground mb-4">
-                <span className="block mb-2">ASTRA AIR</span>
-                <span className="block mb-2">CONDITIONING</span>
+                <span className="block mb-3">ASTRA AIR CONDITIONING</span>
                 <span className="block text-2xl md:text-3xl lg:text-4xl text-text-muted font-body font-medium">
                   & ENGINEERING WORKS
                 </span>
@@ -87,17 +106,50 @@ const HeroSection = () => {
             </div>
           </div>
 
-          {/* Right: Media Carousel Placeholder */}
+          {/* Right: Image Carousel */}
           <div className="animate-fade-in opacity-0 [animation-delay:0.6s] [animation-fill-mode:forwards]">
-            <div className="relative">
-              <div className="aspect-[4/3] rounded-2xl bg-surface border border-outline overflow-hidden">
-                <img 
-                  src={heroImage}
-                  alt="ASTRA Air Conditioning Services" 
-                  className="w-full h-full object-cover transition-transform duration-700 hover:scale-105"
-                />
-              </div>
-              <div className="absolute inset-0 rounded-2xl border border-accent/20"></div>
+            <div className="relative max-w-md mx-auto">
+              <Carousel 
+                className="relative"
+                opts={{
+                  align: "start",
+                  loop: true,
+                }}
+              >
+                <CarouselContent>
+                  {heroImages.map((image, index) => (
+                    <CarouselItem key={index}>
+                      <div className="aspect-[3/2] rounded-2xl bg-surface border border-outline overflow-hidden group">
+                        <img 
+                          src={image.src}
+                          alt={image.alt}
+                          className="w-full h-full object-cover transition-all duration-700 group-hover:scale-105"
+                        />
+                      </div>
+                    </CarouselItem>
+                  ))}
+                </CarouselContent>
+                
+                {/* Navigation buttons */}
+                <CarouselPrevious className="absolute -left-4 top-1/2 -translate-y-1/2 bg-surface/80 border-outline hover:bg-accent/10 text-text" />
+                <CarouselNext className="absolute -right-4 top-1/2 -translate-y-1/2 bg-surface/80 border-outline hover:bg-accent/10 text-text" />
+                
+                {/* Dots indicator */}
+                <div className="flex justify-center gap-2 mt-4">
+                  {heroImages.map((_, index) => (
+                    <button
+                      key={index}
+                      className={`w-2 h-2 rounded-full transition-all duration-300 ${
+                        index === currentImageIndex 
+                          ? 'bg-accent w-6' 
+                          : 'bg-outline hover:bg-accent/50'
+                      }`}
+                      onClick={() => setCurrentImageIndex(index)}
+                    />
+                  ))}
+                </div>
+              </Carousel>
+              <div className="absolute inset-0 rounded-2xl border border-accent/20 pointer-events-none"></div>
             </div>
           </div>
         </div>
