@@ -87,21 +87,21 @@ const ProductsPreview = () => {
                 {/* Content Section */}
                 <div className={`lg:col-span-2 space-y-6 ${index % 2 === 1 ? 'lg:col-start-1 lg:row-start-1' : ''}`}>
                   <div>
-                    <h3 className="text-2xl font-heading font-bold text-gray-900 mb-3">
+                    <h3 className="text-2xl font-heading font-bold text-white mb-3">
                       {category.title}
                     </h3>
-                    <p className="text-gray-600 leading-relaxed text-lg">
+                    <p className="text-white/80 leading-relaxed text-lg">
                       {category.description}
                     </p>
                   </div>
                   
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                     <div>
-                      <h4 className="font-semibold text-gray-800 mb-3">Key Features:</h4>
+                      <h4 className="font-semibold text-white mb-3">Key Features:</h4>
                       <ul className="space-y-2">
                         {category.features.map((feature, featureIndex) => (
-                          <li key={featureIndex} className="flex items-center text-gray-600">
-                            <div className="w-2 h-2 bg-blue-600 rounded-full mr-3 flex-shrink-0"></div>
+                          <li key={featureIndex} className="flex items-center text-white/70">
+                            <div className="w-2 h-2 bg-accent rounded-full mr-3 flex-shrink-0"></div>
                             <span className="font-medium">{feature}</span>
                           </li>
                         ))}
