@@ -191,9 +191,9 @@ const Applications = () => {
 
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
               {systemBenefits.map((benefit, index) => (
-                <div key={index} className="card-glass p-6 text-center card-hover">
-                  <h3 className="font-semibold text-foreground mb-3">{benefit.title}</h3>
-                  <p className="text-sm text-muted-foreground">{benefit.description}</p>
+                <div key={index} className="bg-gradient-to-br from-blue-400/30 to-blue-600/20 backdrop-blur-sm border border-blue-400/30 rounded-xl p-6 text-center hover:from-blue-300/40 hover:to-blue-500/30 transition-all duration-300 hover:scale-105 shadow-lg">
+                  <h3 className="font-semibold text-white mb-3 text-lg">{benefit.title}</h3>
+                  <p className="text-sm text-blue-100">{benefit.description}</p>
                 </div>
               ))}
             </div>
