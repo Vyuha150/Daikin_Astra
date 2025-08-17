@@ -103,11 +103,26 @@ export default {
 					to: {
 						height: '0'
 					}
+				},
+				'loading-progress': {
+					'0%': {
+						width: '0%',
+						opacity: '1'
+					},
+					'90%': {
+						width: '100%',
+						opacity: '1'
+					},
+					'100%': {
+						width: '100%',
+						opacity: '0.8'
+					}
 				}
 			},
 			animation: {
 				'accordion-down': 'accordion-down 0.2s ease-out',
-				'accordion-up': 'accordion-up 0.2s ease-out'
+				'accordion-up': 'accordion-up 0.2s ease-out',
+				'loading-progress': 'loading-progress 2.5s ease-out forwards'
 			}
 		}
 	},
