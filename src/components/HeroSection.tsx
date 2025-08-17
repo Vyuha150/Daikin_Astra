@@ -46,10 +46,10 @@ const HeroSection = () => {
 
       <div className="container mx-auto px-6 lg:px-8 relative z-10 pt-16 pb-16 lg:pt-20 lg:pb-24">
         <div className="max-w-7xl mx-auto">
-          <div className="grid lg:grid-cols-12 gap-8 lg:gap-12 items-center min-h-[80vh]">
+          <div className="grid lg:grid-cols-12 gap-8 lg:gap-12 items-start min-h-[80vh]">
             
             {/* Left: Text Content - Takes 7 columns on large screens */}
-            <div className="lg:col-span-7 text-center lg:text-left">
+            <div className="lg:col-span-7 text-center lg:text-left lg:pt-8">{/* Pushed up with pt-8 */}
               {/* Badge */}
               <div className="animate-fade-in opacity-0 [animation-delay:0.1s] [animation-fill-mode:forwards] mb-8">
                 <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-accent/20 bg-accent/10">
