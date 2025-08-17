@@ -184,14 +184,14 @@ Requirement: ${formData.requirement}`;
           </div>
 
           {/* Contact Form */}
-          <div className="card-glass p-8">
-            <h3 className="text-2xl font-heading font-bold text-foreground mb-6">
+          <div className="bg-white/10 backdrop-blur-sm border border-white/20 rounded-xl p-8">
+            <h3 className="text-2xl font-heading font-bold text-white mb-6">
               Get Free Quote
             </h3>
             
             <form onSubmit={handleSubmit} className="space-y-6">
               <div>
-                <label className="block text-sm font-medium text-foreground mb-2">
+                <label className="block text-sm font-medium text-white mb-2">
                   Name *
                 </label>
                 <Input
@@ -201,12 +201,12 @@ Requirement: ${formData.requirement}`;
                   onChange={handleInputChange}
                   placeholder="Your full name"
                   required
-                  className="w-full"
+                  className="w-full bg-white/10 border-white/20 text-white placeholder:text-white/60 focus:border-white/40"
                 />
               </div>
 
               <div>
-                <label className="block text-sm font-medium text-foreground mb-2">
+                <label className="block text-sm font-medium text-white mb-2">
                   Phone Number *
                 </label>
                 <Input
@@ -216,12 +216,12 @@ Requirement: ${formData.requirement}`;
                   onChange={handleInputChange}
                   placeholder="Your contact number"
                   required
-                  className="w-full"
+                  className="w-full bg-white/10 border-white/20 text-white placeholder:text-white/60 focus:border-white/40"
                 />
               </div>
 
               <div>
-                <label className="block text-sm font-medium text-foreground mb-2">
+                <label className="block text-sm font-medium text-white mb-2">
                   Area/Location
                 </label>
                 <Input
@@ -230,12 +230,12 @@ Requirement: ${formData.requirement}`;
                   value={formData.location}
                   onChange={handleInputChange}
                   placeholder="Your area or location"
-                  className="w-full"
+                  className="w-full bg-white/10 border-white/20 text-white placeholder:text-white/60 focus:border-white/40"
                 />
               </div>
 
               <div>
-                <label className="block text-sm font-medium text-foreground mb-2">
+                <label className="block text-sm font-medium text-white mb-2">
                   Requirement / AC Type *
                 </label>
                 <Textarea
@@ -244,7 +244,7 @@ Requirement: ${formData.requirement}`;
                   onChange={handleInputChange}
                   placeholder="Describe your AC requirement (type, capacity, rooms, etc.)"
                   required
-                  className="w-full min-h-[100px]"
+                  className="w-full min-h-[100px] bg-white/10 border-white/20 text-white placeholder:text-white/60 focus:border-white/40"
                 />
               </div>
 
@@ -253,7 +253,7 @@ Requirement: ${formData.requirement}`;
                 Send Inquiry via WhatsApp
               </Button>
 
-              <p className="text-sm text-muted-foreground text-center">
+              <p className="text-sm text-white/80 text-center">
                 * Required fields. Your inquiry will be sent via WhatsApp for quick response.
               </p>
             </form>
