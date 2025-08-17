@@ -52,10 +52,10 @@ const ProductsPreview = () => {
             <span className="font-semibold text-primary">OUR PRODUCTS</span>
           </div>
           
-          <h2 className="text-3xl lg:text-4xl font-heading font-bold text-foreground mb-4">
+          <h2 className="text-3xl lg:text-4xl font-heading font-bold text-white mb-4">
             Complete Range of Daikin Air Conditioners
           </h2>
-          <p className="text-lg text-muted-foreground max-w-3xl mx-auto mb-8">
+          <p className="text-lg text-white/90 max-w-3xl mx-auto mb-8">
             From residential split ACs to commercial VRV systems, we offer the complete Daikin product range 
             with professional installation and service support.
           </p>
