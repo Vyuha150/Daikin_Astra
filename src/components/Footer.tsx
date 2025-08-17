@@ -14,12 +14,12 @@ const Footer = () => {
   };
 
   return (
-    <footer className="bg-gradient-primary text-primary-foreground relative overflow-hidden">
+    <footer className="bg-gradient-to-br from-gray-900 via-slate-800 to-gray-900 text-primary-foreground relative overflow-hidden">
       {/* Animated Background Effects */}
       <div className="absolute inset-0">
-        <div className="absolute top-0 left-0 w-full h-full bg-gradient-to-br from-primary-light/10 via-transparent to-primary-dark/10"></div>
-        <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-primary-light/5 rounded-full blur-3xl animate-pulse"></div>
-        <div className="absolute bottom-1/3 right-1/4 w-80 h-80 bg-primary/5 rounded-full blur-3xl animate-pulse delay-1000"></div>
+        <div className="absolute top-0 left-0 w-full h-full bg-gradient-to-br from-blue-900/20 via-transparent to-slate-900/30"></div>
+        <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-blue-600/10 rounded-full blur-3xl animate-pulse"></div>
+        <div className="absolute bottom-1/3 right-1/4 w-80 h-80 bg-blue-700/10 rounded-full blur-3xl animate-pulse delay-1000"></div>
       </div>
 
       <div className="container mx-auto px-4 lg:px-6 relative z-10">
@@ -41,14 +41,14 @@ const Footer = () => {
                 </div>
               </div>
               <div>
-                <h3 className="text-xl font-heading font-bold text-primary-foreground">
+                <h3 className="text-xl font-heading font-bold text-white">
                   ASTRA AIR CONDITIONING
                 </h3>
-                <p className="text-primary-foreground/80 text-sm">& ENGINEERING WORKS</p>
+                <p className="text-blue-200 text-sm">& ENGINEERING WORKS</p>
               </div>
             </div>
             
-            <p className="text-primary-foreground/80 mb-6 leading-relaxed">
+            <p className="text-gray-200 mb-6 leading-relaxed">
               Your trusted Daikin authorized dealer in Vijayawada with 15+ years of experience. 
               We provide complete HVAC solutions from residential split ACs to commercial VRV systems 
               with professional installation and 24/7 support.
@@ -80,7 +80,7 @@ const Footer = () => {
 
           {/* Quick Links */}
           <div>
-            <h4 className="text-lg font-heading font-semibold mb-6">Quick Links</h4>
+            <h4 className="text-lg font-heading font-semibold mb-6 text-white">Quick Links</h4>
             <nav className="space-y-3">
               {[
                 { label: 'Home', href: 'hero' },
@@ -102,7 +102,7 @@ const Footer = () => {
 
           {/* Services & Products */}
           <div>
-            <h4 className="text-lg font-heading font-semibold mb-6">Our Services</h4>
+            <h4 className="text-lg font-heading font-semibold mb-6 text-white">Our Services</h4>
             <ul className="space-y-3 text-blue-100 text-sm">
               <li>• Split AC Installation</li>
               <li>• Cassette AC Systems</li>
