@@ -110,7 +110,7 @@ const Services = () => {
           {/* Services Grid */}
           <div className="space-y-8 mb-16">
             {services.map((service, index) => (
-              <div key={index} className="bg-white rounded-3xl p-8 lg:p-10 shadow-sm border border-gray-100 hover:shadow-xl transition-all duration-500 group">
+              <div key={index} className="bg-white/10 backdrop-blur-sm rounded-3xl p-8 lg:p-10 shadow-sm border border-white/20 hover:shadow-xl transition-all duration-500 group">
                 <div className={`grid grid-cols-1 lg:grid-cols-3 gap-8 items-center ${index % 2 === 1 ? 'lg:grid-flow-col-dense' : ''}`}>
                   {/* Image Section */}
                   <div className={`${index % 2 === 1 ? 'lg:col-start-3' : ''}`}>
@@ -124,21 +124,21 @@ const Services = () => {
                   {/* Content Section */}
                   <div className={`lg:col-span-2 space-y-6 ${index % 2 === 1 ? 'lg:col-start-1 lg:row-start-1' : ''}`}>
                     <div>
-                      <h3 className="text-2xl font-heading font-bold text-gray-900 mb-3">
+                      <h3 className="text-2xl font-heading font-bold text-white mb-3">
                         {service.title}
                       </h3>
-                      <p className="text-gray-600 leading-relaxed text-lg">
+                      <p className="text-white/90 leading-relaxed text-lg">
                         {service.description}
                       </p>
                     </div>
                     
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                       <div>
-                        <h4 className="font-semibold text-gray-800 mb-3">Key Features:</h4>
+                        <h4 className="font-semibold text-yellow-300 mb-3 bg-yellow-500/20 px-3 py-1 rounded-lg inline-block">Key Features:</h4>
                         <ul className="space-y-2">
                           {service.features.map((feature, idx) => (
-                            <li key={idx} className="flex items-center text-gray-600">
-                              <div className="w-2 h-2 bg-blue-600 rounded-full mr-3 flex-shrink-0"></div>
+                            <li key={idx} className="flex items-center text-white">
+                              <div className="w-2 h-2 bg-green-400 rounded-full mr-3 flex-shrink-0"></div>
                               <span className="font-medium">{feature}</span>
                             </li>
                           ))}
