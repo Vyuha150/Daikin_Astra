@@ -84,7 +84,7 @@ const Offers = () => {
           {/* Current Offers */}
           <div className="space-y-8 mb-16">
             {currentOffers.map((offer, index) => (
-              <div key={index} className="bg-white rounded-3xl p-8 lg:p-10 shadow-sm border border-gray-100 hover:shadow-xl transition-all duration-500 group relative">
+              <div key={index} className="bg-white/10 backdrop-blur-sm rounded-3xl p-8 lg:p-10 shadow-sm border border-white/20 hover:shadow-xl transition-all duration-500 group relative">
                 {offer.popular && (
                   <div className="absolute -top-4 -right-4 bg-gradient-to-r from-orange-500 to-red-500 text-white px-4 py-2 rounded-full text-sm font-bold shadow-lg animate-pulse">
                     Most Popular
@@ -94,35 +94,35 @@ const Offers = () => {
                 <div className={`grid grid-cols-1 lg:grid-cols-3 gap-8 items-center ${index % 2 === 1 ? 'lg:grid-flow-col-dense' : ''}`}>
                   {/* Image Section */}
                   <div className={`${index % 2 === 1 ? 'lg:col-start-3' : ''}`}>
-                    <div className="bg-gradient-to-br from-orange-50 to-red-50 rounded-2xl p-8 h-48 flex items-center justify-center group-hover:from-orange-100 group-hover:to-red-100 transition-all duration-500">
-                      <Gift className="w-20 h-20 text-orange-600 group-hover:scale-110 transition-transform duration-500" />
+                    <div className="bg-gradient-to-br from-blue-400/30 to-blue-600/20 backdrop-blur-sm rounded-2xl p-8 h-48 flex items-center justify-center group-hover:from-blue-300/40 group-hover:to-blue-500/30 transition-all duration-500 border border-blue-400/30">
+                      <Gift className="w-20 h-20 text-blue-300 group-hover:scale-110 transition-transform duration-500" />
                     </div>
                   </div>
                   
                   {/* Content Section */}
                   <div className={`lg:col-span-2 space-y-6 ${index % 2 === 1 ? 'lg:col-start-1 lg:row-start-1' : ''}`}>
                     <div>
-                      <h3 className="text-2xl font-heading font-bold text-gray-900 mb-3">
+                      <h3 className="text-2xl font-heading font-bold text-white mb-3">
                         {offer.title}
                       </h3>
-                      <div className="text-4xl font-bold text-orange-600 mb-3">
+                      <div className="text-4xl font-bold text-orange-400 mb-3 bg-gradient-to-r from-orange-400 to-red-400 bg-clip-text text-transparent">
                         {offer.discount}
                       </div>
-                      <p className="text-gray-600 leading-relaxed text-lg mb-4">
+                      <p className="text-blue-100 leading-relaxed text-lg mb-4">
                         {offer.description}
                       </p>
-                      <div className="bg-blue-50 rounded-lg px-4 py-2 inline-block text-sm font-medium text-blue-700">
+                      <div className="bg-blue-500/30 rounded-lg px-4 py-2 inline-block text-sm font-medium text-blue-200 border border-blue-400/30">
                         {offer.validity}
                       </div>
                     </div>
                     
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                       <div>
-                        <h4 className="font-semibold text-gray-800 mb-3">Offer Includes:</h4>
+                        <h4 className="font-semibold text-blue-300 mb-3 bg-blue-500/20 px-3 py-1 rounded-lg inline-block">Offer Includes:</h4>
                         <ul className="space-y-2">
                           {offer.features.map((feature, idx) => (
-                            <li key={idx} className="flex items-center text-gray-600">
-                              <Star className="w-5 h-5 text-orange-500 mr-3 flex-shrink-0" />
+                            <li key={idx} className="flex items-center text-white">
+                              <Star className="w-5 h-5 text-blue-300 mr-3 flex-shrink-0" />
                               <span className="font-medium">{feature}</span>
                             </li>
                           ))}
