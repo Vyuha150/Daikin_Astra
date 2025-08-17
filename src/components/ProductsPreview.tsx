@@ -194,11 +194,11 @@ const ProductsPreview = () => {
                     </div>
                     
                     <div>
-                      <h5 className="font-semibold text-gray-800 mb-2">Key Features:</h5>
+                      <h5 className="font-semibold text-white mb-2">Key Features:</h5>
                       <ul className="space-y-1">
                         {model.features.map((feature, featureIndex) => (
-                          <li key={featureIndex} className="flex items-center text-sm text-gray-600">
-                            <div className="w-1.5 h-1.5 bg-blue-600 rounded-full mr-3"></div>
+                          <li key={featureIndex} className="flex items-center text-sm text-white/80">
+                            <div className="w-1.5 h-1.5 bg-accent rounded-full mr-3"></div>
                             {feature}
                           </li>
                         ))}
