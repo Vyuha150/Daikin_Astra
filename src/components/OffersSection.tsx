@@ -45,19 +45,19 @@ const OffersSection = () => {
               desc: "0% interest for first 6 months"
             }
           ].map((feature, index) => (
-            <div key={index} className="bg-card border border-outline rounded-2xl p-6 text-center transition-all duration-300 hover:border-accent/30">
-              <div className="text-accent mb-4 flex justify-center">
+            <div key={index} className="bg-white/10 backdrop-blur-sm border border-white/20 rounded-2xl p-6 text-center transition-all duration-300 hover:border-white/40">
+              <div className="text-white mb-4 flex justify-center">
                 {feature.icon}
               </div>
-              <h3 className="font-heading text-lg mb-2 text-foreground">{feature.title}</h3>
-              <p className="text-text-muted font-body">{feature.desc}</p>
+              <h3 className="font-heading text-lg mb-2 text-white">{feature.title}</h3>
+              <p className="text-white/90 font-body">{feature.desc}</p>
             </div>
           ))}
         </div>
 
         {/* Pricing Examples */}
-        <div className="bg-card border border-outline rounded-2xl p-8 mb-8">
-          <h3 className="text-2xl font-heading text-center mb-6 text-foreground">
+        <div className="bg-white/10 backdrop-blur-sm border border-white/20 rounded-2xl p-8 mb-8">
+          <h3 className="text-2xl font-heading text-center mb-6 text-white">
             Popular AC Models - Special Prices
           </h3>
           
@@ -82,12 +82,12 @@ const OffersSection = () => {
                 savings: "₹4,000"
               }
             ].map((product, index) => (
-              <div key={index} className="bg-surface border border-outline rounded-xl p-6">
-                <h4 className="font-body font-semibold text-lg mb-3 text-foreground">{product.model}</h4>
+              <div key={index} className="bg-white/10 backdrop-blur-sm border border-white/20 rounded-xl p-6">
+                <h4 className="font-body font-semibold text-lg mb-3 text-white">{product.model}</h4>
                 <div className="space-y-2">
-                  <p className="text-sm text-text-muted line-through font-body">{product.originalPrice}</p>
-                  <p className="text-2xl font-bold text-accent font-body">{product.offerPrice}</p>
-                  <p className="text-success font-body font-medium">Save {product.savings}</p>
+                  <p className="text-sm text-white/70 line-through font-body">{product.originalPrice}</p>
+                  <p className="text-2xl font-bold text-white font-body">{product.offerPrice}</p>
+                  <p className="text-green-400 font-body font-medium">Save {product.savings}</p>
                 </div>
               </div>
             ))}
