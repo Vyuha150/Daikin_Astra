@@ -112,14 +112,14 @@ Requirement: ${formData.requirement}`;
                   content: "Mon - Sat: 9:00 AM - 7:00 PM\nSunday: 10:00 AM - 5:00 PM"
                 }
               ].map((contact, index) => (
-                <div key={index} className="professional-card p-6 group relative overflow-hidden">
-                  <div className="absolute inset-0 bg-gradient-to-r from-primary/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                <div key={index} className="bg-white/10 backdrop-blur-sm border border-white/20 rounded-xl p-6 group relative overflow-hidden">
+                  <div className="absolute inset-0 bg-gradient-to-r from-white/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
                   
                   <div className="grid grid-cols-1 lg:grid-cols-4 gap-4 items-center relative z-10">
                     {/* Icon Section */}
                     <div className="lg:col-span-1">
-                      <div className="professional-image-container h-16 group-hover:bg-gradient-to-br group-hover:from-primary/10 group-hover:to-primary-light/10">
-                        <div className="text-primary group-hover:scale-110 group-hover:text-primary-light transition-all duration-300">
+                      <div className="h-16 flex items-center justify-center lg:justify-start">
+                        <div className="text-white group-hover:scale-110 transition-all duration-300">
                           {contact.icon}
                         </div>
                       </div>
@@ -127,23 +127,23 @@ Requirement: ${formData.requirement}`;
                     
                     {/* Content Section */}
                     <div className="lg:col-span-3">
-                      <h4 className="font-semibold text-gray-800 mb-2">{contact.title}</h4>
+                      <h4 className="font-semibold text-white mb-2">{contact.title}</h4>
                       {contact.isPhone ? (
                         <a 
                           href={`tel:${contact.content}`}
-                          className="text-blue-600 hover:text-blue-700 font-medium text-lg transition-colors"
+                          className="text-white hover:text-white/80 font-medium text-lg transition-colors"
                         >
                           {contact.content}
                         </a>
                       ) : contact.isEmail ? (
                         <a 
                           href={`mailto:${contact.content}`}
-                          className="text-blue-600 hover:text-blue-700 transition-colors"
+                          className="text-white hover:text-white/80 transition-colors"
                         >
                           {contact.content}
                         </a>
                       ) : (
-                        <p className="text-gray-600 whitespace-pre-line">{contact.content}</p>
+                        <p className="text-white/90 whitespace-pre-line">{contact.content}</p>
                       )}
                     </div>
                   </div>
