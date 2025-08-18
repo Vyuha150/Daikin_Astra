@@ -110,7 +110,7 @@ const HeroSection = () => {
           </div>
 
           {/* Right: Image Carousel - Takes 5 columns on large screens */}
-          <div className="lg:col-span-5 animate-fade-in opacity-0 [animation-delay:0.6s] [animation-fill-mode:forwards]">
+          <div className="lg:col-span-5 lg:mt-12 animate-fade-in opacity-0 [animation-delay:0.6s] [animation-fill-mode:forwards]">
             <div className="relative max-w-lg mx-auto">
               <Carousel 
                 className="relative"
