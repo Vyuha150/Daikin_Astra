@@ -1,5 +1,6 @@
 import React from 'react';
 import { ArrowRight, Settings, Zap, CheckCircle, Wrench, BarChart, Cog } from 'lucide-react';
+import { useState } from 'react';
 import { Button } from '@/components/ui/button';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
@@ -7,6 +8,7 @@ import SnowflakeAnimation from '@/components/SnowflakeAnimation';
 import LoadingScreen from '@/components/LoadingScreen';
 
 const Services = () => {
+  const [isLoadingComplete, setIsLoadingComplete] = useState(false);
   const services = [
     {
       icon: <Settings className="w-8 h-8" />,
@@ -84,8 +86,10 @@ const Services = () => {
 
   return (
     <>
-      <LoadingScreen />
-      <div className="min-h-screen bg-background relative">
+      {!isLoadingComplete ? (
+        <LoadingScreen onLoadingComplete={() => setIsLoadingComplete(true)} />
+      ) : (
+        <div className="min-h-screen bg-background relative">
         <SnowflakeAnimation />
         <Header />
       
@@ -191,6 +195,7 @@ const Services = () => {
 
       <Footer />
       </div>
+      )}
     </>
   );
 };

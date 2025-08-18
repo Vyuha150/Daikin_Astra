@@ -1,4 +1,5 @@
 import { Gift, Phone, MessageCircle, Star, Percent, Trophy } from 'lucide-react';
+import { useState } from 'react';
 import { Button } from '@/components/ui/button';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
@@ -6,6 +7,7 @@ import SnowflakeAnimation from '@/components/SnowflakeAnimation';
 import LoadingScreen from '@/components/LoadingScreen';
 
 const Offers = () => {
+  const [isLoadingComplete, setIsLoadingComplete] = useState(false);
   const currentOffers = [
     {
       title: "Summer Special Offer",
@@ -58,8 +60,10 @@ const Offers = () => {
 
   return (
     <>
-      <LoadingScreen />
-      <div className="min-h-screen bg-background relative">
+      {!isLoadingComplete ? (
+        <LoadingScreen onLoadingComplete={() => setIsLoadingComplete(true)} />
+      ) : (
+        <div className="min-h-screen bg-background relative">
         <SnowflakeAnimation />
         <Header />
       
@@ -195,6 +199,7 @@ const Offers = () => {
 
       <Footer />
       </div>
+      )}
     </>
   );
 };

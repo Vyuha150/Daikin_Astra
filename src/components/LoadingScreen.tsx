@@ -1,6 +1,10 @@
 import { useEffect, useState } from 'react';
 
-const LoadingScreen = () => {
+interface LoadingScreenProps {
+  onLoadingComplete: () => void;
+}
+
+const LoadingScreen = ({ onLoadingComplete }: LoadingScreenProps) => {
   const [isVisible, setIsVisible] = useState(true);
   const [isLoading, setIsLoading] = useState(true);
 
@@ -10,11 +14,12 @@ const LoadingScreen = () => {
       // Start fade out after loading completes
       setTimeout(() => {
         setIsVisible(false);
+        onLoadingComplete();
       }, 500); // Allow for fade out transition
     }, 2500); // Show loading for 2.5 seconds
 
     return () => clearTimeout(timer);
-  }, []);
+  }, [onLoadingComplete]);
 
   if (!isVisible) return null;
 

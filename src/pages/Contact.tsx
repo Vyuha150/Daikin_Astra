@@ -6,12 +6,17 @@ import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import SnowflakeAnimation from '@/components/SnowflakeAnimation';
 import LoadingScreen from '@/components/LoadingScreen';
+import { useState } from 'react';
 
 const Contact = () => {
+  const [isLoadingComplete, setIsLoadingComplete] = useState(false);
+
   return (
     <>
-      <LoadingScreen />
-      <div className="min-h-screen bg-background relative">
+      {!isLoadingComplete ? (
+        <LoadingScreen onLoadingComplete={() => setIsLoadingComplete(true)} />
+      ) : (
+        <div className="min-h-screen bg-background relative">
         <SnowflakeAnimation />
         <Header />
       
@@ -169,6 +174,7 @@ const Contact = () => {
 
       <Footer />
       </div>
+      )}
     </>
   );
 };

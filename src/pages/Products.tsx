@@ -1,5 +1,6 @@
 import { ArrowRight, Thermometer, Wind, Building2, Zap, Settings, CheckCircle } from 'lucide-react';
 import { Button } from '@/components/ui/button';
+import { useState } from 'react';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
@@ -7,6 +8,7 @@ import SnowflakeAnimation from '@/components/SnowflakeAnimation';
 import LoadingScreen from '@/components/LoadingScreen';
 
 const Products = () => {
+  const [isLoadingComplete, setIsLoadingComplete] = useState(false);
   const outdoorUnits = [
     {
       type: "Single Outdoor Unit",
@@ -192,8 +194,10 @@ const Products = () => {
 
   return (
     <>
-      <LoadingScreen />
-      <div className="min-h-screen bg-background relative">
+      {!isLoadingComplete ? (
+        <LoadingScreen onLoadingComplete={() => setIsLoadingComplete(true)} />
+      ) : (
+        <div className="min-h-screen bg-background relative">
         <SnowflakeAnimation />
         <Header />
       
@@ -448,6 +452,7 @@ const Products = () => {
 
       <Footer />
       </div>
+      )}
     </>
   );
 };
