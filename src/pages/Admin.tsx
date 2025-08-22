@@ -1,0 +1,497 @@
+import { useState } from 'react';
+import { Plus, Edit, Trash2, Eye, BarChart3, Users, ShoppingBag, Star, Calendar, TrendingUp } from 'lucide-react';
+import Header from '@/components/Header';
+import Footer from '@/components/Footer';
+import { Button } from '@/components/ui/button';
+import { Input } from '@/components/ui/input';
+import { Textarea } from '@/components/ui/textarea';
+import { Card } from '@/components/ui/card';
+import { Badge } from '@/components/ui/badge';
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
+import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
+import { Label } from '@/components/ui/label';
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
+
+const Admin = () => {
+  const [activeTab, setActiveTab] = useState('dashboard');
+  const [isAddDialogOpen, setIsAddDialogOpen] = useState(false);
+  const [editingItem, setEditingItem] = useState(null);
+
+  // Mock data for demonstration
+  const [offers] = useState([
+    { id: 1, title: '40% Off Installation', description: 'Professional installation at discounted rates', status: 'Active', validUntil: '2024-12-31' },
+    { id: 2, title: 'Free 5-Year Warranty', description: 'Extended warranty coverage', status: 'Active', validUntil: '2024-11-30' },
+    { id: 3, title: '0% Interest EMI', description: 'Zero interest for first 6 months', status: 'Active', validUntil: '2024-12-15' }
+  ]);
+
+  const [products] = useState([
+    { id: 1, model: 'Daikin FTKP35TV16U', category: 'Split AC', originalPrice: '₹45,999', offerPrice: '₹41,999', savings: '₹4,000', status: 'In Stock' },
+    { id: 2, model: 'Daikin FTKF50TV16U', category: 'Split AC', originalPrice: '₹65,999', offerPrice: '₹59,999', savings: '₹6,000', status: 'In Stock' },
+    { id: 3, model: 'Daikin FTKF60TV16U', category: 'Split AC', originalPrice: '₹75,999', offerPrice: '₹69,999', savings: '₹6,000', status: 'Low Stock' }
+  ]);
+
+  const [services] = useState([
+    { id: 1, title: 'AC Installation', description: 'Professional AC installation service', price: '₹2,999', duration: '2-3 hours', status: 'Active' },
+    { id: 2, title: 'AC Maintenance', description: 'Regular maintenance and cleaning', price: '₹1,499', duration: '1-2 hours', status: 'Active' },
+    { id: 3, title: 'AC Repair', description: 'Expert repair services', price: 'Variable', duration: '1-4 hours', status: 'Active' }
+  ]);
+
+  // Analytics mock data
+  const analytics = {
+    totalVisitors: 12500,
+    totalInquiries: 450,
+    conversionRate: 3.6,
+    revenue: 125000,
+    topProducts: [
+      { name: 'Daikin FTKP35TV16U', sales: 45 },
+      { name: 'Daikin FTKF50TV16U', sales: 32 },
+      { name: 'Daikin FTKF60TV16U', sales: 28 }
+    ]
+  };
+
+  const StatCard = ({ title, value, icon: Icon, trend, color = "blue" }) => (
+    <Card className="p-6 bg-white/10 backdrop-blur-sm border border-white/20 hover:border-white/40 transition-all duration-300">
+      <div className="flex items-center justify-between">
+        <div>
+          <p className="text-white/70 text-sm font-medium">{title}</p>
+          <p className="text-2xl font-bold text-white mt-1">{value}</p>
+          {trend && (
+            <p className="text-sm text-green-400 flex items-center mt-1">
+              <TrendingUp className="w-4 h-4 mr-1" />
+              {trend}% this month
+            </p>
+          )}
+        </div>
+        <div className={`p-3 rounded-lg bg-${color}-500/20`}>
+          <Icon className="w-6 h-6 text-white" />
+        </div>
+      </div>
+    </Card>
+  );
+
+  const AddEditDialog = ({ isOpen, onClose, type, item = null }) => (
+    <Dialog open={isOpen} onOpenChange={onClose}>
+      <DialogContent className="sm:max-w-[500px] bg-background border border-border">
+        <DialogHeader>
+          <DialogTitle className="text-foreground">
+            {item ? `Edit ${type}` : `Add New ${type}`}
+          </DialogTitle>
+        </DialogHeader>
+        <div className="grid gap-4 py-4">
+          {type === 'offer' && (
+            <>
+              <div className="grid gap-2">
+                <Label htmlFor="title" className="text-foreground">Title</Label>
+                <Input id="title" placeholder="Enter offer title" defaultValue={item?.title} />
+              </div>
+              <div className="grid gap-2">
+                <Label htmlFor="description" className="text-foreground">Description</Label>
+                <Textarea id="description" placeholder="Enter description" defaultValue={item?.description} />
+              </div>
+              <div className="grid gap-2">
+                <Label htmlFor="validUntil" className="text-foreground">Valid Until</Label>
+                <Input id="validUntil" type="date" defaultValue={item?.validUntil} />
+              </div>
+            </>
+          )}
+          
+          {type === 'product' && (
+            <>
+              <div className="grid gap-2">
+                <Label htmlFor="model" className="text-foreground">Model</Label>
+                <Input id="model" placeholder="Enter model name" defaultValue={item?.model} />
+              </div>
+              <div className="grid gap-2">
+                <Label htmlFor="category" className="text-foreground">Category</Label>
+                <Select defaultValue={item?.category}>
+                  <SelectTrigger>
+                    <SelectValue placeholder="Select category" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="Split AC">Split AC</SelectItem>
+                    <SelectItem value="Cassette AC">Cassette AC</SelectItem>
+                    <SelectItem value="VRV System">VRV System</SelectItem>
+                    <SelectItem value="Commercial Unit">Commercial Unit</SelectItem>
+                  </SelectContent>
+                </Select>
+              </div>
+              <div className="grid grid-cols-2 gap-2">
+                <div className="grid gap-2">
+                  <Label htmlFor="originalPrice" className="text-foreground">Original Price</Label>
+                  <Input id="originalPrice" placeholder="₹00,000" defaultValue={item?.originalPrice} />
+                </div>
+                <div className="grid gap-2">
+                  <Label htmlFor="offerPrice" className="text-foreground">Offer Price</Label>
+                  <Input id="offerPrice" placeholder="₹00,000" defaultValue={item?.offerPrice} />
+                </div>
+              </div>
+            </>
+          )}
+
+          {type === 'service' && (
+            <>
+              <div className="grid gap-2">
+                <Label htmlFor="serviceTitle" className="text-foreground">Service Title</Label>
+                <Input id="serviceTitle" placeholder="Enter service title" defaultValue={item?.title} />
+              </div>
+              <div className="grid gap-2">
+                <Label htmlFor="serviceDescription" className="text-foreground">Description</Label>
+                <Textarea id="serviceDescription" placeholder="Enter description" defaultValue={item?.description} />
+              </div>
+              <div className="grid grid-cols-2 gap-2">
+                <div className="grid gap-2">
+                  <Label htmlFor="price" className="text-foreground">Price</Label>
+                  <Input id="price" placeholder="₹0000" defaultValue={item?.price} />
+                </div>
+                <div className="grid gap-2">
+                  <Label htmlFor="duration" className="text-foreground">Duration</Label>
+                  <Input id="duration" placeholder="1-2 hours" defaultValue={item?.duration} />
+                </div>
+              </div>
+            </>
+          )}
+        </div>
+        <div className="flex justify-end gap-3">
+          <Button variant="outline" onClick={onClose}>Cancel</Button>
+          <Button onClick={onClose}>{item ? 'Update' : 'Add'} {type}</Button>
+        </div>
+      </DialogContent>
+    </Dialog>
+  );
+
+  return (
+    <div className="min-h-screen bg-gradient-to-br from-slate-900 via-blue-900 to-indigo-900">
+      <Header />
+      
+      <main className="pt-20 px-6 lg:px-8">
+        <div className="container mx-auto py-8">
+          {/* Admin Header */}
+          <div className="mb-8">
+            <h1 className="text-4xl font-bold text-white mb-2">Admin Dashboard</h1>
+            <p className="text-white/70">Manage your AC business operations</p>
+          </div>
+
+          {/* Tabs Navigation */}
+          <Tabs value={activeTab} onValueChange={setActiveTab} className="space-y-6">
+            <TabsList className="grid w-full grid-cols-5 bg-white/10 backdrop-blur-sm border border-white/20">
+              <TabsTrigger value="dashboard" className="data-[state=active]:bg-white/20 data-[state=active]:text-white text-white/70">
+                <BarChart3 className="w-4 h-4 mr-2" />
+                Dashboard
+              </TabsTrigger>
+              <TabsTrigger value="offers" className="data-[state=active]:bg-white/20 data-[state=active]:text-white text-white/70">
+                <Star className="w-4 h-4 mr-2" />
+                Offers
+              </TabsTrigger>
+              <TabsTrigger value="products" className="data-[state=active]:bg-white/20 data-[state=active]:text-white text-white/70">
+                <ShoppingBag className="w-4 h-4 mr-2" />
+                Products
+              </TabsTrigger>
+              <TabsTrigger value="services" className="data-[state=active]:bg-white/20 data-[state=active]:text-white text-white/70">
+                <Users className="w-4 h-4 mr-2" />
+                Services
+              </TabsTrigger>
+              <TabsTrigger value="analytics" className="data-[state=active]:bg-white/20 data-[state=active]:text-white text-white/70">
+                <TrendingUp className="w-4 h-4 mr-2" />
+                Analytics
+              </TabsTrigger>
+            </TabsList>
+
+            {/* Dashboard Tab */}
+            <TabsContent value="dashboard" className="space-y-6">
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                <StatCard 
+                  title="Total Visitors" 
+                  value={analytics.totalVisitors.toLocaleString()} 
+                  icon={Eye} 
+                  trend={12.5}
+                  color="blue"
+                />
+                <StatCard 
+                  title="Inquiries" 
+                  value={analytics.totalInquiries} 
+                  icon={Users} 
+                  trend={8.2}
+                  color="green"
+                />
+                <StatCard 
+                  title="Conversion Rate" 
+                  value={`${analytics.conversionRate}%`} 
+                  icon={TrendingUp} 
+                  trend={2.1}
+                  color="purple"
+                />
+                <StatCard 
+                  title="Revenue" 
+                  value={`₹${analytics.revenue.toLocaleString()}`} 
+                  icon={BarChart3} 
+                  trend={15.3}
+                  color="orange"
+                />
+              </div>
+
+              <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                {/* Quick Actions */}
+                <Card className="p-6 bg-white/10 backdrop-blur-sm border border-white/20">
+                  <h3 className="text-xl font-semibold text-white mb-4">Quick Actions</h3>
+                  <div className="space-y-3">
+                    <Button className="w-full justify-start" onClick={() => setActiveTab('offers')}>
+                      <Plus className="w-4 h-4 mr-2" />
+                      Add New Offer
+                    </Button>
+                    <Button className="w-full justify-start" onClick={() => setActiveTab('products')}>
+                      <Plus className="w-4 h-4 mr-2" />
+                      Add New Product
+                    </Button>
+                    <Button className="w-full justify-start" onClick={() => setActiveTab('services')}>
+                      <Plus className="w-4 h-4 mr-2" />
+                      Add New Service
+                    </Button>
+                  </div>
+                </Card>
+
+                {/* Top Products */}
+                <Card className="p-6 bg-white/10 backdrop-blur-sm border border-white/20">
+                  <h3 className="text-xl font-semibold text-white mb-4">Top Selling Products</h3>
+                  <div className="space-y-3">
+                    {analytics.topProducts.map((product, index) => (
+                      <div key={index} className="flex items-center justify-between p-3 rounded-lg bg-white/5">
+                        <span className="text-white">{product.name}</span>
+                        <Badge variant="secondary" className="bg-white/20 text-white">
+                          {product.sales} sales
+                        </Badge>
+                      </div>
+                    ))}
+                  </div>
+                </Card>
+              </div>
+            </TabsContent>
+
+            {/* Offers Tab */}
+            <TabsContent value="offers" className="space-y-6">
+              <div className="flex justify-between items-center">
+                <h2 className="text-2xl font-bold text-white">Manage Offers</h2>
+                <Dialog open={isAddDialogOpen} onOpenChange={setIsAddDialogOpen}>
+                  <DialogTrigger asChild>
+                    <Button>
+                      <Plus className="w-4 h-4 mr-2" />
+                      Add New Offer
+                    </Button>
+                  </DialogTrigger>
+                  <AddEditDialog 
+                    isOpen={isAddDialogOpen} 
+                    onClose={() => setIsAddDialogOpen(false)} 
+                    type="offer"
+                  />
+                </Dialog>
+              </div>
+
+              <Card className="bg-white/10 backdrop-blur-sm border border-white/20">
+                <Table>
+                  <TableHeader>
+                    <TableRow className="border-white/20">
+                      <TableHead className="text-white">Title</TableHead>
+                      <TableHead className="text-white">Description</TableHead>
+                      <TableHead className="text-white">Status</TableHead>
+                      <TableHead className="text-white">Valid Until</TableHead>
+                      <TableHead className="text-white">Actions</TableHead>
+                    </TableRow>
+                  </TableHeader>
+                  <TableBody>
+                    {offers.map((offer) => (
+                      <TableRow key={offer.id} className="border-white/20">
+                        <TableCell className="text-white font-medium">{offer.title}</TableCell>
+                        <TableCell className="text-white/80">{offer.description}</TableCell>
+                        <TableCell>
+                          <Badge className="bg-green-500/20 text-green-400">{offer.status}</Badge>
+                        </TableCell>
+                        <TableCell className="text-white/80">{offer.validUntil}</TableCell>
+                        <TableCell>
+                          <div className="flex space-x-2">
+                            <Button size="sm" variant="outline" className="border-white/20 text-white hover:bg-white/10">
+                              <Edit className="w-4 h-4" />
+                            </Button>
+                            <Button size="sm" variant="outline" className="border-red-400/20 text-red-400 hover:bg-red-500/10">
+                              <Trash2 className="w-4 h-4" />
+                            </Button>
+                          </div>
+                        </TableCell>
+                      </TableRow>
+                    ))}
+                  </TableBody>
+                </Table>
+              </Card>
+            </TabsContent>
+
+            {/* Products Tab */}
+            <TabsContent value="products" className="space-y-6">
+              <div className="flex justify-between items-center">
+                <h2 className="text-2xl font-bold text-white">Manage Products</h2>
+                <Button>
+                  <Plus className="w-4 h-4 mr-2" />
+                  Add New Product
+                </Button>
+              </div>
+
+              <Card className="bg-white/10 backdrop-blur-sm border border-white/20">
+                <Table>
+                  <TableHeader>
+                    <TableRow className="border-white/20">
+                      <TableHead className="text-white">Model</TableHead>
+                      <TableHead className="text-white">Category</TableHead>
+                      <TableHead className="text-white">Original Price</TableHead>
+                      <TableHead className="text-white">Offer Price</TableHead>
+                      <TableHead className="text-white">Savings</TableHead>
+                      <TableHead className="text-white">Status</TableHead>
+                      <TableHead className="text-white">Actions</TableHead>
+                    </TableRow>
+                  </TableHeader>
+                  <TableBody>
+                    {products.map((product) => (
+                      <TableRow key={product.id} className="border-white/20">
+                        <TableCell className="text-white font-medium">{product.model}</TableCell>
+                        <TableCell className="text-white/80">{product.category}</TableCell>
+                        <TableCell className="text-white/80 line-through">{product.originalPrice}</TableCell>
+                        <TableCell className="text-white font-semibold">{product.offerPrice}</TableCell>
+                        <TableCell className="text-green-400">{product.savings}</TableCell>
+                        <TableCell>
+                          <Badge className={product.status === 'In Stock' ? 'bg-green-500/20 text-green-400' : 'bg-orange-500/20 text-orange-400'}>
+                            {product.status}
+                          </Badge>
+                        </TableCell>
+                        <TableCell>
+                          <div className="flex space-x-2">
+                            <Button size="sm" variant="outline" className="border-white/20 text-white hover:bg-white/10">
+                              <Edit className="w-4 h-4" />
+                            </Button>
+                            <Button size="sm" variant="outline" className="border-red-400/20 text-red-400 hover:bg-red-500/10">
+                              <Trash2 className="w-4 h-4" />
+                            </Button>
+                          </div>
+                        </TableCell>
+                      </TableRow>
+                    ))}
+                  </TableBody>
+                </Table>
+              </Card>
+            </TabsContent>
+
+            {/* Services Tab */}
+            <TabsContent value="services" className="space-y-6">
+              <div className="flex justify-between items-center">
+                <h2 className="text-2xl font-bold text-white">Manage Services</h2>
+                <Button>
+                  <Plus className="w-4 h-4 mr-2" />
+                  Add New Service
+                </Button>
+              </div>
+
+              <Card className="bg-white/10 backdrop-blur-sm border border-white/20">
+                <Table>
+                  <TableHeader>
+                    <TableRow className="border-white/20">
+                      <TableHead className="text-white">Service</TableHead>
+                      <TableHead className="text-white">Description</TableHead>
+                      <TableHead className="text-white">Price</TableHead>
+                      <TableHead className="text-white">Duration</TableHead>
+                      <TableHead className="text-white">Status</TableHead>
+                      <TableHead className="text-white">Actions</TableHead>
+                    </TableRow>
+                  </TableHeader>
+                  <TableBody>
+                    {services.map((service) => (
+                      <TableRow key={service.id} className="border-white/20">
+                        <TableCell className="text-white font-medium">{service.title}</TableCell>
+                        <TableCell className="text-white/80">{service.description}</TableCell>
+                        <TableCell className="text-white font-semibold">{service.price}</TableCell>
+                        <TableCell className="text-white/80">{service.duration}</TableCell>
+                        <TableCell>
+                          <Badge className="bg-green-500/20 text-green-400">{service.status}</Badge>
+                        </TableCell>
+                        <TableCell>
+                          <div className="flex space-x-2">
+                            <Button size="sm" variant="outline" className="border-white/20 text-white hover:bg-white/10">
+                              <Edit className="w-4 h-4" />
+                            </Button>
+                            <Button size="sm" variant="outline" className="border-red-400/20 text-red-400 hover:bg-red-500/10">
+                              <Trash2 className="w-4 h-4" />
+                            </Button>
+                          </div>
+                        </TableCell>
+                      </TableRow>
+                    ))}
+                  </TableBody>
+                </Table>
+              </Card>
+            </TabsContent>
+
+            {/* Analytics Tab */}
+            <TabsContent value="analytics" className="space-y-6">
+              <h2 className="text-2xl font-bold text-white">Analytics & Reports</h2>
+              
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <Card className="p-6 bg-white/10 backdrop-blur-sm border border-white/20">
+                  <h3 className="text-lg font-semibold text-white mb-4">Monthly Performance</h3>
+                  <div className="space-y-2">
+                    <div className="flex justify-between text-white/80">
+                      <span>Visitors</span>
+                      <span>+12.5%</span>
+                    </div>
+                    <div className="flex justify-between text-white/80">
+                      <span>Inquiries</span>
+                      <span>+8.2%</span>
+                    </div>
+                    <div className="flex justify-between text-white/80">
+                      <span>Conversions</span>
+                      <span>+2.1%</span>
+                    </div>
+                  </div>
+                </Card>
+
+                <Card className="p-6 bg-white/10 backdrop-blur-sm border border-white/20">
+                  <h3 className="text-lg font-semibold text-white mb-4">Revenue Breakdown</h3>
+                  <div className="space-y-2">
+                    <div className="flex justify-between text-white/80">
+                      <span>Product Sales</span>
+                      <span>₹95,000</span>
+                    </div>
+                    <div className="flex justify-between text-white/80">
+                      <span>Services</span>
+                      <span>₹30,000</span>
+                    </div>
+                    <div className="flex justify-between text-white font-semibold border-t border-white/20 pt-2">
+                      <span>Total</span>
+                      <span>₹1,25,000</span>
+                    </div>
+                  </div>
+                </Card>
+
+                <Card className="p-6 bg-white/10 backdrop-blur-sm border border-white/20">
+                  <h3 className="text-lg font-semibold text-white mb-4">Customer Insights</h3>
+                  <div className="space-y-2">
+                    <div className="flex justify-between text-white/80">
+                      <span>New Customers</span>
+                      <span>125</span>
+                    </div>
+                    <div className="flex justify-between text-white/80">
+                      <span>Repeat Customers</span>
+                      <span>89</span>
+                    </div>
+                    <div className="flex justify-between text-white/80">
+                      <span>Avg. Order Value</span>
+                      <span>₹45,500</span>
+                    </div>
+                  </div>
+                </Card>
+              </div>
+            </TabsContent>
+          </Tabs>
+        </div>
+      </main>
+
+      <Footer />
+    </div>
+  );
+};
+
+export default Admin;
