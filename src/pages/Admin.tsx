@@ -1,41 +1,482 @@
-import { useState } from 'react';
-import { Plus, Edit, Trash2, Eye, BarChart3, Users, ShoppingBag, Star, Calendar, TrendingUp } from 'lucide-react';
-import Header from '@/components/Header';
-import Footer from '@/components/Footer';
-import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
-import { Textarea } from '@/components/ui/textarea';
-import { Card } from '@/components/ui/card';
-import { Badge } from '@/components/ui/badge';
-import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
-import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
-import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
-import { Label } from '@/components/ui/label';
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
+import { useState, useEffect } from "react";
+import {
+  Plus,
+  Edit,
+  Trash2,
+  Eye,
+  BarChart3,
+  Users,
+  ShoppingBag,
+  Star,
+  Calendar,
+  TrendingUp,
+} from "lucide-react";
+import Header from "@/components/Header";
+import Footer from "@/components/Footer";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Textarea } from "@/components/ui/textarea";
+import { Card } from "@/components/ui/card";
+import { Badge } from "@/components/ui/badge";
+import AdminOffers from "../components/admin/AdminOffers";
+import AdminProducts from "../components/admin/AdminProducts";
+import AdminServices from "../components/admin/AdminServices";
+import AdminHomeProducts from "../components/admin/AdminHomeProducts";
+import ProductDialog from "../components/admin/ProductDialog";
+import ServiceDialog from "../components/admin/ServiceDialog";
+import HomeProductDialog from "../components/admin/HomeProductDialog";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from "@/components/ui/table";
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog";
+import { Label } from "@/components/ui/label";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 
 const Admin = () => {
-  const [activeTab, setActiveTab] = useState('dashboard');
+  const [activeTab, setActiveTab] = useState("dashboard");
   const [isAddDialogOpen, setIsAddDialogOpen] = useState(false);
   const [editingItem, setEditingItem] = useState(null);
+  const [activeProductType, setActiveProductType] = useState("category");
+  const [isProductDialogOpen, setIsProductDialogOpen] = useState(false);
+  const [isServiceDialogOpen, setIsServiceDialogOpen] = useState(false);
+  const [activeHomeProductType, setActiveHomeProductType] =
+    useState("categories");
+  const [isHomeProductDialogOpen, setIsHomeProductDialogOpen] = useState(false);
+  const API_URL = import.meta.env.VITE_API_URL;
 
-  // Mock data for demonstration
-  const [offers] = useState([
-    { id: 1, title: '40% Off Installation', description: 'Professional installation at discounted rates', status: 'Active', validUntil: '2024-12-31' },
-    { id: 2, title: 'Free 5-Year Warranty', description: 'Extended warranty coverage', status: 'Active', validUntil: '2024-11-30' },
-    { id: 3, title: '0% Interest EMI', description: 'Zero interest for first 6 months', status: 'Active', validUntil: '2024-12-15' }
-  ]);
+  // Product Categories CRUD
+  const [productCategories, setProductCategories] = useState([]);
+  useEffect(() => {
+    fetch(`${API_URL}/api/admin/products/categories`)
+      .then((res) => res.json())
+      .then((data) => setProductCategories(data));
+  }, [API_URL]);
 
-  const [products] = useState([
-    { id: 1, model: 'Daikin FTKP35TV16U', category: 'Split AC', originalPrice: '₹45,999', offerPrice: '₹41,999', savings: '₹4,000', status: 'In Stock' },
-    { id: 2, model: 'Daikin FTKF50TV16U', category: 'Split AC', originalPrice: '₹65,999', offerPrice: '₹59,999', savings: '₹6,000', status: 'In Stock' },
-    { id: 3, model: 'Daikin FTKF60TV16U', category: 'Split AC', originalPrice: '₹75,999', offerPrice: '₹69,999', savings: '₹6,000', status: 'Low Stock' }
-  ]);
+  const handleAddCategory = async (category) => {
+    const res = await fetch(`${API_URL}/api/admin/products/categories`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(category),
+    });
+    const newCategory = await res.json();
+    setProductCategories([...productCategories, newCategory]);
+  };
 
-  const [services] = useState([
-    { id: 1, title: 'AC Installation', description: 'Professional AC installation service', price: '₹2,999', duration: '2-3 hours', status: 'Active' },
-    { id: 2, title: 'AC Maintenance', description: 'Regular maintenance and cleaning', price: '₹1,499', duration: '1-2 hours', status: 'Active' },
-    { id: 3, title: 'AC Repair', description: 'Expert repair services', price: 'Variable', duration: '1-4 hours', status: 'Active' }
-  ]);
+  const handleEditCategory = async (id, updates) => {
+    const res = await fetch(`${API_URL}/api/admin/products/categories/${id}`, {
+      method: "PUT",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(updates),
+    });
+    const updated = await res.json();
+    setProductCategories(
+      productCategories.map((cat) => (cat._id === id ? updated : cat))
+    );
+  };
+
+  const handleDeleteCategory = async (id) => {
+    await fetch(`${API_URL}/api/admin/products/categories/${id}`, {
+      method: "DELETE",
+    });
+    setProductCategories(productCategories.filter((cat) => cat._id !== id));
+  };
+
+  // Featured Models CRUD
+  const [featuredModels, setFeaturedModels] = useState([]);
+  useEffect(() => {
+    fetch(`${API_URL}/api/admin/products/featured-models`)
+      .then((res) => res.json())
+      .then((data) => setFeaturedModels(data));
+  }, [API_URL]);
+
+  const handleAddFeaturedModel = async (model) => {
+    const res = await fetch(`${API_URL}/api/admin/products/featured-models`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(model),
+    });
+    const newModel = await res.json();
+    setFeaturedModels([...featuredModels, newModel]);
+  };
+
+  const handleEditFeaturedModel = async (id, updates) => {
+    const res = await fetch(
+      `${API_URL}/api/admin/products/featured-models/${id}`,
+      {
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(updates),
+      }
+    );
+    const updated = await res.json();
+    setFeaturedModels(
+      featuredModels.map((model) => (model._id === id ? updated : model))
+    );
+  };
+
+  const handleDeleteFeaturedModel = async (id) => {
+    await fetch(`${API_URL}/api/admin/products/featured-models/${id}`, {
+      method: "DELETE",
+    });
+    setFeaturedModels(featuredModels.filter((model) => model._id !== id));
+  };
+
+  // Outdoor Units CRUD
+  const [outdoorUnits, setOutdoorUnits] = useState([]);
+  useEffect(() => {
+    fetch(`${API_URL}/api/admin/products/outdoor-units`)
+      .then((res) => res.json())
+      .then((data) => setOutdoorUnits(data));
+  }, [API_URL]);
+
+  const handleAddOutdoorUnit = async (unit) => {
+    const res = await fetch(`${API_URL}/api/admin/products/outdoor-units`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(unit),
+    });
+    const newUnit = await res.json();
+    setOutdoorUnits([...outdoorUnits, newUnit]);
+  };
+
+  const handleEditOutdoorUnit = async (id, updates) => {
+    const res = await fetch(
+      `${API_URL}/api/admin/products/outdoor-units/${id}`,
+      {
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(updates),
+      }
+    );
+    const updated = await res.json();
+    setOutdoorUnits(
+      outdoorUnits.map((unit) => (unit._id === id ? updated : unit))
+    );
+  };
+
+  const handleDeleteOutdoorUnit = async (id) => {
+    await fetch(`${API_URL}/api/admin/products/outdoor-units/${id}`, {
+      method: "DELETE",
+    });
+    setOutdoorUnits(outdoorUnits.filter((unit) => unit._id !== id));
+  };
+
+  // Indoor Unit Categories CRUD
+  const [indoorUnitCategories, setIndoorUnitCategories] = useState([]);
+  useEffect(() => {
+    fetch(`${API_URL}/api/admin/products/indoor-units`)
+      .then((res) => res.json())
+      .then((data) => setIndoorUnitCategories(data));
+  }, [API_URL]);
+
+  const handleAddIndoorUnitCategory = async (category) => {
+    const res = await fetch(`${API_URL}/api/admin/products/indoor-units`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(category),
+    });
+    const newCategory = await res.json();
+    setIndoorUnitCategories([...indoorUnitCategories, newCategory]);
+  };
+
+  const handleEditIndoorUnitCategory = async (id, updates) => {
+    const res = await fetch(
+      `${API_URL}/api/admin/products/indoor-units/${id}`,
+      {
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(updates),
+      }
+    );
+    const updated = await res.json();
+    setIndoorUnitCategories(
+      indoorUnitCategories.map((cat) => (cat._id === id ? updated : cat))
+    );
+  };
+
+  const handleDeleteIndoorUnitCategory = async (id) => {
+    await fetch(`${API_URL}/api/admin/products/indoor-units/${id}`, {
+      method: "DELETE",
+    });
+    setIndoorUnitCategories(
+      indoorUnitCategories.filter((cat) => cat._id !== id)
+    );
+  };
+
+  // Unified Product handlers
+  const handleAddProduct = () => {
+    setEditingItem(null);
+    setIsProductDialogOpen(true);
+  };
+
+  const handleEditProduct = (item) => {
+    setEditingItem(item);
+    setIsProductDialogOpen(true);
+  };
+
+  const handleDeleteProduct = (id) => {
+    switch (activeProductType) {
+      case "category":
+        handleDeleteCategory(id);
+        break;
+      case "featured":
+        handleDeleteFeaturedModel(id);
+        break;
+      case "outdoor":
+        handleDeleteOutdoorUnit(id);
+        break;
+      case "indoor":
+        handleDeleteIndoorUnitCategory(id);
+        break;
+    }
+  };
+
+  const handleProductSubmit = (formData) => {
+    if (editingItem) {
+      // Edit existing product
+      switch (activeProductType) {
+        case "category":
+          handleEditCategory(editingItem._id, formData);
+          break;
+        case "featured":
+          handleEditFeaturedModel(editingItem._id, formData);
+          break;
+        case "outdoor":
+          handleEditOutdoorUnit(editingItem._id, formData);
+          break;
+        case "indoor":
+          handleEditIndoorUnitCategory(editingItem._id, formData);
+          break;
+      }
+    } else {
+      // Add new product
+      switch (activeProductType) {
+        case "category":
+          handleAddCategory(formData);
+          break;
+        case "featured":
+          handleAddFeaturedModel(formData);
+          break;
+        case "outdoor":
+          handleAddOutdoorUnit(formData);
+          break;
+        case "indoor":
+          handleAddIndoorUnitCategory(formData);
+          break;
+      }
+    }
+  };
+
+  // Offers CRUD
+  const [offers, setOffers] = useState([]);
+  useEffect(() => {
+    fetch(`${API_URL}/api/admin/offers`)
+      .then((res) => res.json())
+      .then((data) => setOffers(data));
+  }, [API_URL]);
+
+  const handleAddOffer = async (offer) => {
+    const res = await fetch(`${API_URL}/api/admin/offers`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(offer),
+    });
+    const newOffer = await res.json();
+    setOffers([...offers, newOffer]);
+  };
+
+  const handleEditOffer = async (id, updates) => {
+    const res = await fetch(`${API_URL}/api/admin/offers/${id}`, {
+      method: "PUT",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(updates),
+    });
+    const updated = await res.json();
+    setOffers(offers.map((offer) => (offer._id === id ? updated : offer)));
+  };
+
+  const handleDeleteOffer = async (id) => {
+    await fetch(`${API_URL}/api/admin/offers/${id}`, {
+      method: "DELETE",
+    });
+    setOffers(offers.filter((offer) => offer._id !== id));
+  };
+
+  // Services CRUD
+  const [services, setServices] = useState([]);
+  useEffect(() => {
+    fetch(`${API_URL}/api/admin/services`)
+      .then((res) => res.json())
+      .then((data) => setServices(data));
+  }, [API_URL]);
+
+  const handleAddService = async (service) => {
+    const res = await fetch(`${API_URL}/api/admin/services`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(service),
+    });
+    const newService = await res.json();
+    setServices([...services, newService]);
+  };
+
+  const handleEditService = async (id, updates) => {
+    const res = await fetch(`${API_URL}/api/admin/services/${id}`, {
+      method: "PUT",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(updates),
+    });
+    const updated = await res.json();
+    setServices(
+      services.map((service) => (service._id === id ? updated : service))
+    );
+  };
+
+  const handleDeleteService = async (id) => {
+    await fetch(`${API_URL}/api/admin/services/${id}`, {
+      method: "DELETE",
+    });
+    setServices(services.filter((service) => service._id !== id));
+  };
+
+  // Service handlers for dialog
+  const handleAddServiceDialog = () => {
+    setEditingItem(null);
+    setIsServiceDialogOpen(true);
+  };
+
+  const handleEditServiceDialog = (service) => {
+    setEditingItem(service);
+    setIsServiceDialogOpen(true);
+  };
+
+  const handleServiceSubmit = (formData) => {
+    if (editingItem) {
+      handleEditService(editingItem._id, formData);
+    } else {
+      handleAddService(formData);
+    }
+  };
+
+  // Technology Highlights CRUD
+  const [technologyHighlights, setTechnologyHighlights] = useState([]);
+  useEffect(() => {
+    fetch(`${API_URL}/api/admin/products/technology-highlights`)
+      .then((res) => res.json())
+      .then((data) => setTechnologyHighlights(data));
+  }, [API_URL]);
+
+  const handleAddTechnologyHighlight = async (highlight) => {
+    const res = await fetch(
+      `${API_URL}/api/admin/products/technology-highlights`,
+      {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(highlight),
+      }
+    );
+    const newHighlight = await res.json();
+    setTechnologyHighlights([...technologyHighlights, newHighlight]);
+  };
+
+  const handleEditTechnologyHighlight = async (id, updates) => {
+    const res = await fetch(
+      `${API_URL}/api/admin/products/technology-highlights/${id}`,
+      {
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(updates),
+      }
+    );
+    const updated = await res.json();
+    setTechnologyHighlights(
+      technologyHighlights.map((highlight) =>
+        highlight._id === id ? updated : highlight
+      )
+    );
+  };
+
+  const handleDeleteTechnologyHighlight = async (id) => {
+    await fetch(`${API_URL}/api/admin/products/technology-highlights/${id}`, {
+      method: "DELETE",
+    });
+    setTechnologyHighlights(
+      technologyHighlights.filter((highlight) => highlight._id !== id)
+    );
+  };
+
+  // Home Product handlers
+  const handleAddHomeProduct = () => {
+    setEditingItem(null);
+    setIsHomeProductDialogOpen(true);
+  };
+
+  const handleEditHomeProduct = (item) => {
+    setEditingItem(item);
+    setIsHomeProductDialogOpen(true);
+  };
+
+  const handleDeleteHomeProduct = (id) => {
+    switch (activeHomeProductType) {
+      case "categories":
+        handleDeleteCategory(id);
+        break;
+      case "featured":
+        handleDeleteFeaturedModel(id);
+        break;
+      case "technology":
+        handleDeleteTechnologyHighlight(id);
+        break;
+    }
+  };
+
+  const handleHomeProductSubmit = (formData) => {
+    if (editingItem) {
+      // Edit existing home product
+      switch (activeHomeProductType) {
+        case "categories":
+          handleEditCategory(editingItem._id, formData);
+          break;
+        case "featured":
+          handleEditFeaturedModel(editingItem._id, formData);
+          break;
+        case "technology":
+          handleEditTechnologyHighlight(editingItem._id, formData);
+          break;
+      }
+    } else {
+      // Add new home product
+      switch (activeHomeProductType) {
+        case "categories":
+          handleAddCategory(formData);
+          break;
+        case "featured":
+          handleAddFeaturedModel(formData);
+          break;
+        case "technology":
+          handleAddTechnologyHighlight(formData);
+          break;
+      }
+    }
+  };
 
   // Analytics mock data
   const analytics = {
@@ -44,10 +485,10 @@ const Admin = () => {
     conversionRate: 3.6,
     revenue: 125000,
     topProducts: [
-      { name: 'Daikin FTKP35TV16U', sales: 45 },
-      { name: 'Daikin FTKF50TV16U', sales: 32 },
-      { name: 'Daikin FTKF60TV16U', sales: 28 }
-    ]
+      { name: "Daikin FTKP35TV16U", sales: 45 },
+      { name: "Daikin FTKF50TV16U", sales: 32 },
+      { name: "Daikin FTKF60TV16U", sales: 28 },
+    ],
   };
 
   const StatCard = ({ title, value, icon: Icon, trend, color = "blue" }) => (
@@ -79,31 +520,57 @@ const Admin = () => {
           </DialogTitle>
         </DialogHeader>
         <div className="grid gap-4 py-4">
-          {type === 'offer' && (
+          {type === "offer" && (
             <>
               <div className="grid gap-2">
-                <Label htmlFor="title" className="text-foreground">Title</Label>
-                <Input id="title" placeholder="Enter offer title" defaultValue={item?.title} />
+                <Label htmlFor="title" className="text-foreground">
+                  Title
+                </Label>
+                <Input
+                  id="title"
+                  placeholder="Enter offer title"
+                  defaultValue={item?.title}
+                />
               </div>
               <div className="grid gap-2">
-                <Label htmlFor="description" className="text-foreground">Description</Label>
-                <Textarea id="description" placeholder="Enter description" defaultValue={item?.description} />
+                <Label htmlFor="description" className="text-foreground">
+                  Description
+                </Label>
+                <Textarea
+                  id="description"
+                  placeholder="Enter description"
+                  defaultValue={item?.description}
+                />
               </div>
               <div className="grid gap-2">
-                <Label htmlFor="validUntil" className="text-foreground">Valid Until</Label>
-                <Input id="validUntil" type="date" defaultValue={item?.validUntil} />
+                <Label htmlFor="validUntil" className="text-foreground">
+                  Valid Until
+                </Label>
+                <Input
+                  id="validUntil"
+                  type="date"
+                  defaultValue={item?.validUntil}
+                />
               </div>
             </>
           )}
-          
-          {type === 'product' && (
+
+          {type === "product" && (
             <>
               <div className="grid gap-2">
-                <Label htmlFor="model" className="text-foreground">Model</Label>
-                <Input id="model" placeholder="Enter model name" defaultValue={item?.model} />
+                <Label htmlFor="model" className="text-foreground">
+                  Model
+                </Label>
+                <Input
+                  id="model"
+                  placeholder="Enter model name"
+                  defaultValue={item?.model}
+                />
               </div>
               <div className="grid gap-2">
-                <Label htmlFor="category" className="text-foreground">Category</Label>
+                <Label htmlFor="category" className="text-foreground">
+                  Category
+                </Label>
                 <Select defaultValue={item?.category}>
                   <SelectTrigger>
                     <SelectValue placeholder="Select category" />
@@ -112,49 +579,91 @@ const Admin = () => {
                     <SelectItem value="Split AC">Split AC</SelectItem>
                     <SelectItem value="Cassette AC">Cassette AC</SelectItem>
                     <SelectItem value="VRV System">VRV System</SelectItem>
-                    <SelectItem value="Commercial Unit">Commercial Unit</SelectItem>
+                    <SelectItem value="Commercial Unit">
+                      Commercial Unit
+                    </SelectItem>
                   </SelectContent>
                 </Select>
               </div>
               <div className="grid grid-cols-2 gap-2">
                 <div className="grid gap-2">
-                  <Label htmlFor="originalPrice" className="text-foreground">Original Price</Label>
-                  <Input id="originalPrice" placeholder="₹00,000" defaultValue={item?.originalPrice} />
+                  <Label htmlFor="originalPrice" className="text-foreground">
+                    Original Price
+                  </Label>
+                  <Input
+                    id="originalPrice"
+                    placeholder="₹00,000"
+                    defaultValue={item?.originalPrice}
+                  />
                 </div>
                 <div className="grid gap-2">
-                  <Label htmlFor="offerPrice" className="text-foreground">Offer Price</Label>
-                  <Input id="offerPrice" placeholder="₹00,000" defaultValue={item?.offerPrice} />
+                  <Label htmlFor="offerPrice" className="text-foreground">
+                    Offer Price
+                  </Label>
+                  <Input
+                    id="offerPrice"
+                    placeholder="₹00,000"
+                    defaultValue={item?.offerPrice}
+                  />
                 </div>
               </div>
             </>
           )}
 
-          {type === 'service' && (
+          {type === "service" && (
             <>
               <div className="grid gap-2">
-                <Label htmlFor="serviceTitle" className="text-foreground">Service Title</Label>
-                <Input id="serviceTitle" placeholder="Enter service title" defaultValue={item?.title} />
+                <Label htmlFor="serviceTitle" className="text-foreground">
+                  Service Title
+                </Label>
+                <Input
+                  id="serviceTitle"
+                  placeholder="Enter service title"
+                  defaultValue={item?.title}
+                />
               </div>
               <div className="grid gap-2">
-                <Label htmlFor="serviceDescription" className="text-foreground">Description</Label>
-                <Textarea id="serviceDescription" placeholder="Enter description" defaultValue={item?.description} />
+                <Label htmlFor="serviceDescription" className="text-foreground">
+                  Description
+                </Label>
+                <Textarea
+                  id="serviceDescription"
+                  placeholder="Enter description"
+                  defaultValue={item?.description}
+                />
               </div>
               <div className="grid grid-cols-2 gap-2">
                 <div className="grid gap-2">
-                  <Label htmlFor="price" className="text-foreground">Price</Label>
-                  <Input id="price" placeholder="₹0000" defaultValue={item?.price} />
+                  <Label htmlFor="price" className="text-foreground">
+                    Price
+                  </Label>
+                  <Input
+                    id="price"
+                    placeholder="₹0000"
+                    defaultValue={item?.price}
+                  />
                 </div>
                 <div className="grid gap-2">
-                  <Label htmlFor="duration" className="text-foreground">Duration</Label>
-                  <Input id="duration" placeholder="1-2 hours" defaultValue={item?.duration} />
+                  <Label htmlFor="duration" className="text-foreground">
+                    Duration
+                  </Label>
+                  <Input
+                    id="duration"
+                    placeholder="1-2 hours"
+                    defaultValue={item?.duration}
+                  />
                 </div>
               </div>
             </>
           )}
         </div>
         <div className="flex justify-end gap-3">
-          <Button variant="outline" onClick={onClose}>Cancel</Button>
-          <Button onClick={onClose}>{item ? 'Update' : 'Add'} {type}</Button>
+          <Button variant="outline" onClick={onClose}>
+            Cancel
+          </Button>
+          <Button onClick={onClose}>
+            {item ? "Update" : "Add"} {type}
+          </Button>
         </div>
       </DialogContent>
     </Dialog>
@@ -163,35 +672,63 @@ const Admin = () => {
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-900 via-blue-900 to-indigo-900">
       <Header />
-      
+
       <main className="pt-20 px-6 lg:px-8">
         <div className="container mx-auto py-8">
           {/* Admin Header */}
           <div className="mb-8">
-            <h1 className="text-4xl font-bold text-white mb-2">Admin Dashboard</h1>
+            <h1 className="text-4xl font-bold text-white mb-2">
+              Admin Dashboard
+            </h1>
             <p className="text-white/70">Manage your AC business operations</p>
           </div>
 
           {/* Tabs Navigation */}
-          <Tabs value={activeTab} onValueChange={setActiveTab} className="space-y-6">
-            <TabsList className="grid w-full grid-cols-5 bg-white/10 backdrop-blur-sm border border-white/20">
-              <TabsTrigger value="dashboard" className="data-[state=active]:bg-white/20 data-[state=active]:text-white text-white/70">
+          <Tabs
+            value={activeTab}
+            onValueChange={setActiveTab}
+            className="space-y-6"
+          >
+            <TabsList className="grid w-full grid-cols-6 bg-white/10 backdrop-blur-sm border border-white/20">
+              <TabsTrigger
+                value="dashboard"
+                className="data-[state=active]:bg-white/20 data-[state=active]:text-white text-white/70"
+              >
                 <BarChart3 className="w-4 h-4 mr-2" />
                 Dashboard
               </TabsTrigger>
-              <TabsTrigger value="offers" className="data-[state=active]:bg-white/20 data-[state=active]:text-white text-white/70">
+              <TabsTrigger
+                value="home-products"
+                className="data-[state=active]:bg-white/20 data-[state=active]:text-white text-white/70"
+              >
+                <ShoppingBag className="w-4 h-4 mr-2" />
+                Home Products
+              </TabsTrigger>
+              <TabsTrigger
+                value="offers"
+                className="data-[state=active]:bg-white/20 data-[state=active]:text-white text-white/70"
+              >
                 <Star className="w-4 h-4 mr-2" />
                 Offers
               </TabsTrigger>
-              <TabsTrigger value="products" className="data-[state=active]:bg-white/20 data-[state=active]:text-white text-white/70">
+              <TabsTrigger
+                value="products"
+                className="data-[state=active]:bg-white/20 data-[state=active]:text-white text-white/70"
+              >
                 <ShoppingBag className="w-4 h-4 mr-2" />
                 Products
               </TabsTrigger>
-              <TabsTrigger value="services" className="data-[state=active]:bg-white/20 data-[state=active]:text-white text-white/70">
+              <TabsTrigger
+                value="services"
+                className="data-[state=active]:bg-white/20 data-[state=active]:text-white text-white/70"
+              >
                 <Users className="w-4 h-4 mr-2" />
                 Services
               </TabsTrigger>
-              <TabsTrigger value="analytics" className="data-[state=active]:bg-white/20 data-[state=active]:text-white text-white/70">
+              <TabsTrigger
+                value="analytics"
+                className="data-[state=active]:bg-white/20 data-[state=active]:text-white text-white/70"
+              >
                 <TrendingUp className="w-4 h-4 mr-2" />
                 Analytics
               </TabsTrigger>
@@ -200,31 +737,31 @@ const Admin = () => {
             {/* Dashboard Tab */}
             <TabsContent value="dashboard" className="space-y-6">
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-                <StatCard 
-                  title="Total Visitors" 
-                  value={analytics.totalVisitors.toLocaleString()} 
-                  icon={Eye} 
+                <StatCard
+                  title="Total Visitors"
+                  value={analytics.totalVisitors.toLocaleString()}
+                  icon={Eye}
                   trend={12.5}
                   color="blue"
                 />
-                <StatCard 
-                  title="Inquiries" 
-                  value={analytics.totalInquiries} 
-                  icon={Users} 
+                <StatCard
+                  title="Inquiries"
+                  value={analytics.totalInquiries}
+                  icon={Users}
                   trend={8.2}
                   color="green"
                 />
-                <StatCard 
-                  title="Conversion Rate" 
-                  value={`${analytics.conversionRate}%`} 
-                  icon={TrendingUp} 
+                <StatCard
+                  title="Conversion Rate"
+                  value={`${analytics.conversionRate}%`}
+                  icon={TrendingUp}
                   trend={2.1}
                   color="purple"
                 />
-                <StatCard 
-                  title="Revenue" 
-                  value={`₹${analytics.revenue.toLocaleString()}`} 
-                  icon={BarChart3} 
+                <StatCard
+                  title="Revenue"
+                  value={`₹${analytics.revenue.toLocaleString()}`}
+                  icon={BarChart3}
                   trend={15.3}
                   color="orange"
                 />
@@ -233,17 +770,28 @@ const Admin = () => {
               <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
                 {/* Quick Actions */}
                 <Card className="p-6 bg-white/10 backdrop-blur-sm border border-white/20">
-                  <h3 className="text-xl font-semibold text-white mb-4">Quick Actions</h3>
+                  <h3 className="text-xl font-semibold text-white mb-4">
+                    Quick Actions
+                  </h3>
                   <div className="space-y-3">
-                    <Button className="w-full justify-start" onClick={() => setActiveTab('offers')}>
+                    <Button
+                      className="w-full justify-start"
+                      onClick={() => setActiveTab("offers")}
+                    >
                       <Plus className="w-4 h-4 mr-2" />
                       Add New Offer
                     </Button>
-                    <Button className="w-full justify-start" onClick={() => setActiveTab('products')}>
+                    <Button
+                      className="w-full justify-start"
+                      onClick={() => setActiveTab("products")}
+                    >
                       <Plus className="w-4 h-4 mr-2" />
                       Add New Product
                     </Button>
-                    <Button className="w-full justify-start" onClick={() => setActiveTab('services')}>
+                    <Button
+                      className="w-full justify-start"
+                      onClick={() => setActiveTab("services")}
+                    >
                       <Plus className="w-4 h-4 mr-2" />
                       Add New Service
                     </Button>
@@ -252,12 +800,20 @@ const Admin = () => {
 
                 {/* Top Products */}
                 <Card className="p-6 bg-white/10 backdrop-blur-sm border border-white/20">
-                  <h3 className="text-xl font-semibold text-white mb-4">Top Selling Products</h3>
+                  <h3 className="text-xl font-semibold text-white mb-4">
+                    Top Selling Products
+                  </h3>
                   <div className="space-y-3">
                     {analytics.topProducts.map((product, index) => (
-                      <div key={index} className="flex items-center justify-between p-3 rounded-lg bg-white/5">
+                      <div
+                        key={index}
+                        className="flex items-center justify-between p-3 rounded-lg bg-white/5"
+                      >
                         <span className="text-white">{product.name}</span>
-                        <Badge variant="secondary" className="bg-white/20 text-white">
+                        <Badge
+                          variant="secondary"
+                          className="bg-white/20 text-white"
+                        >
                           {product.sales} sales
                         </Badge>
                       </div>
@@ -267,171 +823,89 @@ const Admin = () => {
               </div>
             </TabsContent>
 
+            {/* Home Products Tab */}
+            <TabsContent value="home-products" className="space-y-6">
+              <AdminHomeProducts
+                productCategories={productCategories}
+                featuredModels={featuredModels}
+                technologyHighlights={technologyHighlights}
+                onAddProduct={handleAddHomeProduct}
+                onEditProduct={handleEditHomeProduct}
+                onDeleteProduct={handleDeleteHomeProduct}
+                activeType={activeHomeProductType}
+                setActiveType={setActiveHomeProductType}
+              />
+
+              <HomeProductDialog
+                isOpen={isHomeProductDialogOpen}
+                onClose={() => setIsHomeProductDialogOpen(false)}
+                onSubmit={handleHomeProductSubmit}
+                initialData={editingItem}
+                type={activeHomeProductType}
+              />
+            </TabsContent>
+
             {/* Offers Tab */}
             <TabsContent value="offers" className="space-y-6">
-              <div className="flex justify-between items-center">
-                <h2 className="text-2xl font-bold text-white">Manage Offers</h2>
-                <Dialog open={isAddDialogOpen} onOpenChange={setIsAddDialogOpen}>
-                  <DialogTrigger asChild>
-                    <Button>
-                      <Plus className="w-4 h-4 mr-2" />
-                      Add New Offer
-                    </Button>
-                  </DialogTrigger>
-                  <AddEditDialog 
-                    isOpen={isAddDialogOpen} 
-                    onClose={() => setIsAddDialogOpen(false)} 
-                    type="offer"
-                  />
-                </Dialog>
-              </div>
-
-              <Card className="bg-white/10 backdrop-blur-sm border border-white/20">
-                <Table>
-                  <TableHeader>
-                    <TableRow className="border-white/20">
-                      <TableHead className="text-white">Title</TableHead>
-                      <TableHead className="text-white">Description</TableHead>
-                      <TableHead className="text-white">Status</TableHead>
-                      <TableHead className="text-white">Valid Until</TableHead>
-                      <TableHead className="text-white">Actions</TableHead>
-                    </TableRow>
-                  </TableHeader>
-                  <TableBody>
-                    {offers.map((offer) => (
-                      <TableRow key={offer.id} className="border-white/20">
-                        <TableCell className="text-white font-medium">{offer.title}</TableCell>
-                        <TableCell className="text-white/80">{offer.description}</TableCell>
-                        <TableCell>
-                          <Badge className="bg-green-500/20 text-green-400">{offer.status}</Badge>
-                        </TableCell>
-                        <TableCell className="text-white/80">{offer.validUntil}</TableCell>
-                        <TableCell>
-                          <div className="flex space-x-2">
-                            <Button size="sm" variant="outline" className="border-white/20 text-white hover:bg-white/10">
-                              <Edit className="w-4 h-4" />
-                            </Button>
-                            <Button size="sm" variant="outline" className="border-red-400/20 text-red-400 hover:bg-red-500/10">
-                              <Trash2 className="w-4 h-4" />
-                            </Button>
-                          </div>
-                        </TableCell>
-                      </TableRow>
-                    ))}
-                  </TableBody>
-                </Table>
-              </Card>
+              <AdminOffers
+                offers={offers}
+                onAddOffer={handleAddOffer}
+                onEditOffer={handleEditOffer}
+                onDeleteOffer={handleDeleteOffer}
+              />
             </TabsContent>
 
             {/* Products Tab */}
             <TabsContent value="products" className="space-y-6">
-              <div className="flex justify-between items-center">
-                <h2 className="text-2xl font-bold text-white">Manage Products</h2>
-                <Button>
-                  <Plus className="w-4 h-4 mr-2" />
-                  Add New Product
-                </Button>
-              </div>
+              <AdminProducts
+                productCategories={productCategories}
+                featuredModels={featuredModels}
+                outdoorUnits={outdoorUnits}
+                indoorUnitCategories={indoorUnitCategories}
+                onAddProduct={handleAddProduct}
+                onEditProduct={handleEditProduct}
+                onDeleteProduct={handleDeleteProduct}
+                activeType={activeProductType}
+                setActiveType={setActiveProductType}
+              />
 
-              <Card className="bg-white/10 backdrop-blur-sm border border-white/20">
-                <Table>
-                  <TableHeader>
-                    <TableRow className="border-white/20">
-                      <TableHead className="text-white">Model</TableHead>
-                      <TableHead className="text-white">Category</TableHead>
-                      <TableHead className="text-white">Original Price</TableHead>
-                      <TableHead className="text-white">Offer Price</TableHead>
-                      <TableHead className="text-white">Savings</TableHead>
-                      <TableHead className="text-white">Status</TableHead>
-                      <TableHead className="text-white">Actions</TableHead>
-                    </TableRow>
-                  </TableHeader>
-                  <TableBody>
-                    {products.map((product) => (
-                      <TableRow key={product.id} className="border-white/20">
-                        <TableCell className="text-white font-medium">{product.model}</TableCell>
-                        <TableCell className="text-white/80">{product.category}</TableCell>
-                        <TableCell className="text-white/80 line-through">{product.originalPrice}</TableCell>
-                        <TableCell className="text-white font-semibold">{product.offerPrice}</TableCell>
-                        <TableCell className="text-green-400">{product.savings}</TableCell>
-                        <TableCell>
-                          <Badge className={product.status === 'In Stock' ? 'bg-green-500/20 text-green-400' : 'bg-orange-500/20 text-orange-400'}>
-                            {product.status}
-                          </Badge>
-                        </TableCell>
-                        <TableCell>
-                          <div className="flex space-x-2">
-                            <Button size="sm" variant="outline" className="border-white/20 text-white hover:bg-white/10">
-                              <Edit className="w-4 h-4" />
-                            </Button>
-                            <Button size="sm" variant="outline" className="border-red-400/20 text-red-400 hover:bg-red-500/10">
-                              <Trash2 className="w-4 h-4" />
-                            </Button>
-                          </div>
-                        </TableCell>
-                      </TableRow>
-                    ))}
-                  </TableBody>
-                </Table>
-              </Card>
+              <ProductDialog
+                isOpen={isProductDialogOpen}
+                onClose={() => setIsProductDialogOpen(false)}
+                onSubmit={handleProductSubmit}
+                initialData={editingItem}
+                type={activeProductType}
+              />
             </TabsContent>
 
             {/* Services Tab */}
             <TabsContent value="services" className="space-y-6">
-              <div className="flex justify-between items-center">
-                <h2 className="text-2xl font-bold text-white">Manage Services</h2>
-                <Button>
-                  <Plus className="w-4 h-4 mr-2" />
-                  Add New Service
-                </Button>
-              </div>
+              <AdminServices
+                services={services}
+                onAddService={handleAddServiceDialog}
+                onEditService={handleEditServiceDialog}
+                onDeleteService={handleDeleteService}
+              />
 
-              <Card className="bg-white/10 backdrop-blur-sm border border-white/20">
-                <Table>
-                  <TableHeader>
-                    <TableRow className="border-white/20">
-                      <TableHead className="text-white">Service</TableHead>
-                      <TableHead className="text-white">Description</TableHead>
-                      <TableHead className="text-white">Price</TableHead>
-                      <TableHead className="text-white">Duration</TableHead>
-                      <TableHead className="text-white">Status</TableHead>
-                      <TableHead className="text-white">Actions</TableHead>
-                    </TableRow>
-                  </TableHeader>
-                  <TableBody>
-                    {services.map((service) => (
-                      <TableRow key={service.id} className="border-white/20">
-                        <TableCell className="text-white font-medium">{service.title}</TableCell>
-                        <TableCell className="text-white/80">{service.description}</TableCell>
-                        <TableCell className="text-white font-semibold">{service.price}</TableCell>
-                        <TableCell className="text-white/80">{service.duration}</TableCell>
-                        <TableCell>
-                          <Badge className="bg-green-500/20 text-green-400">{service.status}</Badge>
-                        </TableCell>
-                        <TableCell>
-                          <div className="flex space-x-2">
-                            <Button size="sm" variant="outline" className="border-white/20 text-white hover:bg-white/10">
-                              <Edit className="w-4 h-4" />
-                            </Button>
-                            <Button size="sm" variant="outline" className="border-red-400/20 text-red-400 hover:bg-red-500/10">
-                              <Trash2 className="w-4 h-4" />
-                            </Button>
-                          </div>
-                        </TableCell>
-                      </TableRow>
-                    ))}
-                  </TableBody>
-                </Table>
-              </Card>
+              <ServiceDialog
+                isOpen={isServiceDialogOpen}
+                onClose={() => setIsServiceDialogOpen(false)}
+                onSubmit={handleServiceSubmit}
+                initialData={editingItem}
+              />
             </TabsContent>
 
             {/* Analytics Tab */}
             <TabsContent value="analytics" className="space-y-6">
-              <h2 className="text-2xl font-bold text-white">Analytics & Reports</h2>
-              
+              <h2 className="text-2xl font-bold text-white">
+                Analytics & Reports
+              </h2>
+
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                 <Card className="p-6 bg-white/10 backdrop-blur-sm border border-white/20">
-                  <h3 className="text-lg font-semibold text-white mb-4">Monthly Performance</h3>
+                  <h3 className="text-lg font-semibold text-white mb-4">
+                    Monthly Performance
+                  </h3>
                   <div className="space-y-2">
                     <div className="flex justify-between text-white/80">
                       <span>Visitors</span>
@@ -449,7 +923,9 @@ const Admin = () => {
                 </Card>
 
                 <Card className="p-6 bg-white/10 backdrop-blur-sm border border-white/20">
-                  <h3 className="text-lg font-semibold text-white mb-4">Revenue Breakdown</h3>
+                  <h3 className="text-lg font-semibold text-white mb-4">
+                    Revenue Breakdown
+                  </h3>
                   <div className="space-y-2">
                     <div className="flex justify-between text-white/80">
                       <span>Product Sales</span>
@@ -467,7 +943,9 @@ const Admin = () => {
                 </Card>
 
                 <Card className="p-6 bg-white/10 backdrop-blur-sm border border-white/20">
-                  <h3 className="text-lg font-semibold text-white mb-4">Customer Insights</h3>
+                  <h3 className="text-lg font-semibold text-white mb-4">
+                    Customer Insights
+                  </h3>
                   <div className="space-y-2">
                     <div className="flex justify-between text-white/80">
                       <span>New Customers</span>
