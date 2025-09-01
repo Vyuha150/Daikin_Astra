@@ -36,7 +36,7 @@ const ProductDialog = ({ isOpen, onClose, onSubmit, initialData, type }) => {
       case "indoor":
         return {
           category: "",
-          // Add more fields as needed for units
+          units: [],
         };
       default:
         return {};
@@ -229,9 +229,32 @@ const ProductDialog = ({ isOpen, onClose, onSubmit, initialData, type }) => {
             value={form.category || ""}
             onChange={handleChange}
             className="border border-gray-400"
+            placeholder="Enter category name"
           />
         </div>
-        {/* For units, you may want to add a dynamic list UI */}
+        <div className="grid gap-2">
+          <Label>Units (JSON format)</Label>
+          <Textarea
+            name="units"
+            value={JSON.stringify(form.units || [], null, 2)}
+            onChange={(e) => {
+              try {
+                const units = JSON.parse(e.target.value);
+                setForm({ ...form, units });
+              } catch (error) {
+                // Invalid JSON, ignore for now
+                console.log("Invalid JSON format");
+              }
+            }}
+            className="border border-gray-400 font-mono text-sm"
+            placeholder='[{"name": "Unit Name", "model": "Model123", "capacity": "3.5kW", "features": ["Feature1", "Feature2"], "applications": ["App1", "App2"]}]'
+            rows={8}
+          />
+          <div className="text-xs text-gray-500">
+            Enter units as JSON array. Each unit should have: name, model,
+            capacity, features (array), applications (array)
+          </div>
+        </div>
       </>
     );
   }

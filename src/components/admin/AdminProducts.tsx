@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { Card } from "../ui/card";
 import { Badge } from "../ui/badge";
 import { Button } from "../ui/button";
@@ -17,6 +18,7 @@ import {
   SelectValue,
 } from "../ui/select";
 import { Edit, Trash2, Plus } from "lucide-react";
+import UnitDialog from "./UnitDialog";
 
 const AdminProducts = ({
   productCategories,
@@ -29,6 +31,76 @@ const AdminProducts = ({
   activeType,
   setActiveType,
 }) => {
+  const [selectedCategory, setSelectedCategory] = useState(null);
+  const [showUnitsView, setShowUnitsView] = useState(false);
+  const [showUnitDialog, setShowUnitDialog] = useState(false);
+  const [editingUnit, setEditingUnit] = useState(null);
+  const [editingUnitIndex, setEditingUnitIndex] = useState(null);
+
+  // Functions for managing individual units within categories
+  const handleViewUnits = (category) => {
+    setSelectedCategory(category);
+    setShowUnitsView(true);
+  };
+
+  const handleAddUnit = () => {
+    setEditingUnit(null);
+    setEditingUnitIndex(null);
+    setShowUnitDialog(true);
+  };
+
+  const handleEditUnitClick = (unit, index) => {
+    setEditingUnit(unit);
+    setEditingUnitIndex(index);
+    setShowUnitDialog(true);
+  };
+
+  const handleUnitSubmit = (unitData) => {
+    if (!selectedCategory) return;
+
+    const updatedUnits = [...(selectedCategory.units || [])];
+
+    if (editingUnitIndex !== null) {
+      // Editing existing unit
+      updatedUnits[editingUnitIndex] = unitData;
+    } else {
+      // Adding new unit
+      updatedUnits.push(unitData);
+    }
+
+    const updatedCategory = {
+      ...selectedCategory,
+      units: updatedUnits,
+    };
+
+    onEditProduct(updatedCategory);
+    setSelectedCategory(updatedCategory);
+    setShowUnitDialog(false);
+    setEditingUnit(null);
+    setEditingUnitIndex(null);
+  };
+
+  const handleDeleteUnit = (unitIndex) => {
+    if (!selectedCategory) return;
+
+    const updatedUnits = (selectedCategory.units || []).filter(
+      (_, index) => index !== unitIndex
+    );
+
+    const updatedCategory = {
+      ...selectedCategory,
+      units: updatedUnits,
+    };
+
+    onEditProduct(updatedCategory);
+    setSelectedCategory(updatedCategory);
+  };
+
+  const handleBackToCategories = () => {
+    setShowUnitsView(false);
+    setSelectedCategory(null);
+  };
+
   // Table headers for each type
   const headers = {
     category: ["Title", "Description", "Features", "Popular", "Actions"],
@@ -41,7 +113,7 @@ const AdminProducts = ({
       "Features",
       "Actions",
     ],
-    indoor: ["Category", "Actions"],
+    indoor: ["Category", "Units Count", "Actions"],
   };
 
   // Data for each type
@@ -145,26 +217,60 @@ const AdminProducts = ({
                     <TableCell className="text-white font-medium">
                       {item.category}
                     </TableCell>
+                    <TableCell className="text-white/80">
+                      {item.units?.length || 0} units
+                    </TableCell>
                   </>
                 )}
                 <TableCell>
                   <div className="flex space-x-2">
-                    <Button
-                      size="sm"
-                      variant="outline"
-                      className="border-white/20 text-white hover:bg-white/10"
-                      onClick={() => onEditProduct(item)}
-                    >
-                      <Edit className="w-4 h-4" />
-                    </Button>
-                    <Button
-                      size="sm"
-                      variant="outline"
-                      className="border-red-400/20 text-red-400 hover:bg-red-500/10"
-                      onClick={() => onDeleteProduct(item._id || item.id)}
-                    >
-                      <Trash2 className="w-4 h-4" />
-                    </Button>
+                    {activeType === "indoor" ? (
+                      <>
+                        <Button
+                          size="sm"
+                          variant="outline"
+                          className="border-blue-400/20 text-blue-400 hover:bg-blue-500/10"
+                          onClick={() => handleViewUnits(item)}
+                        >
+                          View Units
+                        </Button>
+                        <Button
+                          size="sm"
+                          variant="outline"
+                          className="border-white/20 text-white hover:bg-white/10"
+                          onClick={() => onEditProduct(item)}
+                        >
+                          <Edit className="w-4 h-4" />
+                        </Button>
+                        <Button
+                          size="sm"
+                          variant="outline"
+                          className="border-red-400/20 text-red-400 hover:bg-red-500/10"
+                          onClick={() => onDeleteProduct(item._id || item.id)}
+                        >
+                          <Trash2 className="w-4 h-4" />
+                        </Button>
+                      </>
+                    ) : (
+                      <>
+                        <Button
+                          size="sm"
+                          variant="outline"
+                          className="border-white/20 text-white hover:bg-white/10"
+                          onClick={() => onEditProduct(item)}
+                        >
+                          <Edit className="w-4 h-4" />
+                        </Button>
+                        <Button
+                          size="sm"
+                          variant="outline"
+                          className="border-red-400/20 text-red-400 hover:bg-red-500/10"
+                          onClick={() => onDeleteProduct(item._id || item.id)}
+                        >
+                          <Trash2 className="w-4 h-4" />
+                        </Button>
+                      </>
+                    )}
                   </div>
                 </TableCell>
               </TableRow>
@@ -172,6 +278,108 @@ const AdminProducts = ({
           </TableBody>
         </Table>
       </Card>
+
+      {/* Units View Dialog/Overlay */}
+      {showUnitsView && selectedCategory && (
+        <Card className="bg-white/10 backdrop-blur-sm border border-white/20 mt-6">
+          <div className="p-6 space-y-6">
+            <div className="flex justify-between items-center">
+              <div>
+                <Button
+                  variant="outline"
+                  onClick={handleBackToCategories}
+                  className="mb-4 border-white/20 text-white hover:bg-white/10"
+                >
+                  ← Back to Categories
+                </Button>
+                <h3 className="text-xl font-bold text-white">
+                  Manage Units: {selectedCategory.category}
+                </h3>
+              </div>
+              <Button onClick={handleAddUnit}>
+                <Plus className="w-4 h-4 mr-2" />
+                Add New Unit
+              </Button>
+            </div>
+
+            <Table>
+              <TableHeader>
+                <TableRow className="border-white/20">
+                  <TableHead className="text-white">Name</TableHead>
+                  <TableHead className="text-white">Model</TableHead>
+                  <TableHead className="text-white">Capacity</TableHead>
+                  <TableHead className="text-white">Features</TableHead>
+                  <TableHead className="text-white">Applications</TableHead>
+                  <TableHead className="text-white">Actions</TableHead>
+                </TableRow>
+              </TableHeader>
+              <TableBody>
+                {(selectedCategory.units || []).map((unit, index) => (
+                  <TableRow key={index} className="border-white/20">
+                    <TableCell className="text-white font-medium">
+                      {unit.name || ""}
+                    </TableCell>
+                    <TableCell className="text-white/80">
+                      {unit.model || ""}
+                    </TableCell>
+                    <TableCell className="text-white/80">
+                      {unit.capacity || ""}
+                    </TableCell>
+                    <TableCell className="text-white/80 max-w-xs">
+                      <div className="truncate">
+                        {unit.features?.length > 0
+                          ? unit.features.slice(0, 2).join(", ") +
+                            (unit.features.length > 2 ? "..." : "")
+                          : ""}
+                      </div>
+                    </TableCell>
+                    <TableCell className="text-white/80 max-w-xs">
+                      <div className="truncate">
+                        {unit.applications?.length > 0
+                          ? unit.applications.slice(0, 2).join(", ") +
+                            (unit.applications.length > 2 ? "..." : "")
+                          : ""}
+                      </div>
+                    </TableCell>
+                    <TableCell>
+                      <div className="flex space-x-2">
+                        <Button
+                          size="sm"
+                          variant="outline"
+                          className="border-white/20 text-white hover:bg-white/10"
+                          onClick={() => handleEditUnitClick(unit, index)}
+                        >
+                          <Edit className="w-4 h-4" />
+                        </Button>
+                        <Button
+                          size="sm"
+                          variant="outline"
+                          className="border-red-400/20 text-red-400 hover:bg-red-500/10"
+                          onClick={() => handleDeleteUnit(index)}
+                        >
+                          <Trash2 className="w-4 h-4" />
+                        </Button>
+                      </div>
+                    </TableCell>
+                  </TableRow>
+                ))}
+              </TableBody>
+            </Table>
+          </div>
+        </Card>
+      )}
+
+      {/* Unit Dialog */}
+      <UnitDialog
+        isOpen={showUnitDialog}
+        onClose={() => {
+          setShowUnitDialog(false);
+          setEditingUnit(null);
+          setEditingUnitIndex(null);
+        }}
+        onSubmit={handleUnitSubmit}
+        initialData={editingUnit}
+      />
     </div>
   );
 };
