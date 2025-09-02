@@ -74,7 +74,7 @@ const ProductsPreview = () => {
               >
                 {/* Image Section */}
                 <div className={`${index % 2 === 1 ? "lg:col-start-3" : ""}`}>
-                  <div className="professional-image-container h-48 group-hover:bg-gradient-to-br group-hover:from-primary/10 group-hover:to-primary-light/10">
+                  <div className="professional-image-container h-48 bg-gradient-to-r from-primary/5 to-accent/5 group-hover:bg-gradient-to-br group-hover:from-primary/10 group-hover:to-primary-light/10">
                     <div className="text-primary group-hover:scale-110 group-hover:text-primary-light transition-all duration-500">
                       {iconMap[category.title]}
                     </div>
@@ -141,7 +141,7 @@ const ProductsPreview = () => {
             {featuredModels.map((model, index) => (
               <div
                 key={index}
-                className="bg-surface/50 backdrop-blur-sm rounded-2xl p-6 shadow-sm border border-outline hover:shadow-lg transition-all duration-300 group"
+                className="bg-gradient-to-r from-primary/5 to-accent/5 backdrop-blur-sm rounded-2xl p-6 shadow-sm border border-outline hover:shadow-lg transition-all duration-300 group"
               >
                 <div className="grid grid-cols-1 lg:grid-cols-4 gap-6 items-center">
                   {/* Image Section */}

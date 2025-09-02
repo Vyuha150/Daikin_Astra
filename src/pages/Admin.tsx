@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import {
   Plus,
   Edit,
@@ -10,6 +10,7 @@ import {
   Star,
   Calendar,
   TrendingUp,
+  LogOut,
 } from "lucide-react";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
@@ -18,6 +19,8 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Card } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
+import { useAuth } from "@/hooks/useAuth";
+import { useNavigate } from "react-router-dom";
 import AdminOffers from "../components/admin/AdminOffers";
 import AdminProducts from "../components/admin/AdminProducts";
 import AdminServices from "../components/admin/AdminServices";
@@ -51,6 +54,9 @@ import {
 } from "@/components/ui/select";
 
 const Admin = () => {
+  const { admin, logout, token } = useAuth();
+  const navigate = useNavigate();
+
   const [activeTab, setActiveTab] = useState("dashboard");
   const [isAddDialogOpen, setIsAddDialogOpen] = useState(false);
   const [editingItem, setEditingItem] = useState(null);
@@ -62,18 +68,41 @@ const Admin = () => {
   const [isHomeProductDialogOpen, setIsHomeProductDialogOpen] = useState(false);
   const API_URL = import.meta.env.VITE_API_URL;
 
+  // Helper function to get headers with auth token
+  const getAuthHeaders = useCallback(
+    () => ({
+      "Content-Type": "application/json",
+      ...(token && { Authorization: `Bearer ${token}` }),
+    }),
+    [token]
+  );
+
+  const handleLogout = () => {
+    logout();
+    navigate("/login");
+  };
+
+  const handleTabChange = (value: string) => {
+    setActiveTab(value);
+  };
+
   // Product Categories CRUD
   const [productCategories, setProductCategories] = useState([]);
   useEffect(() => {
-    fetch(`${API_URL}/api/admin/products/categories`)
-      .then((res) => res.json())
-      .then((data) => setProductCategories(data));
-  }, [API_URL]);
+    if (token) {
+      fetch(`${API_URL}/api/admin/products/categories`, {
+        headers: getAuthHeaders(),
+      })
+        .then((res) => res.json())
+        .then((data) => setProductCategories(data))
+        .catch((err) => console.error("Failed to fetch categories:", err));
+    }
+  }, [API_URL, token, getAuthHeaders]);
 
   const handleAddCategory = async (category) => {
     const res = await fetch(`${API_URL}/api/admin/products/categories`, {
       method: "POST",
-      headers: { "Content-Type": "application/json" },
+      headers: getAuthHeaders(),
       body: JSON.stringify(category),
     });
     const newCategory = await res.json();
@@ -83,7 +112,7 @@ const Admin = () => {
   const handleEditCategory = async (id, updates) => {
     const res = await fetch(`${API_URL}/api/admin/products/categories/${id}`, {
       method: "PUT",
-      headers: { "Content-Type": "application/json" },
+      headers: getAuthHeaders(),
       body: JSON.stringify(updates),
     });
     const updated = await res.json();
@@ -95,6 +124,7 @@ const Admin = () => {
   const handleDeleteCategory = async (id) => {
     await fetch(`${API_URL}/api/admin/products/categories/${id}`, {
       method: "DELETE",
+      headers: getAuthHeaders(),
     });
     setProductCategories(productCategories.filter((cat) => cat._id !== id));
   };
@@ -102,15 +132,20 @@ const Admin = () => {
   // Featured Models CRUD
   const [featuredModels, setFeaturedModels] = useState([]);
   useEffect(() => {
-    fetch(`${API_URL}/api/admin/products/featured-models`)
-      .then((res) => res.json())
-      .then((data) => setFeaturedModels(data));
-  }, [API_URL]);
+    if (token) {
+      fetch(`${API_URL}/api/admin/products/featured-models`, {
+        headers: getAuthHeaders(),
+      })
+        .then((res) => res.json())
+        .then((data) => setFeaturedModels(data))
+        .catch((err) => console.error("Failed to fetch featured models:", err));
+    }
+  }, [API_URL, token, getAuthHeaders]);
 
   const handleAddFeaturedModel = async (model) => {
     const res = await fetch(`${API_URL}/api/admin/products/featured-models`, {
       method: "POST",
-      headers: { "Content-Type": "application/json" },
+      headers: getAuthHeaders(),
       body: JSON.stringify(model),
     });
     const newModel = await res.json();
@@ -122,7 +157,7 @@ const Admin = () => {
       `${API_URL}/api/admin/products/featured-models/${id}`,
       {
         method: "PUT",
-        headers: { "Content-Type": "application/json" },
+        headers: getAuthHeaders(),
         body: JSON.stringify(updates),
       }
     );
@@ -135,6 +170,7 @@ const Admin = () => {
   const handleDeleteFeaturedModel = async (id) => {
     await fetch(`${API_URL}/api/admin/products/featured-models/${id}`, {
       method: "DELETE",
+      headers: getAuthHeaders(),
     });
     setFeaturedModels(featuredModels.filter((model) => model._id !== id));
   };
@@ -142,15 +178,20 @@ const Admin = () => {
   // Outdoor Units CRUD
   const [outdoorUnits, setOutdoorUnits] = useState([]);
   useEffect(() => {
-    fetch(`${API_URL}/api/admin/products/outdoor-units`)
-      .then((res) => res.json())
-      .then((data) => setOutdoorUnits(data));
-  }, [API_URL]);
+    if (token) {
+      fetch(`${API_URL}/api/admin/products/outdoor-units`, {
+        headers: getAuthHeaders(),
+      })
+        .then((res) => res.json())
+        .then((data) => setOutdoorUnits(data))
+        .catch((err) => console.error("Failed to fetch outdoor units:", err));
+    }
+  }, [API_URL, token, getAuthHeaders]);
 
   const handleAddOutdoorUnit = async (unit) => {
     const res = await fetch(`${API_URL}/api/admin/products/outdoor-units`, {
       method: "POST",
-      headers: { "Content-Type": "application/json" },
+      headers: getAuthHeaders(),
       body: JSON.stringify(unit),
     });
     const newUnit = await res.json();
@@ -162,7 +203,7 @@ const Admin = () => {
       `${API_URL}/api/admin/products/outdoor-units/${id}`,
       {
         method: "PUT",
-        headers: { "Content-Type": "application/json" },
+        headers: getAuthHeaders(),
         body: JSON.stringify(updates),
       }
     );
@@ -175,6 +216,7 @@ const Admin = () => {
   const handleDeleteOutdoorUnit = async (id) => {
     await fetch(`${API_URL}/api/admin/products/outdoor-units/${id}`, {
       method: "DELETE",
+      headers: getAuthHeaders(),
     });
     setOutdoorUnits(outdoorUnits.filter((unit) => unit._id !== id));
   };
@@ -182,15 +224,20 @@ const Admin = () => {
   // Indoor Unit Categories CRUD
   const [indoorUnitCategories, setIndoorUnitCategories] = useState([]);
   useEffect(() => {
-    fetch(`${API_URL}/api/admin/products/indoor-units`)
-      .then((res) => res.json())
-      .then((data) => setIndoorUnitCategories(data));
-  }, [API_URL]);
+    if (token) {
+      fetch(`${API_URL}/api/admin/products/indoor-units`, {
+        headers: getAuthHeaders(),
+      })
+        .then((res) => res.json())
+        .then((data) => setIndoorUnitCategories(data))
+        .catch((err) => console.error("Failed to fetch indoor units:", err));
+    }
+  }, [API_URL, token, getAuthHeaders]);
 
   const handleAddIndoorUnitCategory = async (category) => {
     const res = await fetch(`${API_URL}/api/admin/products/indoor-units`, {
       method: "POST",
-      headers: { "Content-Type": "application/json" },
+      headers: getAuthHeaders(),
       body: JSON.stringify(category),
     });
     const newCategory = await res.json();
@@ -202,7 +249,7 @@ const Admin = () => {
       `${API_URL}/api/admin/products/indoor-units/${id}`,
       {
         method: "PUT",
-        headers: { "Content-Type": "application/json" },
+        headers: getAuthHeaders(),
         body: JSON.stringify(updates),
       }
     );
@@ -215,6 +262,7 @@ const Admin = () => {
   const handleDeleteIndoorUnitCategory = async (id) => {
     await fetch(`${API_URL}/api/admin/products/indoor-units/${id}`, {
       method: "DELETE",
+      headers: getAuthHeaders(),
     });
     setIndoorUnitCategories(
       indoorUnitCategories.filter((cat) => cat._id !== id)
@@ -288,15 +336,20 @@ const Admin = () => {
   // Offers CRUD
   const [offers, setOffers] = useState([]);
   useEffect(() => {
-    fetch(`${API_URL}/api/admin/offers`)
-      .then((res) => res.json())
-      .then((data) => setOffers(data));
-  }, [API_URL]);
+    if (token) {
+      fetch(`${API_URL}/api/admin/offers`, {
+        headers: getAuthHeaders(),
+      })
+        .then((res) => res.json())
+        .then((data) => setOffers(data))
+        .catch((err) => console.error("Failed to fetch offers:", err));
+    }
+  }, [API_URL, token, getAuthHeaders]);
 
   const handleAddOffer = async (offer) => {
     const res = await fetch(`${API_URL}/api/admin/offers`, {
       method: "POST",
-      headers: { "Content-Type": "application/json" },
+      headers: getAuthHeaders(),
       body: JSON.stringify(offer),
     });
     const newOffer = await res.json();
@@ -306,7 +359,7 @@ const Admin = () => {
   const handleEditOffer = async (id, updates) => {
     const res = await fetch(`${API_URL}/api/admin/offers/${id}`, {
       method: "PUT",
-      headers: { "Content-Type": "application/json" },
+      headers: getAuthHeaders(),
       body: JSON.stringify(updates),
     });
     const updated = await res.json();
@@ -316,6 +369,7 @@ const Admin = () => {
   const handleDeleteOffer = async (id) => {
     await fetch(`${API_URL}/api/admin/offers/${id}`, {
       method: "DELETE",
+      headers: getAuthHeaders(),
     });
     setOffers(offers.filter((offer) => offer._id !== id));
   };
@@ -323,15 +377,20 @@ const Admin = () => {
   // Services CRUD
   const [services, setServices] = useState([]);
   useEffect(() => {
-    fetch(`${API_URL}/api/admin/services`)
-      .then((res) => res.json())
-      .then((data) => setServices(data));
-  }, [API_URL]);
+    if (token) {
+      fetch(`${API_URL}/api/admin/services`, {
+        headers: getAuthHeaders(),
+      })
+        .then((res) => res.json())
+        .then((data) => setServices(data))
+        .catch((err) => console.error("Failed to fetch services:", err));
+    }
+  }, [API_URL, token, getAuthHeaders]);
 
   const handleAddService = async (service) => {
     const res = await fetch(`${API_URL}/api/admin/services`, {
       method: "POST",
-      headers: { "Content-Type": "application/json" },
+      headers: getAuthHeaders(),
       body: JSON.stringify(service),
     });
     const newService = await res.json();
@@ -341,7 +400,7 @@ const Admin = () => {
   const handleEditService = async (id, updates) => {
     const res = await fetch(`${API_URL}/api/admin/services/${id}`, {
       method: "PUT",
-      headers: { "Content-Type": "application/json" },
+      headers: getAuthHeaders(),
       body: JSON.stringify(updates),
     });
     const updated = await res.json();
@@ -353,6 +412,7 @@ const Admin = () => {
   const handleDeleteService = async (id) => {
     await fetch(`${API_URL}/api/admin/services/${id}`, {
       method: "DELETE",
+      headers: getAuthHeaders(),
     });
     setServices(services.filter((service) => service._id !== id));
   };
@@ -379,17 +439,24 @@ const Admin = () => {
   // Technology Highlights CRUD
   const [technologyHighlights, setTechnologyHighlights] = useState([]);
   useEffect(() => {
-    fetch(`${API_URL}/api/admin/products/technology-highlights`)
-      .then((res) => res.json())
-      .then((data) => setTechnologyHighlights(data));
-  }, [API_URL]);
+    if (token) {
+      fetch(`${API_URL}/api/admin/products/technology-highlights`, {
+        headers: getAuthHeaders(),
+      })
+        .then((res) => res.json())
+        .then((data) => setTechnologyHighlights(data))
+        .catch((err) =>
+          console.error("Failed to fetch technology highlights:", err)
+        );
+    }
+  }, [API_URL, token, getAuthHeaders]);
 
   const handleAddTechnologyHighlight = async (highlight) => {
     const res = await fetch(
       `${API_URL}/api/admin/products/technology-highlights`,
       {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
+        headers: getAuthHeaders(),
         body: JSON.stringify(highlight),
       }
     );
@@ -402,7 +469,7 @@ const Admin = () => {
       `${API_URL}/api/admin/products/technology-highlights/${id}`,
       {
         method: "PUT",
-        headers: { "Content-Type": "application/json" },
+        headers: getAuthHeaders(),
         body: JSON.stringify(updates),
       }
     );
@@ -417,6 +484,7 @@ const Admin = () => {
   const handleDeleteTechnologyHighlight = async (id) => {
     await fetch(`${API_URL}/api/admin/products/technology-highlights/${id}`, {
       method: "DELETE",
+      headers: getAuthHeaders(),
     });
     setTechnologyHighlights(
       technologyHighlights.filter((highlight) => highlight._id !== id)
@@ -676,17 +744,30 @@ const Admin = () => {
       <main className="pt-20 px-6 lg:px-8">
         <div className="container mx-auto py-8">
           {/* Admin Header */}
-          <div className="mb-8">
-            <h1 className="text-4xl font-bold text-white mb-2">
-              Admin Dashboard
-            </h1>
-            <p className="text-white/70">Manage your AC business operations</p>
+          <div className="mb-8 flex justify-between items-start">
+            <div>
+              <h1 className="text-4xl font-bold text-white mb-2">
+                Admin Dashboard
+              </h1>
+              <p className="text-white/70">
+                Welcome back, {admin?.name || admin?.username}! Manage your AC
+                business operations
+              </p>
+            </div>
+            <Button
+              onClick={handleLogout}
+              variant="outline"
+              className="bg-white/10 border-white/20 text-white hover:bg-white/20"
+            >
+              <LogOut className="w-4 h-4 mr-2" />
+              Logout
+            </Button>
           </div>
 
           {/* Tabs Navigation */}
           <Tabs
             value={activeTab}
-            onValueChange={setActiveTab}
+            onValueChange={handleTabChange}
             className="space-y-6"
           >
             <TabsList className="grid w-full grid-cols-6 bg-white/10 backdrop-blur-sm border border-white/20">

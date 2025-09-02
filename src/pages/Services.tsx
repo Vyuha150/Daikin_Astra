@@ -67,7 +67,7 @@ const Services = () => {
                 {services.map((service, index) => (
                   <div
                     key={index}
-                    className="bg-white/10 backdrop-blur-sm rounded-3xl p-8 lg:p-10 shadow-sm border border-white/20 hover:shadow-xl transition-all duration-500 group"
+                    className="bg-gradient-to-r from-primary/5 to-accent/5 backdrop-blur-sm rounded-3xl p-8 lg:p-10 shadow-sm border border-white/20 hover:shadow-xl transition-all duration-500 group"
                   >
                     <div
                       className={`grid grid-cols-1 lg:grid-cols-3 gap-8 items-center ${
@@ -78,7 +78,7 @@ const Services = () => {
                       <div
                         className={`${index % 2 === 1 ? "lg:col-start-3" : ""}`}
                       >
-                        <div className="bg-gradient-to-br from-blue-50 to-blue-100 rounded-2xl p-8 h-48 flex items-center justify-center group-hover:from-blue-100 group-hover:to-blue-200 transition-all duration-500">
+                        <div className="bg-black/20 rounded-2xl p-8 h-48 flex items-center justify-center group-hover:from-blue-100 group-hover:to-blue-200 transition-all duration-500">
                           <div className="text-blue-600 group-hover:scale-110 transition-transform duration-500">
                             {iconMap[service.title]}
                           </div>
@@ -138,7 +138,7 @@ const Services = () => {
               </div>
               {/* CTA Section */}
               <div className="text-center mt-16">
-                <div className="card-glass p-8 rounded-2xl">
+                <div className="bg-gradient-to-r from-primary/5 to-accent/5 p-8 rounded-2xl">
                   <h3 className="text-2xl font-heading font-bold text-foreground mb-4">
                     Need Professional HVAC Services?
                   </h3>

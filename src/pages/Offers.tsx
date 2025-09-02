@@ -68,7 +68,7 @@ const Offers = () => {
                 {currentOffers.map((offer, index) => (
                   <div
                     key={index}
-                    className="bg-white/10 backdrop-blur-sm rounded-3xl p-8 lg:p-10 shadow-sm border border-white/20 hover:shadow-xl transition-all duration-500 group relative"
+                    className="bg-gradient-to-r from-primary/5 to-accent/5 backdrop-blur-sm rounded-3xl p-8 lg:p-10 shadow-sm border border-white/20 hover:shadow-xl transition-all duration-500 group relative"
                   >
                     {offer.popular && (
                       <div className="absolute -top-4 -right-4 bg-gradient-to-r from-orange-500 to-red-500 text-white px-4 py-2 rounded-full text-sm font-bold shadow-lg animate-pulse">
@@ -84,7 +84,7 @@ const Offers = () => {
                       <div
                         className={`${index % 2 === 1 ? "lg:col-start-3" : ""}`}
                       >
-                        <div className="bg-gradient-to-br from-blue-400/30 to-blue-600/20 backdrop-blur-sm rounded-2xl p-8 h-48 flex items-center justify-center group-hover:from-blue-300/40 group-hover:to-blue-500/30 transition-all duration-500 border border-blue-400/30">
+                        <div className="bg-black/40 backdrop-blur-sm rounded-2xl p-8 h-48 flex items-center justify-center group-hover:from-blue-300/40 group-hover:to-blue-500/30 transition-all duration-500 border border-blue-400/30">
                           <Gift className="w-20 h-20 text-blue-300 group-hover:scale-110 transition-transform duration-500" />
                         </div>
                       </div>
@@ -170,7 +170,7 @@ const Offers = () => {
               </div>
               {/* Contact CTA */}
               <div className="text-center">
-                <div className="card-glass p-8 rounded-2xl">
+                <div className="bg-gradient-to-r from-primary/5 to-accent/5 p-8 rounded-2xl">
                   <h3 className="text-2xl font-heading font-bold text-foreground mb-4">
                     Ready to Save Big on Your AC Purchase?
                   </h3>

@@ -103,12 +103,12 @@ const Products = () => {
                     {outdoorUnits.map((unit, index) => (
                       <div
                         key={index}
-                        className="bg-white/10 backdrop-blur-sm rounded-3xl p-8 shadow-sm border border-white/20 hover:shadow-xl transition-all duration-500 group"
+                        className="bg-gradient-to-r from-primary/5 to-accent/5 backdrop-blur-sm rounded-3xl p-8 shadow-sm border border-white/20 hover:shadow-xl transition-all duration-500 group"
                       >
                         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
                           {/* Image Section */}
                           <div className="order-2 lg:order-1">
-                            <div className="bg-gradient-to-br from-blue-50 to-blue-100 rounded-2xl p-8 h-64 flex items-center justify-center group-hover:from-blue-100 group-hover:to-blue-200 transition-all duration-500">
+                            <div className="bg-gradient-to-r from-primary/5 to-accent/5 rounded-2xl p-8 h-64 flex items-center justify-center transition-all duration-500">
                               <Building2 className="w-24 h-24 text-blue-600 group-hover:scale-110 transition-transform duration-500" />
                             </div>
                           </div>
@@ -267,12 +267,12 @@ const Products = () => {
                           {category.units.map((unit, unitIndex) => (
                             <div
                               key={unitIndex}
-                              className="bg-white/10 backdrop-blur-sm rounded-2xl p-6 shadow-sm border border-white/20 hover:shadow-lg transition-all duration-300 group"
+                              className="bg-gradient-to-r from-primary/5 to-accent/5 backdrop-blur-sm rounded-2xl p-6 shadow-sm border border-white/20 hover:shadow-lg transition-all duration-300 group"
                             >
                               <div className="grid grid-cols-1 lg:grid-cols-4 gap-6 items-center">
                                 {/* Image Section */}
                                 <div className="lg:col-span-1">
-                                  <div className="bg-gradient-to-br from-blue-50 to-blue-100 rounded-xl p-6 h-32 flex items-center justify-center group-hover:from-blue-100 group-hover:to-blue-200 transition-all duration-300">
+                                  <div className="bg-gradient-to-r from-primary/5 to-accent/5  rounded-xl p-6 h-32 flex items-center justify-center transition-all duration-300">
                                     <Wind className="w-12 h-12 text-blue-600 group-hover:scale-110 transition-transform duration-300" />
                                   </div>
                                 </div>
@@ -357,7 +357,7 @@ const Products = () => {
 
               {/* CTA Section */}
               <div className="text-center mt-16">
-                <div className="card-glass p-8 rounded-2xl">
+                <div className="bg-gradient-to-r from-primary/5 to-accent/5 border p-8 rounded-2xl">
                   <h3 className="text-2xl font-heading font-bold text-foreground mb-4">
                     Need Help Choosing the Right System?
                   </h3>
