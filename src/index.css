@@ -1,8 +1,8 @@
-@import '@fontsource/playfair-display/400.css';
-@import '@fontsource/playfair-display/600.css';
-@import '@fontsource/inter/400.css';
-@import '@fontsource/inter/500.css';
-@import '@fontsource/inter/600.css';
+@import "@fontsource/playfair-display/400.css";
+@import "@fontsource/playfair-display/600.css";
+@import "@fontsource/inter/400.css";
+@import "@fontsource/inter/500.css";
+@import "@fontsource/inter/600.css";
 
 @tailwind base;
 @tailwind components;
@@ -13,16 +13,16 @@
 @layer base {
   :root {
     /* Core Colors - Dark Navy Theme */
-    --bg: 210 34% 7%;           /* #0B1220 */
-    --surface: 215 25% 10%;     /* #0F172A */
+    --bg: 210 34% 7%; /* #0B1220 */
+    --surface: 215 25% 10%; /* #0F172A */
     --surface-alt: 220 14% 11%; /* #111827 */
-    
-    --text: 220 13% 91%;        /* #E5E7EB */
-    --text-muted: 215 16% 65%;  /* #94A3B8 */
-    
-    --accent: 199 89% 48%;      /* #0EA5E9 cyan */
+
+    --text: 220 13% 91%; /* #E5E7EB */
+    --text-muted: 215 16% 65%; /* #94A3B8 */
+
+    --accent: 199 89% 48%; /* #0EA5E9 cyan */
     --accent-light: 187 85% 53%; /* #22D3EE light cyan */
-    
+
     --outline: 0 0% 100% / 0.08; /* rgba(255,255,255,0.08) */
 
     /* Semantic mappings */
@@ -36,7 +36,7 @@
     --popover-foreground: var(--text);
 
     --primary: var(--accent);
-    --primary-foreground: 210 40% 2%;  /* #001018 */
+    --primary-foreground: 210 40% 2%; /* #001018 */
     --primary-light: var(--accent-light);
     --primary-dark: 199 89% 38%;
 
@@ -67,13 +67,26 @@
     --radius: 1rem;
 
     /* Gradients */
-    --gradient-primary: linear-gradient(135deg, hsl(190 100% 50%), hsl(180 100% 60%));
-    --gradient-hero: linear-gradient(135deg, hsl(190 100% 50%), hsl(180 100% 60%), hsl(170 100% 65%));
-    --gradient-offer: linear-gradient(135deg, hsl(359 100% 63%), hsl(359 85% 55%));
+    --gradient-primary: linear-gradient(
+      135deg,
+      hsl(190 100% 50%),
+      hsl(180 100% 60%)
+    );
+    --gradient-hero: linear-gradient(
+      135deg,
+      hsl(190 100% 50%),
+      hsl(180 100% 60%),
+      hsl(170 100% 65%)
+    );
+    --gradient-offer: linear-gradient(
+      135deg,
+      hsl(359 100% 63%),
+      hsl(359 85% 55%)
+    );
 
     /* Shadows */
     --shadow-card: 0 4px 20px hsl(190 100% 50% / 0.12);
-    --shadow-cta: 0 8px 25px hsl(190 100% 50% / 0.20);
+    --shadow-cta: 0 8px 25px hsl(190 100% 50% / 0.2);
     --shadow-hero: 0 20px 40px hsl(190 100% 50% / 0.15);
 
     /* Animations */
@@ -119,7 +132,12 @@
     @apply bg-background text-foreground font-body;
   }
 
-  h1, h2, h3, h4, h5, h6 {
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
     @apply font-heading;
     letter-spacing: -0.01em;
     line-height: 1.2;
@@ -129,23 +147,34 @@
 @layer components {
   /* Typography Classes */
   .font-heading {
-    font-family: 'Playfair Display', serif;
+    font-family: "Playfair Display", serif;
     font-weight: 600;
   }
 
   .font-body {
-    font-family: 'Inter', sans-serif;
+    font-family: "Inter", sans-serif;
   }
 
   .font-accent {
-    font-family: 'Inter', sans-serif;
+    font-family: "Inter", sans-serif;
   }
-  
+
   /* Grid Background Utility */
   .bg-grid {
-    background-image: 
-      repeating-linear-gradient(0deg, rgba(255,255,255,0.05) 0px, transparent 1px, transparent 40px, rgba(255,255,255,0.05) 41px),
-      repeating-linear-gradient(90deg, rgba(255,255,255,0.05) 0px, transparent 1px, transparent 40px, rgba(255,255,255,0.05) 41px);
+    background-image: repeating-linear-gradient(
+        0deg,
+        rgba(255, 255, 255, 0.05) 0px,
+        transparent 1px,
+        transparent 40px,
+        rgba(255, 255, 255, 0.05) 41px
+      ),
+      repeating-linear-gradient(
+        90deg,
+        rgba(255, 255, 255, 0.05) 0px,
+        transparent 1px,
+        transparent 40px,
+        rgba(255, 255, 255, 0.05) 41px
+      );
   }
 
   /* Button Variants with Enhanced Glow Effects */
@@ -156,7 +185,8 @@
   }
 
   .btn-hero:hover {
-    box-shadow: 0 0 30px hsl(var(--primary) / 0.6), 0 0 60px hsl(var(--primary) / 0.4), 0 0 90px hsl(var(--primary) / 0.2);
+    box-shadow: 0 0 30px hsl(var(--primary) / 0.6),
+      0 0 60px hsl(var(--primary) / 0.4), 0 0 90px hsl(var(--primary) / 0.2);
   }
 
   .btn-whatsapp {
@@ -166,7 +196,8 @@
   }
 
   .btn-whatsapp:hover {
-    box-shadow: 0 0 25px hsl(var(--whatsapp) / 0.6), 0 0 50px hsl(var(--whatsapp) / 0.4);
+    box-shadow: 0 0 25px hsl(var(--whatsapp) / 0.6),
+      0 0 50px hsl(var(--whatsapp) / 0.4);
   }
 
   .btn-offer {
@@ -176,7 +207,8 @@
   }
 
   .btn-offer:hover {
-    box-shadow: 0 0 25px hsl(var(--offer) / 0.6), 0 0 50px hsl(var(--offer) / 0.4);
+    box-shadow: 0 0 25px hsl(var(--offer) / 0.6),
+      0 0 50px hsl(var(--offer) / 0.4);
   }
 
   /* Global Button Glow Classes */
@@ -188,7 +220,8 @@
 
   .btn-glow:hover {
     transform: scale(1.05);
-    box-shadow: 0 0 25px hsl(var(--primary) / 0.6), 0 0 50px hsl(var(--primary) / 0.4);
+    box-shadow: 0 0 25px hsl(var(--primary) / 0.6),
+      0 0 50px hsl(var(--primary) / 0.4);
   }
 
   /* Card Styles with Enhanced Glow Effects */
@@ -201,7 +234,8 @@
 
   .card-glass:hover {
     transform: translateY(-5px);
-    box-shadow: 0 0 30px hsl(var(--primary) / 0.3), 0 0 60px hsl(var(--primary) / 0.1), var(--shadow-hero);
+    box-shadow: 0 0 30px hsl(var(--primary) / 0.3),
+      0 0 60px hsl(var(--primary) / 0.1), var(--shadow-hero);
     border-color: hsl(var(--primary) / 0.4);
   }
 
@@ -212,18 +246,24 @@
   }
 
   .card-hover:hover {
-    box-shadow: 0 0 30px hsl(var(--primary) / 0.4), 0 0 60px hsl(var(--primary) / 0.2), var(--shadow-hero);
+    box-shadow: 0 0 30px hsl(var(--primary) / 0.4),
+      0 0 60px hsl(var(--primary) / 0.2), var(--shadow-hero);
     border-color: hsl(var(--primary) / 0.5);
   }
 
   .card-hover::before {
-    content: '';
+    content: "";
     position: absolute;
     top: 0;
     left: -100%;
     width: 100%;
     height: 100%;
-    background: linear-gradient(90deg, transparent, hsl(var(--primary) / 0.1), transparent);
+    background: linear-gradient(
+      90deg,
+      transparent,
+      hsl(var(--primary) / 0.1),
+      transparent
+    );
     transition: left 0.5s;
   }
 
@@ -240,7 +280,8 @@
 
   .card-product:hover {
     transform: translateY(-8px);
-    box-shadow: 0 0 35px hsl(var(--primary) / 0.4), 0 15px 45px hsl(var(--primary) / 0.2);
+    box-shadow: 0 0 35px hsl(var(--primary) / 0.4),
+      0 15px 45px hsl(var(--primary) / 0.2);
     border-color: hsl(var(--primary) / 0.6);
   }
 
@@ -252,7 +293,8 @@
 
   .card-service:hover {
     transform: translateY(-8px);
-    box-shadow: 0 0 35px hsl(var(--primary) / 0.4), 0 15px 45px hsl(var(--primary) / 0.2);
+    box-shadow: 0 0 35px hsl(var(--primary) / 0.4),
+      0 15px 45px hsl(var(--primary) / 0.2);
     border-color: hsl(var(--primary) / 0.6);
   }
 
@@ -333,7 +375,8 @@
 }
 
 @keyframes float {
-  0%, 100% {
+  0%,
+  100% {
     transform: translateY(0px);
   }
   50% {
@@ -342,7 +385,8 @@
 }
 
 @keyframes glow-pulse {
-  0%, 100% {
+  0%,
+  100% {
     box-shadow: 0 0 20px rgba(59, 130, 246, 0.5);
   }
   50% {
@@ -385,7 +429,8 @@
 
 /* Enhanced Professional Animations */
 @keyframes gradient-shift {
-  0%, 100% {
+  0%,
+  100% {
     background-position: 0% 50%;
   }
   50% {
@@ -433,18 +478,14 @@
 
 .card-hover:hover {
   transform: translateY(-8px) scale(1.02);
-  box-shadow: 0 20px 40px rgba(0, 91, 172, 0.15), 0 0 0 1px rgba(0, 91, 172, 0.1);
+  box-shadow: 0 20px 40px rgba(0, 91, 172, 0.15),
+    0 0 0 1px rgba(0, 91, 172, 0.1);
 }
 
 /* Parallax Container */
 .parallax-container {
   transform-style: preserve-3d;
   perspective: 1000px;
-}
-
-/* Minimalist Professional Spacing */
-.content-section {
-  @apply py-20 lg:py-32;
 }
 
 .content-container {
@@ -460,18 +501,8 @@
   @apply bg-gradient-to-br from-blue-50 to-blue-100 rounded-xl lg:rounded-2xl flex items-center justify-center transition-all duration-500;
 }
 
-/* Global Page Containers */
-section {
-  @apply py-16 lg:py-24;
-}
-
 .container {
   @apply max-w-7xl mx-auto px-4 lg:px-8;
-}
-
-/* Enhanced white space and typography */
-.section-padding {
-  @apply py-24 lg:py-32;
 }
 
 .content-spacing {
