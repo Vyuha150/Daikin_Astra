@@ -3,6 +3,7 @@ import { Button } from "../ui/button";
 import { Input } from "../ui/input";
 import { Textarea } from "../ui/textarea";
 import { Label } from "../ui/label";
+import ImageUpload from "../ui/image-upload";
 import { useState, useEffect } from "react";
 import React from "react";
 
@@ -24,6 +25,8 @@ const HomeProductDialog = ({
           description: "",
           features: [],
           popular: false,
+          image: null,
+          thumbnail: null,
         };
       case "featured":
         return {
@@ -58,6 +61,14 @@ const HomeProductDialog = ({
     } else {
       setForm({ ...form, [name]: value });
     }
+  };
+
+  const handleImageChange = (image) => {
+    setForm({
+      ...form,
+      image,
+      thumbnail: image ? { ...image } : null,
+    });
   };
 
   // Render fields based on type
@@ -111,6 +122,14 @@ const HomeProductDialog = ({
             onChange={handleChange}
           />
           <Label htmlFor="popular">Popular Category</Label>
+        </div>
+        <div className="grid gap-2">
+          <Label>Category Image</Label>
+          <ImageUpload
+            value={form.image}
+            onChange={handleImageChange}
+            label="Upload category image"
+          />
         </div>
       </>
     );

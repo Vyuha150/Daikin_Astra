@@ -77,6 +77,20 @@ const Admin = () => {
     [token]
   );
 
+  // Helper function to get fetch options with credentials
+  const getFetchOptions = useCallback(
+    (
+      method: "GET" | "POST" | "PUT" | "DELETE" = "GET",
+      body: unknown = null
+    ): RequestInit => ({
+      method,
+      headers: getAuthHeaders(),
+      credentials: "include" as RequestCredentials,
+      ...(body && { body: JSON.stringify(body) }),
+    }),
+    [getAuthHeaders]
+  );
+
   const handleLogout = () => {
     logout();
     navigate("/login");
@@ -90,14 +104,12 @@ const Admin = () => {
   const [productCategories, setProductCategories] = useState([]);
   useEffect(() => {
     if (token) {
-      fetch(`${API_URL}/api/admin/products/categories`, {
-        headers: getAuthHeaders(),
-      })
+      fetch(`${API_URL}/api/admin/products/categories`, getFetchOptions())
         .then((res) => res.json())
         .then((data) => setProductCategories(data))
         .catch((err) => console.error("Failed to fetch categories:", err));
     }
-  }, [API_URL, token, getAuthHeaders]);
+  }, [API_URL, token, getFetchOptions]);
 
   const handleAddCategory = async (category) => {
     const res = await fetch(`${API_URL}/api/admin/products/categories`, {

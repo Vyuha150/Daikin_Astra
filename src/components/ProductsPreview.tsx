@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { ArrowRight, Thermometer, Zap, Wind, Building2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import DatabaseImage from "@/components/ui/database-image";
 
 const ProductsPreview = () => {
   const API_URL = import.meta.env.VITE_API_URL;
@@ -74,10 +75,20 @@ const ProductsPreview = () => {
               >
                 {/* Image Section */}
                 <div className={`${index % 2 === 1 ? "lg:col-start-3" : ""}`}>
-                  <div className="professional-image-container h-48 bg-gradient-to-r from-primary/5 to-accent/5 group-hover:bg-gradient-to-br group-hover:from-primary/10 group-hover:to-primary-light/10">
-                    <div className="text-primary group-hover:scale-110 group-hover:text-primary-light transition-all duration-500">
-                      {iconMap[category.title]}
-                    </div>
+                  <div className="professional-image-container h-48 bg-gradient-to-r from-primary/5 to-accent/5 group-hover:bg-gradient-to-br group-hover:from-primary/10 group-hover:to-primary-light/10 overflow-hidden">
+                    <DatabaseImage
+                      type="category"
+                      id={category._id || category.id}
+                      className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+                      alt={category.title}
+                      fallback={
+                        <div className="text-primary group-hover:scale-110 group-hover:text-primary-light transition-all duration-500">
+                          {iconMap[category.title] || (
+                            <Building2 className="w-8 h-8" />
+                          )}
+                        </div>
+                      }
+                    />
                   </div>
                 </div>
                 {/* Content Section */}
@@ -141,36 +152,79 @@ const ProductsPreview = () => {
             {featuredModels.map((model, index) => (
               <div
                 key={index}
-                className="bg-gradient-to-r from-primary/5 to-accent/5 backdrop-blur-sm rounded-2xl p-6 shadow-sm border border-outline hover:shadow-lg transition-all duration-300 group"
+                className="relative group overflow-hidden bg-gray-900/95 backdrop-blur-sm rounded-3xl shadow-lg hover:shadow-2xl transition-all duration-500 border border-gray-700 hover:border-blue-500 hover:-translate-y-2"
               >
-                <div className="grid grid-cols-1 lg:grid-cols-4 gap-6 items-center">
-                  {/* Image Section */}
-                  <div className="lg:col-span-1">
-                    <div className="bg-gradient-to-br from-blue-50 to-blue-100 rounded-xl p-6 h-32 flex items-center justify-center group-hover:from-blue-100 group-hover:to-blue-200 transition-all duration-300">
-                      <Thermometer className="w-12 h-12 text-blue-600 group-hover:scale-110 transition-transform duration-300" />
-                    </div>
+                {/* Premium Badge */}
+                <div className="absolute top-4 right-4 z-10">
+                  <div className="bg-gradient-to-r from-blue-500 to-blue-600 text-white px-3 py-1 rounded-full text-xs font-bold shadow-lg">
+                    Premium Choice
                   </div>
+                </div>
+
+                {/* Background Gradient Overlay */}
+                <div className="absolute inset-0 bg-gradient-to-br from-blue-900/20 via-transparent to-orange-900/10 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+
+                <div className="relative z-10 p-6">
                   {/* Content Section */}
-                  <div className="lg:col-span-3 space-y-4">
-                    <div className="flex flex-col lg:flex-row lg:items-start lg:justify-between gap-4">
-                      <div className="flex-1">
-                        <h4 className="text-xl font-heading font-bold text-gray-900 mb-2">
-                          {model.model}
-                        </h4>
-                        <div className="flex flex-wrap gap-4 text-sm mb-3">
-                          <span className="font-medium text-blue-600">
-                            {model.type}
-                          </span>
-                          <div className="inline-flex items-center bg-green-50 text-green-700 rounded-full px-3 py-1 text-sm font-medium">
-                            {model.efficiency}
-                          </div>
-                        </div>
-                        <div className="text-2xl font-bold text-orange-600 mb-4">
-                          {model.price}
+                  <div className="space-y-4">
+                    {/* Header */}
+                    <div>
+                      <h4 className="text-xl font-bold text-white mb-2 group-hover:text-blue-300 transition-colors duration-300">
+                        {model.model}
+                      </h4>
+                      <div className="flex items-center gap-3 mb-3">
+                        <span className="inline-flex items-center bg-blue-900/50 text-blue-300 rounded-full px-3 py-1 text-sm font-semibold border border-blue-700">
+                          {model.type}
+                        </span>
+                        <div className="inline-flex items-center bg-green-900/50 text-green-300 rounded-full px-3 py-1 text-sm font-bold border border-green-700">
+                          ⭐ {model.efficiency}
                         </div>
                       </div>
+                    </div>
+
+                    {/* Price Section */}
+                    <div className="bg-gradient-to-r from-orange-900/30 to-red-900/30 rounded-xl p-4 border border-orange-600/50">
+                      <div className="text-sm text-orange-300 font-medium mb-1">
+                        Starting Price
+                      </div>
+                      <div className="text-2xl font-black text-orange-400 mb-2">
+                        {model.price}
+                      </div>
+                      <div className="text-xs text-orange-300/80">
+                        *Including installation
+                      </div>
+                    </div>
+
+                    {/* Features */}
+                    <div>
+                      <h5 className="font-bold text-gray-200 mb-3 flex items-center">
+                        <span className="w-2 h-2 bg-blue-500 rounded-full mr-2"></span>
+                        Key Features
+                      </h5>
+                      <ul className="space-y-2">
+                        {model.features
+                          .slice(0, 3)
+                          .map((feature, featureIndex) => (
+                            <li
+                              key={featureIndex}
+                              className="flex items-start text-sm text-gray-300 hover:text-blue-300 transition-colors duration-200"
+                            >
+                              <div className="w-1.5 h-1.5 bg-blue-500 rounded-full mr-3 mt-2 flex-shrink-0"></div>
+                              <span className="leading-relaxed">{feature}</span>
+                            </li>
+                          ))}
+                        {model.features.length > 3 && (
+                          <li className="text-sm text-blue-400 font-medium">
+                            +{model.features.length - 3} more features
+                          </li>
+                        )}
+                      </ul>
+                    </div>
+
+                    {/* Action Button */}
+                    <div className="pt-4">
                       <Button
-                        className="bg-blue-600 hover:bg-blue-700 text-white px-6 py-2 rounded-lg font-medium transition-all duration-300 hover:scale-105 lg:self-start"
+                        className="w-full bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-500 hover:to-blue-600 text-white font-bold py-3 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105 group/btn border border-blue-500"
                         onClick={() =>
                           window.open(
                             "https://wa.me/919247041999?text=Hi! I want to know more about " +
@@ -179,27 +233,18 @@ const ProductsPreview = () => {
                           )
                         }
                       >
-                        Get Quote
+                        <span className="flex items-center justify-center gap-2">
+                          💬 Get Instant Quote
+                          <ArrowRight className="w-4 h-4 group-hover/btn:translate-x-1 transition-transform duration-300" />
+                        </span>
                       </Button>
-                    </div>
-                    <div>
-                      <h5 className="font-semibold text-white mb-2">
-                        Key Features:
-                      </h5>
-                      <ul className="space-y-1">
-                        {model.features.map((feature, featureIndex) => (
-                          <li
-                            key={featureIndex}
-                            className="flex items-center text-sm text-white/80"
-                          >
-                            <div className="w-1.5 h-1.5 bg-accent rounded-full mr-3"></div>
-                            {feature}
-                          </li>
-                        ))}
-                      </ul>
                     </div>
                   </div>
                 </div>
+
+                {/* Decorative Elements */}
+                <div className="absolute -bottom-2 -right-2 w-20 h-20 bg-gradient-to-br from-blue-500/20 to-blue-600/20 rounded-full blur-xl opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                <div className="absolute -top-2 -left-2 w-16 h-16 bg-gradient-to-br from-orange-500/20 to-orange-600/20 rounded-full blur-xl opacity-0 group-hover:opacity-100 transition-opacity duration-700"></div>
               </div>
             ))}
           </div>

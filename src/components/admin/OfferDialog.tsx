@@ -3,6 +3,7 @@ import { Button } from "../ui/button";
 import { Input } from "../ui/input";
 import { Textarea } from "../ui/textarea";
 import { Label } from "../ui/label";
+import ImageUpload from "../ui/image-upload";
 import { useState, useEffect } from "react";
 
 const OfferDialog = ({ isOpen, onClose, onSubmit, initialData }) => {
@@ -13,6 +14,8 @@ const OfferDialog = ({ isOpen, onClose, onSubmit, initialData }) => {
     validity: "",
     features: [],
     popular: false,
+    image: null,
+    thumbnail: null,
   });
 
   useEffect(() => {
@@ -21,6 +24,8 @@ const OfferDialog = ({ isOpen, onClose, onSubmit, initialData }) => {
         ...initialData,
         features: initialData.features || [],
         popular: initialData.popular || false,
+        image: initialData.image || null,
+        thumbnail: initialData.thumbnail || null,
       });
     } else {
       setForm({
@@ -30,6 +35,8 @@ const OfferDialog = ({ isOpen, onClose, onSubmit, initialData }) => {
         validity: "",
         features: [],
         popular: false,
+        image: null,
+        thumbnail: null,
       });
     }
   }, [initialData, isOpen]);
@@ -43,6 +50,14 @@ const OfferDialog = ({ isOpen, onClose, onSubmit, initialData }) => {
     } else {
       setForm({ ...form, [name]: value });
     }
+  };
+
+  const handleImageChange = (image) => {
+    setForm({
+      ...form,
+      image,
+      thumbnail: image ? { ...image } : null,
+    });
   };
 
   const handleSubmit = (e) => {
@@ -133,6 +148,14 @@ const OfferDialog = ({ isOpen, onClose, onSubmit, initialData }) => {
             <Label htmlFor="popular" className="text-foreground">
               Popular
             </Label>
+          </div>
+          <div className="grid gap-2">
+            <Label className="text-foreground">Offer Image</Label>
+            <ImageUpload
+              value={form.image}
+              onChange={handleImageChange}
+              label="Upload offer image"
+            />
           </div>
           <div className="flex justify-end gap-3">
             <Button variant="outline" type="button" onClick={onClose}>

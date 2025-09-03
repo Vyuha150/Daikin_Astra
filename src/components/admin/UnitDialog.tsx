@@ -4,6 +4,7 @@ import { Input } from "../ui/input";
 import { Label } from "../ui/label";
 import { Textarea } from "../ui/textarea";
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "../ui/dialog";
+import ImageUpload from "../ui/image-upload";
 
 const UnitDialog = ({ isOpen, onClose, onSubmit, initialData = null }) => {
   const [form, setForm] = useState({
@@ -12,6 +13,7 @@ const UnitDialog = ({ isOpen, onClose, onSubmit, initialData = null }) => {
     capacity: "",
     features: [],
     applications: [],
+    image: "",
   });
 
   useEffect(() => {
@@ -24,6 +26,7 @@ const UnitDialog = ({ isOpen, onClose, onSubmit, initialData = null }) => {
         capacity: "",
         features: [],
         applications: [],
+        image: "",
       });
     }
   }, [initialData, isOpen]);
@@ -96,6 +99,26 @@ const UnitDialog = ({ isOpen, onClose, onSubmit, initialData = null }) => {
               onChange={handleChange}
               className="border border-gray-400"
               placeholder="e.g., 3.5kW"
+            />
+          </div>
+
+          <div className="grid gap-2">
+            <Label>Unit Image</Label>
+            <ImageUpload
+              value={
+                form.image
+                  ? {
+                      data: form.image,
+                      contentType: "image/jpeg",
+                      filename: "unit-image.jpg",
+                      size: 0,
+                    }
+                  : undefined
+              }
+              onChange={(imageData) =>
+                setForm({ ...form, image: imageData?.data || "" })
+              }
+              label="Upload unit image"
             />
           </div>
 

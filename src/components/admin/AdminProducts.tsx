@@ -2,6 +2,7 @@ import { useState } from "react";
 import { Card } from "../ui/card";
 import { Badge } from "../ui/badge";
 import { Button } from "../ui/button";
+import DatabaseImage from "../ui/database-image";
 import {
   Table,
   TableBody,
@@ -103,9 +104,25 @@ const AdminProducts = ({
 
   // Table headers for each type
   const headers = {
-    category: ["Title", "Description", "Features", "Popular", "Actions"],
-    featured: ["Model", "Type", "Efficiency", "Price", "Features", "Actions"],
+    category: [
+      "Image",
+      "Title",
+      "Description",
+      "Features",
+      "Popular",
+      "Actions",
+    ],
+    featured: [
+      "Image",
+      "Model",
+      "Type",
+      "Efficiency",
+      "Price",
+      "Features",
+      "Actions",
+    ],
     outdoor: [
+      "Image",
       "Type",
       "Capacity",
       "Model",
@@ -162,6 +179,16 @@ const AdminProducts = ({
               <TableRow key={item._id || item.id} className="border-white/20">
                 {activeType === "category" && (
                   <>
+                    <TableCell className="text-white">
+                      <DatabaseImage
+                        type="category"
+                        id={item._id || item.id}
+                        thumbnail={true}
+                        className="w-12 h-12 object-cover rounded"
+                        alt={item.title}
+                        isAdmin={true}
+                      />
+                    </TableCell>
                     <TableCell className="text-white font-medium">
                       {item.title}
                     </TableCell>
@@ -178,6 +205,16 @@ const AdminProducts = ({
                 )}
                 {activeType === "featured" && (
                   <>
+                    <TableCell className="text-white">
+                      <DatabaseImage
+                        type="featured"
+                        id={item._id || item.id}
+                        thumbnail={true}
+                        className="w-12 h-12 object-cover rounded"
+                        alt={item.model}
+                        isAdmin={true}
+                      />
+                    </TableCell>
                     <TableCell className="text-white font-medium">
                       {item.model}
                     </TableCell>
@@ -195,6 +232,16 @@ const AdminProducts = ({
                 )}
                 {activeType === "outdoor" && (
                   <>
+                    <TableCell className="text-white">
+                      <DatabaseImage
+                        type="outdoor"
+                        id={item._id || item.id}
+                        thumbnail={true}
+                        className="w-12 h-12 object-cover rounded"
+                        alt={item.model}
+                        isAdmin={true}
+                      />
+                    </TableCell>
                     <TableCell className="text-white font-medium">
                       {item.type}
                     </TableCell>
@@ -305,6 +352,7 @@ const AdminProducts = ({
             <Table>
               <TableHeader>
                 <TableRow className="border-white/20">
+                  <TableHead className="text-white">Image</TableHead>
                   <TableHead className="text-white">Name</TableHead>
                   <TableHead className="text-white">Model</TableHead>
                   <TableHead className="text-white">Capacity</TableHead>
@@ -316,6 +364,19 @@ const AdminProducts = ({
               <TableBody>
                 {(selectedCategory.units || []).map((unit, index) => (
                   <TableRow key={index} className="border-white/20">
+                    <TableCell className="text-white">
+                      {unit.image ? (
+                        <img
+                          src={`data:image/jpeg;base64,${unit.image}`}
+                          alt={unit.name || "Unit"}
+                          className="w-12 h-12 object-cover rounded"
+                        />
+                      ) : (
+                        <div className="w-12 h-12 bg-white/10 rounded flex items-center justify-center text-white/50 text-xs">
+                          No Image
+                        </div>
+                      )}
+                    </TableCell>
                     <TableCell className="text-white font-medium">
                       {unit.name || ""}
                     </TableCell>

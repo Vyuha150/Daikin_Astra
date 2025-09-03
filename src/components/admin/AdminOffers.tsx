@@ -1,6 +1,7 @@
 import { Card } from "../ui/card";
 import { Badge } from "../ui/badge";
 import { Button } from "../ui/button";
+import DatabaseImage from "../ui/database-image";
 import {
   Table,
   TableBody,
@@ -48,6 +49,7 @@ const AdminOffers = ({ offers, onAddOffer, onEditOffer, onDeleteOffer }) => {
         <Table>
           <TableHeader>
             <TableRow className="border-white/20">
+              <TableHead className="text-white">Image</TableHead>
               <TableHead className="text-white">Title</TableHead>
               <TableHead className="text-white">Description</TableHead>
               <TableHead className="text-white">Status</TableHead>
@@ -58,6 +60,16 @@ const AdminOffers = ({ offers, onAddOffer, onEditOffer, onDeleteOffer }) => {
           <TableBody>
             {offers.map((offer) => (
               <TableRow key={offer._id || offer.id} className="border-white/20">
+                <TableCell className="text-white">
+                  <DatabaseImage
+                    type="offer"
+                    id={offer._id || offer.id}
+                    thumbnail={true}
+                    className="w-12 h-12 object-cover rounded"
+                    alt={offer.title}
+                    isAdmin={true}
+                  />
+                </TableCell>
                 <TableCell className="text-white font-medium">
                   {offer.title}
                 </TableCell>

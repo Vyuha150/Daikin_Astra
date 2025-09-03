@@ -3,15 +3,65 @@ import { Button } from "../ui/button";
 import { Input } from "../ui/input";
 import { Textarea } from "../ui/textarea";
 import { Label } from "../ui/label";
+import ImageUpload from "../ui/image-upload";
 import { useState, useEffect } from "react";
 import React from "react";
 
-const ProductDialog = ({ isOpen, onClose, onSubmit, initialData, type }) => {
+interface ImageData {
+  data: string;
+  contentType: string;
+  filename: string;
+  size: number;
+}
+
+interface Unit {
+  id?: string;
+  name?: string;
+  model?: string;
+  capacity?: string;
+  features?: string[];
+}
+
+interface FormData {
+  title?: string;
+  description?: string;
+  features?: string[];
+  popular?: boolean;
+  model?: string;
+  type?: string;
+  efficiency?: string;
+  price?: string;
+  capacity?: string;
+  category?: string;
+  units?: Unit[];
+  image?: ImageData | null;
+  thumbnail?: ImageData | null;
+}
+
+const ProductDialog = ({
+  isOpen,
+  onClose,
+  onSubmit,
+  initialData,
+  type,
+}: {
+  isOpen: boolean;
+  onClose: () => void;
+  onSubmit: (data: FormData) => void;
+  initialData?: FormData;
+  type: string;
+}) => {
   // Memoize getInitialForm to avoid useEffect dependency warning
-  const getInitialForm = React.useCallback(() => {
+  const getInitialForm = React.useCallback((): FormData => {
+    const baseForm: FormData = {
+      image: null,
+      thumbnail: null,
+    };
+
     switch (type) {
       case "category":
         return {
+          ...baseForm,
           title: "",
           description: "",
           features: [],
@@ -19,6 +69,7 @@ const ProductDialog = ({ isOpen, onClose, onSubmit, initialData, type }) => {
         };
       case "featured":
         return {
+          ...baseForm,
           model: "",
           type: "",
           efficiency: "",
@@ -27,6 +78,7 @@ const ProductDialog = ({ isOpen, onClose, onSubmit, initialData, type }) => {
         };
       case "outdoor":
         return {
+          ...baseForm,
           type: "",
           capacity: "",
           model: "",
@@ -35,23 +87,28 @@ const ProductDialog = ({ isOpen, onClose, onSubmit, initialData, type }) => {
         };
       case "indoor":
         return {
+          ...baseForm,
           category: "",
           units: [],
         };
       default:
-        return {};
+        return baseForm;
     }
   }, [type]);
 
-  const [form, setForm] = useState(getInitialForm());
+  const [form, setForm] = useState<FormData>(getInitialForm());
 
   useEffect(() => {
     if (initialData) setForm({ ...getInitialForm(), ...initialData });
     else setForm(getInitialForm());
   }, [initialData, isOpen, type, getInitialForm]);
 
-  const handleChange = (e) => {
-    const { name, value, type: inputType, checked } = e.target;
+  const handleChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) => {
+    const { name, value, type: inputType } = e.target;
+    const checked = "checked" in e.target ? e.target.checked : false;
+
     if (name === "features") {
       setForm({ ...form, features: value.split(",") });
     } else if (inputType === "checkbox") {
@@ -59,6 +116,14 @@ const ProductDialog = ({ isOpen, onClose, onSubmit, initialData, type }) => {
     } else {
       setForm({ ...form, [name]: value });
     }
+  };
+
+  const handleImageChange = (image: ImageData | null) => {
+    setForm({
+      ...form,
+      image,
+      thumbnail: image ? { ...image } : null,
+    });
   };
 
   // Render fields based on type
@@ -106,6 +171,11 @@ const ProductDialog = ({ isOpen, onClose, onSubmit, initialData, type }) => {
           />
           <Label htmlFor="popular">Popular</Label>
         </div>
+        <ImageUpload
+          value={form.image}
+          onChange={handleImageChange}
+          label="Category Image"
+        />
       </>
     );
   } else if (type === "featured") {
@@ -161,6 +231,11 @@ const ProductDialog = ({ isOpen, onClose, onSubmit, initialData, type }) => {
             className="border border-gray-400"
           />
         </div>
+        <ImageUpload
+          value={form.image}
+          onChange={handleImageChange}
+          label="Model Image"
+        />
       </>
     );
   } else if (type === "outdoor") {
@@ -216,6 +291,11 @@ const ProductDialog = ({ isOpen, onClose, onSubmit, initialData, type }) => {
             className="border border-gray-400"
           />
         </div>
+        <ImageUpload
+          value={form.image}
+          onChange={handleImageChange}
+          label="Unit Image"
+        />
       </>
     );
   } else if (type === "indoor") {

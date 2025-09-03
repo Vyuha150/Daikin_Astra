@@ -8,6 +8,7 @@ import {
 } from "lucide-react";
 import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
+import DatabaseImage from "@/components/ui/database-image";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import SnowflakeAnimation from "@/components/SnowflakeAnimation";
@@ -84,8 +85,17 @@ const Offers = () => {
                       <div
                         className={`${index % 2 === 1 ? "lg:col-start-3" : ""}`}
                       >
-                        <div className="bg-black/40 backdrop-blur-sm rounded-2xl p-8 h-48 flex items-center justify-center group-hover:from-blue-300/40 group-hover:to-blue-500/30 transition-all duration-500 border border-blue-400/30">
-                          <Gift className="w-20 h-20 text-blue-300 group-hover:scale-110 transition-transform duration-500" />
+                        <div className="bg-black/40 backdrop-blur-sm rounded-2xl p-8 h-48 flex items-center justify-center group-hover:from-blue-300/40 group-hover:to-blue-500/30 transition-all duration-500 border border-blue-400/30 overflow-hidden">
+                          <DatabaseImage
+                            type="offer"
+                            id={offer._id || offer.id}
+                            className="w-full h-full object-cover rounded-xl group-hover:scale-110 transition-transform duration-500"
+                            alt={offer.title}
+                            isAdmin={false}
+                            fallback={
+                              <Gift className="w-20 h-20 text-blue-300 group-hover:scale-110 transition-transform duration-500" />
+                            }
+                          />
                         </div>
                       </div>
                       {/* Content Section */}

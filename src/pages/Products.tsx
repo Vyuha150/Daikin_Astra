@@ -15,6 +15,7 @@ import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import SnowflakeAnimation from "@/components/SnowflakeAnimation";
 import LoadingScreen from "@/components/LoadingScreen";
+import DatabaseImage from "@/components/ui/database-image";
 
 const Products = () => {
   const [isLoadingComplete, setIsLoadingComplete] = useState(false);
@@ -108,8 +109,16 @@ const Products = () => {
                         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
                           {/* Image Section */}
                           <div className="order-2 lg:order-1">
-                            <div className="bg-gradient-to-r from-primary/5 to-accent/5 rounded-2xl p-8 h-64 flex items-center justify-center transition-all duration-500">
-                              <Building2 className="w-24 h-24 text-blue-600 group-hover:scale-110 transition-transform duration-500" />
+                            <div className="bg-gradient-to-r from-primary/5 to-accent/5 rounded-2xl p-8 h-64 flex items-center justify-center transition-all duration-500 overflow-hidden">
+                              <DatabaseImage
+                                type="outdoor"
+                                id={unit._id || unit.id}
+                                className="w-full h-full object-cover rounded-xl group-hover:scale-110 transition-transform duration-500"
+                                alt={unit.type}
+                                fallback={
+                                  <Building2 className="w-24 h-24 text-blue-600 group-hover:scale-110 transition-transform duration-500" />
+                                }
+                              />
                             </div>
                           </div>
 
@@ -272,8 +281,16 @@ const Products = () => {
                               <div className="grid grid-cols-1 lg:grid-cols-4 gap-6 items-center">
                                 {/* Image Section */}
                                 <div className="lg:col-span-1">
-                                  <div className="bg-gradient-to-r from-primary/5 to-accent/5  rounded-xl p-6 h-32 flex items-center justify-center transition-all duration-300">
-                                    <Wind className="w-12 h-12 text-blue-600 group-hover:scale-110 transition-transform duration-300" />
+                                  <div className="bg-gradient-to-r from-primary/5 to-accent/5 rounded-xl p-6 h-48 flex items-center justify-center transition-all duration-300 overflow-hidden">
+                                    {unit.image ? (
+                                      <img
+                                        src={`data:image/jpeg;base64,${unit.image}`}
+                                        alt={unit.name}
+                                        className="w-full h-full object-cover rounded-lg group-hover:scale-110 transition-transform duration-300"
+                                      />
+                                    ) : (
+                                      <Wind className="w-16 h-16 text-blue-600 group-hover:scale-110 transition-transform duration-300" />
+                                    )}
                                   </div>
                                 </div>
 

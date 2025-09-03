@@ -1,6 +1,7 @@
 import { Card } from "../ui/card";
 import { Badge } from "../ui/badge";
 import { Button } from "../ui/button";
+import DatabaseImage from "../ui/database-image";
 import {
   Table,
   TableBody,
@@ -30,9 +31,24 @@ const AdminHomeProducts = ({
 }) => {
   // Table headers for each type
   const headers = {
-    categories: ["Title", "Description", "Features", "Popular", "Actions"],
-    featured: ["Model", "Type", "Efficiency", "Price", "Features", "Actions"],
-    technology: ["Technology Name", "Actions"],
+    categories: [
+      "Image",
+      "Title",
+      "Description",
+      "Features",
+      "Popular",
+      "Actions",
+    ],
+    featured: [
+      "Image",
+      "Model",
+      "Type",
+      "Efficiency",
+      "Price",
+      "Features",
+      "Actions",
+    ],
+    technology: ["Image", "Technology Name", "Actions"],
   };
 
   // Data for each type
@@ -86,6 +102,16 @@ const AdminHomeProducts = ({
               <TableRow key={item._id || item.id} className="border-white/20">
                 {activeType === "categories" && (
                   <>
+                    <TableCell className="text-white">
+                      <DatabaseImage
+                        type="category"
+                        id={item._id || item.id}
+                        thumbnail={true}
+                        className="w-12 h-12 object-cover rounded"
+                        alt={item.title}
+                        isAdmin={true}
+                      />
+                    </TableCell>
                     <TableCell className="text-white font-medium">
                       {item.title}
                     </TableCell>
@@ -103,6 +129,16 @@ const AdminHomeProducts = ({
                 )}
                 {activeType === "featured" && (
                   <>
+                    <TableCell className="text-white">
+                      <DatabaseImage
+                        type="featured"
+                        id={item._id || item.id}
+                        thumbnail={true}
+                        className="w-12 h-12 object-cover rounded"
+                        alt={item.model}
+                        isAdmin={true}
+                      />
+                    </TableCell>
                     <TableCell className="text-white font-medium">
                       {item.model}
                     </TableCell>
@@ -121,6 +157,16 @@ const AdminHomeProducts = ({
                 )}
                 {activeType === "technology" && (
                   <>
+                    <TableCell className="text-white">
+                      <DatabaseImage
+                        type="technology"
+                        id={item._id || item.id}
+                        thumbnail={true}
+                        className="w-12 h-12 object-cover rounded"
+                        alt={item.name}
+                        isAdmin={true}
+                      />
+                    </TableCell>
                     <TableCell className="text-white font-medium">
                       {item.name}
                     </TableCell>

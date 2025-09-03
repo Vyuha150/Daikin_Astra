@@ -5,6 +5,7 @@ import {
   useEffect,
   ReactNode,
 } from "react";
+import Cookies from "js-cookie";
 
 const API_URL = import.meta.env.VITE_API_URL;
 
@@ -34,8 +35,8 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
 
   useEffect(() => {
     const initAuth = async () => {
-      const storedToken = localStorage.getItem("adminToken");
-      const storedAdmin = localStorage.getItem("adminUser");
+      const storedToken = Cookies.get("adminToken");
+      const storedAdmin = Cookies.get("adminUser");
 
       if (storedToken && storedAdmin) {
         try {
@@ -49,16 +50,16 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
           if (response.ok) {
             const data = await response.json();
             setToken(storedToken);
-            setAdmin(data.admin);
+            setAdmin(JSON.parse(storedAdmin));
           } else {
-            // Token is invalid, clear storage
-            localStorage.removeItem("adminToken");
-            localStorage.removeItem("adminUser");
+            // Token is invalid, clear cookies
+            Cookies.remove("adminToken");
+            Cookies.remove("adminUser");
           }
         } catch (error) {
           console.error("Auth verification failed:", error);
-          localStorage.removeItem("adminToken");
-          localStorage.removeItem("adminUser");
+          Cookies.remove("adminToken");
+          Cookies.remove("adminUser");
         }
       }
       setIsLoading(false);
@@ -70,15 +71,26 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   const login = (newToken: string, newAdmin: Admin) => {
     setToken(newToken);
     setAdmin(newAdmin);
-    localStorage.setItem("adminToken", newToken);
-    localStorage.setItem("adminUser", JSON.stringify(newAdmin));
+
+    // Set cookies with secure options
+    Cookies.set("adminToken", newToken, {
+      expires: 7, // 7 days
+      secure: process.env.NODE_ENV === "production", // HTTPS only in production
+      sameSite: "strict", // CSRF protection
+    });
+
+    Cookies.set("adminUser", JSON.stringify(newAdmin), {
+      expires: 7, // 7 days
+      secure: process.env.NODE_ENV === "production",
+      sameSite: "strict",
+    });
   };
 
   const logout = () => {
     setToken(null);
     setAdmin(null);
-    localStorage.removeItem("adminToken");
-    localStorage.removeItem("adminUser");
+    Cookies.remove("adminToken");
+    Cookies.remove("adminUser");
   };
 
   const value = {
