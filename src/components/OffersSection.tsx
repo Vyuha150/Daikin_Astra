@@ -66,54 +66,14 @@ const OffersSection = () => {
           ))}
         </div>
 
-        {/* Pricing Examples */}
-        <div className="bg-gradient-to-r from-primary/5 to-accent/5 backdrop-blur-sm border border-white/20 rounded-2xl p-8 mb-8">
-          <h3 className="text-2xl font-heading text-center mb-6 text-white">
-            Popular AC Models - Special Prices
-          </h3>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {[
-              {
-                model: "Daikin 1.5 Ton Split AC",
-                originalPrice: "₹45,000",
-                offerPrice: "₹41,000",
-                savings: "₹4,000",
-              },
-              {
-                model: "Daikin 2 Ton Inverter AC",
-                originalPrice: "₹58,000",
-                offerPrice: "₹54,500",
-                savings: "₹3,500",
-              },
-              {
-                model: "Daikin Cassette 2.5 Ton",
-                originalPrice: "₹85,000",
-                offerPrice: "₹81,000",
-                savings: "₹4,000",
-              },
-            ].map((product, index) => (
-              <div
-                key={index}
-                className="bg-gradient-to-r from-primary/5 to-accent/5 backdrop-blur-sm border border-white/20 rounded-xl p-6"
-              >
-                <h4 className="font-body font-semibold text-lg mb-3 text-white">
-                  {product.model}
-                </h4>
-                <div className="space-y-2">
-                  <p className="text-sm text-white/70 line-through font-body">
-                    {product.originalPrice}
-                  </p>
-                  <p className="text-2xl font-bold text-white font-body">
-                    {product.offerPrice}
-                  </p>
-                  <p className="text-green-400 font-body font-medium">
-                    Save {product.savings}
-                  </p>
-                </div>
-              </div>
-            ))}
-          </div>
+        {/* Explore More Button */}
+        <div className="flex justify-center mb-8">
+          <Button
+            className="bg-gradient-to-r from-primary to-accent text-white px-8 py-4 rounded-xl font-body font-bold text-lg transition-all duration-300 hover:scale-105 focus:outline-none focus:ring-2 focus:ring-accent focus:ring-offset-2"
+            onClick={() => (window.location.href = "/offers")}
+          >
+            Explore More Offers
+          </Button>
         </div>
 
         {/* CTA Section */}
