@@ -118,8 +118,7 @@ const HeroSection = () => {
               {/* Value Proposition */}
               <div className="animate-fade-in opacity-0 [animation-delay:0.5s] [animation-fill-mode:forwards]">
                 <p className="text-text-muted font-body text-center lg:text-left">
-                  Professional installation • 3-year warranty • Same-day service
-                  in Vijayawada
+                  Professional installation • Same-day service in Vijayawada
                 </p>
               </div>
             </div>
